@@ -1,0 +1,56 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Enter install phase...
+      # Download npm dependencies
+      - echo Downloading source dependencies...
+      - npm install
+      - echo Source dependencies downloaded.
+      # Download .so files for chromium since Amazon Linux does not have these pre-installed.
+      - apt-get upgrade
+      - apt-get update
+      - apt-get install -y chromium-browser
+  pre_build:
+    commands:
+      # Lint all files for .scss styling style.
+      - echo Linting all .scss files...
+      - npm run lint:scss
+      - echo Linting for all .scss files complete.
+      # Lint all files for .ts coding style.
+      - echo Linting all .ts files...
+      - npm run lint:ts
+      - echo Linting for all .ts files complete.
+      # Run all unit tests with Jasmine and generate code coverage report.
+      - echo Running all unit tests...
+      - npm test
+      - echo Unit tests ran.
+  build:
+    commands:
+      # Build Angular application.
+      - echo Beta Build started on `date`
+      - npm run build:beta
+      - echo Beta Build completed on `date`
+      - echo Prod Build started on `date`
+      - npm run build:prod
+      - echo Prod Build completed on `date`
+
+artifacts:
+  secondary-artifacts:
+    ClientBetaBuildArtifact:
+      base-directory: 'dist/beta'
+      files:
+        - '**/*'
+      discard-paths: no
+      name: $(date +%Y-%m-%d)-beta
+    ClientProdBuildArtifact:
+      base-directory: 'dist/prod'
+      files:
+        - '**/*'
+      discard-paths: no
+      name: $(date +%Y-%m-%d)-prod
+
+cache:
+  paths:
+    - 'node_modules/**/*'

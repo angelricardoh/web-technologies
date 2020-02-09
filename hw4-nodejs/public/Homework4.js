@@ -10,16 +10,13 @@ function viewJSON(what) {
     var URL = what.URL.value;
     var hWin;
     var jsonObj = loadJSON(URL);
-    if(isEmpty(jsonObj)) {
-        alert("Json Object is empty");
-        return
-    }
-    if (typeof(jsonObj.Mainline.Table.Row)==='undefined' || jsonObj.Mainline.Table.Row.length == 0) {
-        alert("No data")
-        return
-    }
     jsonObj.onload=generateHTML(jsonObj);
-    hWin = window.open("", "Assignment4", "height=800,width=600");
+    if (jsonObj === 'undefined') {
+        return
+    }
+
+    // hWin = window.open("", "Assignment4", "height=800,width=600");
+    hWin = window.open('', '_blank', 'toolbar=0,location=0,menubar=0');
     hWin.document.write(html_text);
     hWin.document.close();
 }
@@ -31,6 +28,14 @@ function loadJSON(url) {
         xmlhttpRequest.open("GET",url,false); // "synchronous” (deprecated because it freezes the page while waiting for a response) *
         xmlhttpRequest.send();
         jsonObj= JSON.parse(xmlhttpRequest.responseText);
+        if(isEmpty(jsonObj)) {
+            alert("Json Object is empty");
+            return;
+        }
+        if (typeof(jsonObj.Mainline.Table.Row)==='undefined' || jsonObj.Mainline.Table.Row.length == 0) {
+            alert("No data")
+            return;
+        }
         return jsonObj;
     }
     catch (exception)
@@ -43,16 +48,12 @@ function generateHTML(jsonObj) {
     var root = jsonObj.DocumentElement;
     html_text = "<html><head><title>JSON Parse Result</title></head><body>";
     html_text += "<table border='2'>";
-    // var caption = jsonObj.catalog.title;
-    // html_text += "<caption align='left'><h1>" + caption + "</h1></caption>";
     var buildings_headers = jsonObj.Mainline.Table.Header.Data; // an array of planes
-    // var buildingsNodeList = buildingsHeaders[0];
     html_text += "<tbody>";
     html_text += "<tr>";
     var x = 0,
         y = 0;
     // output the headers
-    // var header_keys = Object.keys(buildingsNodeList);
     for (var i = 0; i < buildings_headers.length; i++) {
         var header = buildings_headers[i];
         switch (header, i) {

@@ -5,16 +5,32 @@ const hubs_key = "Hubs";
 const height_key = "Height";
 const wikipage_key = "HomePage";
 const image_key = "Logo";
+const headers_keys_count = 6;
 
 function viewJSON(what) {
     var URL = what.URL.value;
     var hWin;
     var jsonObj = loadJSON(URL);
-    jsonObj.onload=generateHTML(jsonObj);
-    if (jsonObj === 'undefined') {
-        return
+    if(isEmpty(jsonObj) || typeof(jsonObj) === 'undefined') {
+        alert("File is empty");
+        return;
     }
-
+    if (typeof(jsonObj.Mainline.Table.Row)==='undefined' || jsonObj.Mainline.Table.Row.length == 0) {
+        alert("No data in file")
+        return;
+    }
+    try {
+        jsonObj.onload = generateHTML(jsonObj);
+    }
+    catch (error)
+    {
+        if (error.message == "malformed") {
+            alert("Malformed file");
+        } else {
+            alert("Unknown error " + error);
+        }
+        return;
+    }
     // hWin = window.open("", "Assignment4", "height=800,width=600");
     hWin = window.open('', '_blank', 'toolbar=0,location=0,menubar=0');
     hWin.document.write(html_text);
@@ -27,20 +43,16 @@ function loadJSON(url) {
         xmlhttpRequest=new XMLHttpRequest();
         xmlhttpRequest.open("GET",url,false); // "synchronous” (deprecated because it freezes the page while waiting for a response) *
         xmlhttpRequest.send();
+        if (xmlhttpRequest.status==404){
+            alert("File does not exist!");
+            return;
+        }
         jsonObj= JSON.parse(xmlhttpRequest.responseText);
-        if(isEmpty(jsonObj)) {
-            alert("File is empty");
-            return;
-        }
-        if (typeof(jsonObj.Mainline.Table.Row)==='undefined' || jsonObj.Mainline.Table.Row.length == 0) {
-            alert("No data in file")
-            return;
-        }
         return jsonObj;
     }
     catch (exception)
     {
-        alert("File does not exist!");
+        alert("Unknown error loading JSON " + exception.message);
     }
 }
 
@@ -48,7 +60,14 @@ function generateHTML(jsonObj) {
     var root = jsonObj.DocumentElement;
     html_text = "<html><head><title>JSON Parse Result</title></head><body>";
     html_text += "<table border='2'>";
+    if (typeof(jsonObj.Mainline) === "undefined" ||
+        typeof(jsonObj.Mainline.Table) === "undefined" ||
+        typeof(jsonObj.Mainline.Table.Header) === "undefined" ||
+        typeof(jsonObj.Mainline.Table.Header.Data) === "undefined") {
+        throw new Error("malformed");
+    }
     var buildings_headers = jsonObj.Mainline.Table.Header.Data; // an array of planes
+    var headers_count = buildings_headers.length;
     html_text += "<tbody>";
     html_text += "<tr>";
     var x = 0,
@@ -65,12 +84,16 @@ function generateHTML(jsonObj) {
         let buildingsNodeList = buildings[i]; //get properties of a plane (an object)
         html_text += "<tr>"; //start a new row of the output table
         const buildings_keys = Object.keys(buildingsNodeList);
+        if (buildings_keys.length < headers_count) {
+            throw new Error("malformed");
+        }
         for (let prop in buildings_keys) {
-            let building_key = buildings_keys[prop]
+            let building_key = buildings_keys[prop];
             switch (building_key) {
                 case hubs_key:
-                    let hubs = buildingsNodeList[building_key].Hub
-                    html_text += "<td><ul>"
+                    let hubs = buildingsNodeList[building_key].Hub;
+                    if (typeof(hubs) === "undefined") throw new Error("malformed");
+                    html_text += "<td><ul>";
                     for (let k = 0; k < hubs.length; k++) {
                         if (k == 0) {
                             html_text += "<li><b>" + hubs[k] + "</b></li>";
@@ -78,8 +101,7 @@ function generateHTML(jsonObj) {
                             html_text += "<li>" + hubs[k] + "</li>";
                         }
                     }
-                    html_text += "</ul></td>"
-
+                    html_text += "</ul></td>";
                     break;
 
                 case wikipage_key:

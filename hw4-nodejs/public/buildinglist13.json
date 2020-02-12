@@ -1,26 +1,27 @@
 {
-  "_comment": "Image value missing",
+  "_comment": "Extra Hub2 file here | Nothing should be done",
   "Mainline": {
     "Table": {
       "Header": {
         "Data": [
-          "Rank of building",
-          "Name of building",
-          "Location info",
-          "Feet",
-          "Wikipedia Page",
-          "Logo"
+          "Rank",
+          "Name",
+          "City / Country",
+          "Height (ft)",
+          "Wiki Page",
+          "Image"
         ]
       },
       "Row": [
+
         {
           "Rank": "1",
           "Name": "Burj Khalifa",
           "Hubs": {
             "Hub": [
-              "Dubai",
-              "United Arab Emirates",
-              "Currently the tallest building and tallest structure in the world from 2010 onwards; tallest building completed in the 2010s."
+              "",
+              "",
+              ""
             ]
           },
           "Height": "2,717",
@@ -36,6 +37,13 @@
               "Shanghai",
               "China",
               "The tallest building in China and in East Asia and tallest twisted building."
+            ], "Hub2":[
+              "New York-JFK",
+              "New York-LaGuardia",
+              "Paris-Charles de Gaulle",
+              "Salt Lake City",
+              "Seattle",
+              "Tokyo-Narita"
             ]
           },
           "Height": "2,073",
@@ -101,7 +109,7 @@
           },
           "Height": "1,819",
           "HomePage": "https://en.wikipedia.org/wiki/Lotte_World_Tower",
-          "Logo": ""
+          "Logo": "https://csci571.com/hw/hw4/Lotte_world_tower.jpg"
         },
 
         {
@@ -118,6 +126,7 @@
           "HomePage": "https://en.wikipedia.org/wiki/One_World_Trade_Center",
           "Logo": "https://csci571.com/hw/hw4/One_World_Trade_Center_cropped2.jpg"
         }
+
       ]
     }
   }

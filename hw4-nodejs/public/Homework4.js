@@ -5,7 +5,6 @@ const hubs_key = "Hubs";
 const height_key = "Height";
 const wikipage_key = "HomePage";
 const image_key = "Logo";
-const headers_keys_count = 6;
 
 function viewJSON(what) {
     var URL = what.URL.value;
@@ -84,7 +83,7 @@ function generateHTML(jsonObj) {
         let buildingsNodeList = buildings[i]; //get properties of a plane (an object)
         html_text += "<tr>"; //start a new row of the output table
         const buildings_keys = Object.keys(buildingsNodeList);
-        if (buildings_keys.length < headers_count) {
+        if (buildings_keys.length != headers_count) {
             throw new Error("malformed");
         }
         for (let prop in buildings_keys) {
@@ -95,6 +94,9 @@ function generateHTML(jsonObj) {
                     if (typeof(hubs) === "undefined") throw new Error("malformed");
                     html_text += "<td><ul>";
                     for (let k = 0; k < hubs.length; k++) {
+                        if (hubs[k] == "") {
+                            continue;
+                        }
                         if (k == 0) {
                             html_text += "<li><b>" + hubs[k] + "</b></li>";
                         } else {

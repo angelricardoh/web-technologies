@@ -1,4 +1,5 @@
 {
+  "_comment": "Hub key is missing in first row | Malformed file should be displayed",
   "Mainline": {
     "Table": {
       "Header": {

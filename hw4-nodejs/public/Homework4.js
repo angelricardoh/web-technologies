@@ -15,7 +15,7 @@ function viewJSON(what) {
         return;
     }
     if (typeof(jsonObj.Mainline.Table.Row)==='undefined' || jsonObj.Mainline.Table.Row.length == 0) {
-        alert("No data in file")
+        alert("No data in file. Either Row key is undefined or does not contain values")
         return;
     }
     try {
@@ -24,7 +24,7 @@ function viewJSON(what) {
     catch (error)
     {
         if (error.message == "malformed") {
-            alert("Malformed file");
+            alert("Malformed file. One or more keys are missing");
         } else {
             alert("Unknown error " + error);
         }
@@ -93,14 +93,17 @@ function generateHTML(jsonObj) {
                     let hubs = buildingsNodeList[building_key].Hub;
                     if (typeof(hubs) === "undefined") throw new Error("malformed");
                     html_text += "<td><ul>";
-                    for (let k = 0; k < hubs.length; k++) {
-                        if (hubs[k] == "") {
+                    first_header = true;
+                    for (index in hubs) {
+                        if (hubs[index] == "") {
                             continue;
                         }
-                        if (k == 0) {
-                            html_text += "<li><b>" + hubs[k] + "</b></li>";
+
+                        if (first_header) {
+                            html_text += "<li><b>" + hubs[index] + "</b></li>";
+                            first_header = false;
                         } else {
-                            html_text += "<li>" + hubs[k] + "</li>";
+                            html_text += "<li>" + hubs[index] + "</li>";
                         }
                     }
                     html_text += "</ul></td>";

@@ -1,0 +1,125 @@
+{
+  "Mainline": {
+    "Table": {
+      "Header": {
+        "Data": [
+          "Picture",
+          "Name",
+          "Feet (height)",
+          "City / Country",
+          "Wiki Page",
+          "Rank of building"
+        ]
+      },
+      "Row": [
+          
+        {
+          "Logo": "https://csci571.com/hw/hw4/Burj_Khalifa.jpg",
+          "Name": "Burj Khalifa",
+          "Height": "2,717",
+          "Hubs": {
+            "Hub": [
+              "Dubai",
+              "United Arab Emirates",
+              "Currently the tallest building and tallest structure in the world from 2010 onwards; tallest building completed in the 2010s."
+            ]
+          },
+          "HomePage": "https://en.wikipedia.org/wiki/Burj_Khalifa",
+          "Rank": "1"
+        },
+          
+        {
+          "Logo": "https://csci571.com/hw/hw4/Shanghai_tower_dec_26,_2014.jpg",
+          "Name": "Shanghai Tower",
+          "Height": "2,073",
+          "Hubs": {
+            "Hub": [
+              "Shanghai",
+              "China",
+              "The tallest building in China and in East Asia and tallest twisted building."
+            ]
+          },
+          "HomePage": "https://en.wikipedia.org/wiki/Shanghai_Tower",
+          "Rank": "2"
+        },  
+          
+          
+        {
+          "Logo": "https://csci571.com/hw/hw4/Abraj-al-Bait-Towers.JPG",
+          "Name": "Abraj Al-Bait Clock Tower",
+          "Height": "1,971",
+          "Hubs": {
+            "Hub": [
+              "Mecca",
+              "Saudi Arabia",
+              "Tallest building with a clock face. Tallest in Saudi Arabia."
+            ]
+          },
+          "HomePage": "https://en.wikipedia.org/wiki/Abraj_Al_Bait",
+          "Rank": "3"
+        },          
+          
+        {
+          "Logo": "https://csci571.com/hw/hw4/Ping_An_Finance_Center_201512.jpg",
+          "Name": "Ping An Finance Center",
+          "Height": "1,965",
+          "Hubs": {
+            "Hub": [
+              "Shenzhen",
+              "China",
+              "Tallest building in Shenzhen and Guangdong Province. Shares the record of the highest observation deck with Shanghai Tower (#2) at 562 m."
+            ]
+          },
+          "HomePage": "https://en.wikipedia.org/wiki/Ping_An_Finance_Centre",
+          "Rank": "4"
+        }, 
+          
+        {
+          "Logo": "https://csci571.com/hw/hw4/Goldin_Finance_117_3.jpg",
+          "Name": "Goldin Finance 117",
+          "Height": "1,957",
+          "Hubs": {
+            "Hub": [
+              "Tianjin",
+              "China",
+              "Tallest building in China outside of Shanghai and Guangdong province."
+            ]
+          },
+          "HomePage": "https://en.wikipedia.org/wiki/Goldin_Finance_117",
+          "Rank": "5"
+        },  
+          
+        {
+          "Logo": "https://csci571.com/hw/hw4/Lotte_world_tower.jpg",
+          "Name": "Lotte World Tower",
+          "Height": "1,819",
+          "Hubs": {
+            "Hub": [
+              "Seoul",
+              "South Korea",
+              "Tallest building in South Korea, and in East Asia outside of China. Tallest building in a nation's capital and in an OECD country."
+            ]
+          },
+          "HomePage": "https://en.wikipedia.org/wiki/Lotte_World_Tower",
+          "Rank": "6"
+        },     
+        
+        {
+          "Logo": "https://csci571.com/hw/hw4/One_World_Trade_Center_cropped2.jpg",
+          "Name": "One World Trade Center",
+          "Height": "1,776",
+          "Hubs": {
+            "Hub": [
+              "New York City",
+              "United States",
+              "Tallest building in the Western Hemisphere, the United States, and North America. Tallest building outside of Asia."
+            ]
+          },
+          "HomePage": "https://en.wikipedia.org/wiki/One_World_Trade_Center",
+          "Rank": "7"
+        }    
+        
+      ]
+    }
+  }
+}

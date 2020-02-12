@@ -8,6 +8,10 @@ const image_key = "Logo";
 
 function viewJSON(what) {
     var URL = what.URL.value;
+    if (URL == "") {
+        alert("The text box is empty. Please write a file name to process it.\n.");
+        return;
+    }
     var hWin;
     var jsonObj = loadJSON(URL);
     if(isEmpty(jsonObj) || typeof(jsonObj) === 'undefined') {

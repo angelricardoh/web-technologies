@@ -54,20 +54,19 @@ function generateHTML(jsonObj) {
     var x = 0,
         y = 0;
     // output the headers
-    for (var i = 0; i < buildings_headers.length; i++) {
-        var header = buildings_headers[i];
-        html_text += "<th>" + header + "</th>";
+    for (index in Object.values(buildings_headers)) {
+        html_text += "<th>" + buildings_headers[index] + "</th>";
     }
     html_text += "</tr>";
-    var buildings = jsonObj.Mainline.Table.Row
+    const buildings = jsonObj.Mainline.Table.Row;
     // output out the values
-    for (i = 0; i < buildings.length; i++) //do for all planes (one per row)
+    for (let i = 0; i < buildings.length; i++) //do for all planes (one per row)
     {
-        buildingsNodeList = buildings[i]; //get properties of a plane (an object)
+        let buildingsNodeList = buildings[i]; //get properties of a plane (an object)
         html_text += "<tr>"; //start a new row of the output table
-        var buildings_keys = Object.keys(buildingsNodeList);
+        const buildings_keys = Object.keys(buildingsNodeList);
         for (let prop in buildings_keys) {
-            building_key = buildings_keys[prop]
+            let building_key = buildings_keys[prop]
             switch (building_key) {
                 case hubs_key:
                     let hubs = buildingsNodeList[building_key].Hub
@@ -105,7 +104,7 @@ function generateHTML(jsonObj) {
 }
 
 function isEmpty(obj) {
-    for(var key in obj) {
+    for(const key in obj) {
         if(obj.hasOwnProperty(key))
             return false;
     }

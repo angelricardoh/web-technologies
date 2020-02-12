@@ -1,10 +1,10 @@
 var html_text;
-const rank_index_const = 0;
-const name_index_const = 1;
-const city_index_const = 2;
-const height_index_const = 3;
-const wikipage_index_const = 4;
-const image_index_const = 5;
+const rank_key = "Rank";
+const name_key = "Name";
+const hubs_key = "Hubs";
+const height_key = "Height";
+const wikipage_key = "HomePage";
+const image_key = "Logo";
 
 function viewJSON(what) {
     var URL = what.URL.value;
@@ -29,11 +29,11 @@ function loadJSON(url) {
         xmlhttpRequest.send();
         jsonObj= JSON.parse(xmlhttpRequest.responseText);
         if(isEmpty(jsonObj)) {
-            alert("Json Object is empty");
+            alert("File is empty");
             return;
         }
         if (typeof(jsonObj.Mainline.Table.Row)==='undefined' || jsonObj.Mainline.Table.Row.length == 0) {
-            alert("No data")
+            alert("No data in file")
             return;
         }
         return jsonObj;
@@ -56,33 +56,6 @@ function generateHTML(jsonObj) {
     // output the headers
     for (var i = 0; i < buildings_headers.length; i++) {
         var header = buildings_headers[i];
-        switch (header, i) {
-            case "Rank", "Rank of building", rank_index_const:
-                header = "Rank"
-                x = 120;
-                y = 55;
-                break;
-
-            case "Name", "Name of Building", name_index_const:
-                header = "Name"
-                break;
-
-            case "City / Country", "Location Info", city_index_const:
-                header = "City / Country"
-                break;
-
-            case "Height (ft)", "Feet", height_index_const:
-                header = "Height (ft)"
-                break;
-
-            case "Wiki Page", "Wikipedia Page", wikipage_index_const:
-                header = "Wiki Page"
-                break;
-
-            case "Image", "Logo", image_index_const:
-                header = "Image"
-                break;
-        }
         html_text += "<th>" + header + "</th>";
     }
     html_text += "</tr>";
@@ -93,13 +66,13 @@ function generateHTML(jsonObj) {
         buildingsNodeList = buildings[i]; //get properties of a plane (an object)
         html_text += "<tr>"; //start a new row of the output table
         var buildings_keys = Object.keys(buildingsNodeList);
-        for (var j = 0; j < buildings_keys.length; j++) {
-            var prop = buildings_keys[j];
-            switch (prop, j) {
-                case "City / Country", "Location Info", city_index_const:
-                    let hubs = buildingsNodeList[prop].Hub
+        for (let prop in buildings_keys) {
+            building_key = buildings_keys[prop]
+            switch (building_key) {
+                case hubs_key:
+                    let hubs = buildingsNodeList[building_key].Hub
                     html_text += "<td><ul>"
-                    for (var k = 0; k < hubs.length; k++) {
+                    for (let k = 0; k < hubs.length; k++) {
                         if (k == 0) {
                             html_text += "<li><b>" + hubs[k] + "</b></li>";
                         } else {
@@ -110,17 +83,17 @@ function generateHTML(jsonObj) {
 
                     break;
 
-                case "Wiki Page", "Wikipedia Page", wikipage_index_const:
-                    html_text += "<td><a href='" + buildingsNodeList[prop] + "'>" + buildingsNodeList[prop] + "</td>";
+                case wikipage_key:
+                    html_text += "<td><a href='" + buildingsNodeList[building_key] + "'>" + buildingsNodeList[building_key] + "</td>";
                     break;
 
-                case "Image", "Logo", image_index_const:
+                case image_key:
                     //handle images separately
-                    html_text += "<td><img src='" + buildingsNodeList[prop] + "' width='" + 160 + "' height='" + 160 + "'></td>";
+                    html_text += "<td><img src='" + buildingsNodeList[building_key] + "' width='" + 160 + "' height='" + 160 + "'></td>";
                     break;
 
                 default:
-                    html_text += "<td>" + buildingsNodeList[prop] + "</td>";
+                    html_text += "<td>" + buildingsNodeList[building_key] + "</td>";
                     break;
             }
         }

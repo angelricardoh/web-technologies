@@ -99,6 +99,7 @@ li a {
 .gallery img {
   width: 50%;
   height: auto;
+  object-fit: cover;
 } 
 
 div contact-info {

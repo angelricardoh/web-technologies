@@ -1,8 +1,11 @@
-from flask import Flask
+from flask import Flask, jsonify, request
 from newsapi import NewsApiClient
-
+import json
 
 app = Flask(__name__)
+newsapi = NewsApiClient(api_key='f020b671fc534b77b9cd0976b0fbdeb8')
+top_headlines = newsapi.get_top_headlines(sources='cnn,fox-news', page_size=30)
+
 
 # Init
 
@@ -13,48 +16,54 @@ app = Flask(__name__)
 #                                           language='en',
 #                                           country='us')
 
-
-
 @app.route('/')
+@app.route('/index')
 def index():
-    print("something")
-    newsapi = NewsApiClient(api_key='f020b671fc534b77b9cd0976b0fbdeb8')
-    top_headlines = newsapi.get_top_headlines(sources='bbc-news')
+    return app.send_static_file("index.html")
 
+
+@app.route('/news', methods=['GET'])
+def news():
     print(top_headlines)
-    return top_headlines
-    # return app.send_static_file("index.html")
+    return jsonify(top_headlines["articles"])
 
 
-# # print a nice greeting.
-# def say_hello(username = "World"):
-#     return '<p>Hello %s!</p>\n' % username
-#
-# # some bits of text for the page.
-# header_text = '''
-#     <html>\n<head> <title>EB Flask Test</title> </head>\n<body>'''
-# instructions = '''
-#     <p><em>Hint</em>: This is a RESTful web service! Append a username
-#     to the URL (for example: <code>/Thelonious</code>) to say hello to
-#     someone specific.</p>\n'''
-# home_link = '<p><a href="/">Back</a></p>\n'
-# footer_text = '</body>\n</html>'
-#
-# # EB looks for an 'application' callable by default.
-# application = Flask(__name__)
-#
-# # add a rule for the index page.
-# application.add_url_rule('/', 'index', (lambda: header_text +
-#     say_hello() + instructions + footer_text))
-#
-# # add a rule when the page is accessed with a name appended to the site
-# # URL.
-# application.add_url_rule('/<username>', 'hello', (lambda username:
-#     header_text + say_hello(username) + home_link + footer_text))
+@app.route('/search', methods=['GET'])
+def search():
+    args = request.args
+    keyword = ''
+    keyword = ''
+    from_date = ''
+    to_date = ''
+    category = ''
+    sources = ''
 
-# run the app.
+    if "q" in args:
+        keyword = args["q"]
+
+    if "from" in args:
+        from_date = args.get("from")
+
+    if "to" in args:
+        to_date = args["to"]
+
+    if "category" in args:
+        category = args["category"]
+
+    if "sources" in args:
+        sources = args["sources"]
+
+    # jsonify(top_headlines)
+    # parse_json = json.loads(top_headlines)
+    result = newsapi.get_everything(q=keyword, sources=sources,
+                                    from_param=from_date, to=to_date, language='en', sort_by='relevancy', page_size=30)
+
+    return jsonify(result)
+
+
 if __name__ == "__main__":
     # Setting debug to True enables debug output. This line should be
     # removed before deploying a production app.
     app.debug = True
     app.run()
+

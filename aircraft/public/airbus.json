@@ -1,0 +1,50 @@
+{
+ "catalog": {
+ 	"title": "Airbus Aircraft Families",
+ 	"aircraft": [
+ 		{
+			"Airbus": "A380",
+			"Aircraft": "A380 ",
+			"seats": "555",
+            "Range": "15000km ",
+			"Wingspan": "79.80m",
+			"Length": "73.00m",
+			"Height": "24.10m",
+			"Image": "http://cs-server.usc.edu:45678/examples/dom/aircraft/A380.jpg"
+			},
+
+			{
+			"Airbus": "A380",
+			"Aircraft": "A380 ",
+			"seats": "555",
+            "Range": "15000km ",
+			"Wingspan": "79.80m",
+			"Length": "73.00m",
+			"Height": "24.10m",
+			"Image": "http://cs-server.usc.edu:45678/examples/dom/aircraft/A380.jpg"
+			},
+
+				{
+			"Airbus": "A380",
+			"Aircraft": "A380 ",
+			"seats": "555",
+            "Range": "15000km ",
+			"Wingspan": "79.80m",
+			"Length": "73.00m",
+			"Height": "24.10m",
+			"Image": "http://cs-server.usc.edu:45678/examples/dom/aircraft/A380.jpg"
+			},
+
+				{
+			"Airbus": "A380",
+			"Aircraft": "A380 ",
+			"seats": "555",
+            "Range": "15000km ",
+			"Wingspan": "79.80m",
+			"Length": "73.00m",
+			"Height": "24.10m",
+			"Image": "http://cs-server.usc.edu:45678/examples/dom/aircraft/A380.jpg"
+			}
+ 	]
+  }
+ }

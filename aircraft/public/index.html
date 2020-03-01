@@ -1,0 +1,21 @@
+<html> <head><title>Airbus</title></head> <body>
+<script type="text/javascript">
+    var xmlhttp = new XMLHttpRequest(); xmlhttp.open("GET","aircraft.json",false); xmlhttp.send();
+    jsonObj= JSON.parse(xmlhttp.responseText);
+    planes=jsonObj.aircraft;
+    for(i=0;i<planes.length;i++) {
+        planeNodeList=planes[i];
+        var aircraft_keys = Object.keys(planeNodeList);
+        if (aircraft_keys.length > 0 && planeNodeList[aircraft_keys[0]]){
+            // document.write(planeNodeList.Airbus);
+            document.write(planeNodeList["Airbus"]);
+            // document.write(planeNodeList[aircraft_keys[0]]);
+            // document.write("<br>");
+            var x = document.createElement("BR");
+            document.body.appendChild(x);
+            // document.forms[0]
+        }
+    }
+</script>
+</body>
+</html>

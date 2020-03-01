@@ -1,3 +1,33 @@
+p {
+  font-family: "Georgia", Georgia, serif;
+  color: #343232;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  font-family: "Georgia", Georgia, serif;
+}
+
+li {
+  display: inline;
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+li a {
+  text-align: center;
+  padding-left: 4px;
+  padding-right: 4px;
+  text-decoration: none;
+  font-size: 12.5px;
+  color: #858484;
+}
+
+span {
+  color: black;
+}
+
 .grid-container {
   display: grid;
   grid-template-columns: auto auto;
@@ -70,43 +100,13 @@
   justify-content: space-between;
 }
 
-p {
-  font-family: "Georgia", Georgia, serif;
-  color: #343232;
-}
-
-ul {
-  margin: 0;
-  padding: 0;
-  font-style: Georgia
-}
-
-li {
-  display: inline;
-  padding-left: 6px;
-  padding-right: 6px;
-}
-
-li a {
-  text-align: center;
-  padding-left: 4px;
-  padding-right: 4px;
-  text-decoration: none;
-  font-size: 12.5px;
-  color: #858484;
-}
-
 .gallery img {
   width: 50%;
   height: auto;
   object-fit: cover;
 } 
 
-div contact-info {
+#contact-info {
   text-align: justify;
   display: inline-block;
-}
-
-span {
-  color: black;
 }

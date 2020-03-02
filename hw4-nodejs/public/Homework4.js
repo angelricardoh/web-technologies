@@ -61,7 +61,6 @@ function loadJSON(url) {
 
 function generateHTML(jsonObj) {
     var root = jsonObj.DocumentElement;
-    root.append
     html_text = "<html><head><title>JSON Parse Result</title></head><body>";
     html_text += "<table border='2'>";
     if (typeof(jsonObj.Mainline) === "undefined" ||
@@ -88,7 +87,6 @@ function generateHTML(jsonObj) {
         let buildingsNodeList = buildings[i]; //get properties of a plane (an object)
         html_text += "<tr>"; //start a new row of the output table
         const buildings_keys = Object.keys(buildingsNodeList);
-        buildings_keys.
         if (buildings_keys.length != headers_count) {
             throw new Error("malformed");
         }

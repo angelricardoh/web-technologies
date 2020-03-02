@@ -1,15 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
     <meta charset="UTF-8">
     <title>HW6</title>
+    <link rel="stylesheet" href="static/styles.css">
 </head>
 <body>
-    <script src = "/static/controller.js"></script>
-    <p>This is where the fun begins</p>
-    <div id="headers"></div>
-    <form name="myform" method="POST" id="location">
-        <input type="button" name="submit" value="Search" onClick="search(this.form)" />
-    </form>
+    <!--<script src="/static/controller.js"></script>-->
+    <div class="tab">
+        <button class="tablinks" onmouseover="openCity(event, 'News')">London</button>
+        <button class="tablinks" onmouseover="openCity(event, 'Search')">Paris</button>
+    </div>
+
+    <div id="News" class="tabcontent">
+        <h3>Google News</h3>
+        <p>Add everything regarding news</p>
+    </div>
+
+    <div id="Search" class="tabcontent">
+        <h3>Search</h3>
+        <p>Add everything regarding search</p>
+        <br>
+        <br>
+        <div class="form_styling">
+        <div class="form_heading_styling">
+        <h1><i>Events Search</i></h1>
+        </div>
+        <form method="post" action="search(this.form)"  id="form_search">
+
+        <b>Keyword</b><input type="text" name="keyword" id="keyword" required >
+        <br>
+        <b>Category</b>
+        <select name="category" id="category">
+        <option value="default" selected>Default</option>
+        <option value="music">Music</option>
+        <option value="sports">Sports</option>
+        <option value="art">Arts & Theatre</option>
+        <option value="film">Film</option>
+        <option value="miscellaneous">Miscellaneous</option>
+        </select>
+        <br>
+        <b>Distance (miles)</b><input type="text" name="distance" placeholder="10" id="distance"><b>from</b>
+        <input type="radio" name="location" value="here" onclick="here()" id="here_button" checked>Here <br>
+        <input type="radio" name="location" value="not_here" onclick="not_here()" id="location_textbox" >
+        <input type="text" name="location" placeholder="location" id="location_text" required="required" >
+        <br>
+        <input type="submit" value="Search" id="submit_button" ><input type="button" value="Clear" onclick="clearAllValues()">
+        <input type="text" name="here_latitude" id="here_latitude" style="display:none"><input type="text" name="here_longitude" id="here_longitude" style="display:none">
+        </form>
+        </div>
+        <div>
+        <p id="tables"></p>
+        </div>
+        <p id="details"></p>
+        <p id="show_venue_info"></p>
+        <p id="venue_info"></p>
+        <p id="show_venue_photos"></p>
+        <p id="photo"></p>
+    </div>
+
+    <div class="clearfix"></div>
+
+<script>
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
 </body>
 </html>

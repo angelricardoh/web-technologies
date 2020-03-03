@@ -4,10 +4,25 @@ window.onload = function() {
     xmlhttp = new XMLHttpRequest();
     let headlines_request_url = base_url + 'news';
     // console.log(headlines_request_url);
-    xmlhttp.open("GET",headlines_request_url,false);
+    xmlhttp.open("GET",headlines_request_url,true);
+    xmlhttp.onload = function (e) {
+      if (xmlhttp.readyState === 4) {
+        if (xmlhttp.status === 200) {
+            document.getElementById("headers").innerHTML = xmlhttp.responseText;
+          // console.log(xmlhttp.responseText);
+        } else {
+          console.error(xmlhttp.statusText);
+        }
+      }
+    };
+    xmlhttp.onerror = function (e) {
+        console.error(xhr.statusText);
+    };
     xmlhttp.send();
-    var response = JSON.parse(xmlhttp.responseText);
-    console.log(response);
+
+
+    // var response = JSON.parse(xmlhttp.responseText);
+    // console.log(response);
     // document.getElementById('headers').innerHTML= response;
 }
 

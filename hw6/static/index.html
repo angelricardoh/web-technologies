@@ -9,17 +9,15 @@
 <body>
     <script src="/static/controller.js"></script>
     <div class="tab">
-        <button class="tablinks" onmouseover="openCity(event, 'News')">London</button>
-        <button class="tablinks" onmouseover="openCity(event, 'Search')">Paris</button>
+        <button class="tablinks" onclick="selectMenuOption(event, 'News')">Google News</button>
+        <button class="tablinks" onclick="selectMenuOption(event, 'Search')">Search</button>
     </div>
 
-    <div id="News" class="tabcontent" style="display:block">
-        <h3>Google News</h3>
-        <p>Add everything regarding news</p>
+    <div id="News" class="tabcontent">
         <div id="headers"></div>
     </div>
 
-    <div id="Search" class="tabcontent">
+    <div id="Search" class="tabcontent" style="display:none">
         <h3>Search</h3>
         <p>Add everything regarding search</p>
         <br>
@@ -62,21 +60,5 @@
     </div>
 
     <div class="clearfix"></div>
-
-<script>
-function openCity(evt, cityName) {
-  var i, tabcontent, tablinks;
-  tabcontent = document.getElementsByClassName("tabcontent");
-  for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].style.display = "none";
-  }
-  tablinks = document.getElementsByClassName("tablinks");
-  for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" active", "");
-  }
-  document.getElementById(cityName).style.display = "block";
-  evt.currentTarget.className += " active";
-}
-</script>
 </body>
 </html>

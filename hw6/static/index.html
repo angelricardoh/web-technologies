@@ -8,13 +8,22 @@
 </head>
 <body>
     <script src="/static/controller.js"></script>
+    <!-- Load d3.js -->
+    <script src="https://d3js.org/d3.v4.js"></script>
+
+    <!-- Load d3-cloud -->
+    <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
     <div class="tab">
-        <button class="tablinks" onclick="selectMenuOption(event, 'News')">Google News</button>
-        <button class="tablinks" onclick="selectMenuOption(event, 'Search')">Search</button>
+        <button class="tablinks" class="news_button" onclick="selectMenuOption('News')">Google News</button>
+        <button class="tablinks" class="search_button" onclick="selectMenuOption('Search')">Search</button>
     </div>
 
     <div id="News" class="tabcontent">
-        <div id="headers"></div>
+        <div id="top">
+            <div id="carousel"></div>
+            <div id="word_cloud"></div>
+        </div>
+        <div id="top_news"></div>
     </div>
 
     <div id="Search" class="tabcontent" style="display:none">

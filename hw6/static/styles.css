@@ -4,24 +4,33 @@ body {font-family: "Lato", sans-serif;}
 /* Style the tab */
 .tab {
     float: left;
-  width: 10%;
+  width: 30%;
   height: 100%;
 }
 
 /* Style the buttons inside the tab */
 .tab button {
+    float: right;
   background-color: #4CAF50;
   border: none;
   color: white;
   padding: 15px 32px;
-  width: 100%;
+  width: 150px;
   border: none;
   margin: 4px 2px;
   outline: none;
-  text-align: left;
+  text-align: center;
   cursor: pointer;
-  font-size: 17px;
+  font-size: 14px;
 }
+
+/*.news_button {*/
+/*    display: block;*/
+/*}*/
+
+/*.search_button {*/
+/*    display: block;*/
+/*}*/
 
 /* Change background color of buttons on hover */
 .tab button:hover {
@@ -31,7 +40,7 @@ body {font-family: "Lato", sans-serif;}
 .tabcontent {
     float: left;
     width: 70%;
-    height: 300px;
+    height: 100%;
 }
 
 .tabcontent:after {
@@ -53,6 +62,7 @@ body {font-family: "Lato", sans-serif;}
   border-radius: 5px;
     float: left;
     padding: 10px;
+    margin: 5px;
 }
 
 .card:hover {

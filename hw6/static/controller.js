@@ -1,7 +1,8 @@
 let base_url = 'http://127.0.0.1:5000/';
-var words_cloud = "";
+const CARD_LAYOUT_SIZE = 4;
 
 window.onload = function() {
+    cleanSlides();
     xmlhttp = new XMLHttpRequest();
     let headlines_request_url = base_url + 'news';
     // console.log(headlines_request_url);
@@ -15,8 +16,11 @@ window.onload = function() {
             for (top_words_index in top_words) {
                 top_words_array.push(top_words[top_words_index]);
             }
+            carousel_headlines = filterValidArticles(jsonObj.carousel_headlines);
+            generateCarouselLayout(carousel_headlines);
             generateWordsCloudLayout(top_words_array);
-            let validArticles = getValidArticles(jsonObj.articles);
+            console.log(jsonObj.articles);
+            let validArticles = filterValidArticles(jsonObj.articles);
             generateArticlesLayout(validArticles);
         } else {
           console.error(xmlhttp.statusText);
@@ -48,7 +52,7 @@ function selectMenuOption(menuOption) {
   evt.currentTarget.className += " active";
 }
 
-function getValidArticles(articles) {
+function filterValidArticles(articles) {
     var valid_articles = [];
     for (let article_index in articles) {
         article = articles[article_index];
@@ -84,15 +88,15 @@ function generateArticlesLayout(articles) {
     for (let article_index in articles) {
         let article = articles[article_index];
         if (article.source.id == "fox-news") {
-            if (fox_articles.length < 5) {
+            if (fox_articles.length < CARD_LAYOUT_SIZE) {
                 fox_articles.push(article);
             }
         } else if (article.source.id == "cnn") {
-            if (cnn_articles.length < 5) {
+            if (cnn_articles.length < CARD_LAYOUT_SIZE) {
                 cnn_articles.push(article);
             }
         }
-        if (fox_articles.length == 5 && cnn_articles.length == 5) {
+        if (fox_articles.length == CARD_LAYOUT_SIZE && cnn_articles.length == CARD_LAYOUT_SIZE) {
             break;
         }
     }
@@ -140,53 +144,87 @@ function createNewsContainer(title, articles) {
     return news_container
 }
 
-function generateWordsCloudLayout(top_words){
+function cleanSlides() {
+        var slides = document.getElementsByClassName("mySlides");
+        for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+        }
+    }
 
-var myWords = top_words.map(function(d) {
-      return {word: d, size: 10 + Math.random() * 30};
-    })
-// var myWords = [{word: "Running", size: "10"}, {word: "Surfing", size: "20"}, {word: "Climbing", size: "50"}, {word: "Kiting", size: "30"}, {word: "Sailing", size: "20"}, {word: "Snowboarding", size: "60"} ]
+    var slideIndex = 0;
+function generateCarouselLayout(carousel_headlines) {
+    let headlines = carousel_headlines;
+    console.log(headlines);
 
-// set the dimensions and margins of the graph
-var margin = {top: 10, right: 10, bottom: 10, left: 10},
-    width = 450 - margin.left - margin.right,
-    height = 450 - margin.top - margin.bottom;
-
-// append the svg object to the body of the page
-var svg = d3.select("#word_cloud").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform",
-          "translate(" + margin.left + "," + margin.top + ")");
-
-// Constructs a new cloud layout instance. It run an algorithm to find the position of words that suits your requirements
-// Wordcloud features that are different from one word to the other must be here
-var layout = d3.layout.cloud()
-  .size([width, height])
-  .words(myWords.map(function(d) { return {text: d.word, size:d.size}; }))
-  .padding(5)        //space between words
-  .rotate(function() { return ~~(Math.random() * 2) * 90; })
-  .fontSize(function(d) { return d.size; })      // font size of words
-  .on("end", draw);
-layout.start();
-
-// This function takes the output of 'layout' above and draw the words
-// Wordcloud features that are THE SAME from one word to the other can be here
-function draw(words) {
-  svg
-    .append("g")
-      .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
-      .selectAll("text")
-        .data(words)
-      .enter().append("text")
-        .style("font-size", function(d) { return d.size; })
-        .style("fill", "#69b3a2")
-        .attr("text-anchor", "middle")
-        .style("font-family", "Impact")
-        .attr("transform", function(d) {
-          return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-        })
-        .text(function(d) { return d.text; });
+    showSlides();
+    function showSlides() {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) {slideIndex = 1}
+        currentSlide = slides[slideIndex-1];
+        currentSlideText = currentSlide.getElementsByClassName("mySlidesText")[0];
+        headlineTitle = currentSlideText.getElementsByClassName("headlineTitle")[0];
+        headlineDescription = currentSlideText.getElementsByClassName("headlineDescription")[0];
+        headlineImage = currentSlide.getElementsByClassName("imgSlide")[0];
+        console.log(headlineTitle.innerText);
+        headlineTitle.innerText = headlines[slideIndex].title;
+        headlineDescription.innerText = headlines[slideIndex].description;
+        headlineImage.src = headlines[slideIndex].urlToImage;
+        currentSlide.style.display = "block";
+        setTimeout(showSlides, 2000); // Change image every 2 seconds
+    }
 }
+
+function generateWordsCloudLayout(top_words){
+    var myWords = top_words.map(function(d) {
+          return {word: d, size: 10 + Math.random() * 30};
+        })
+    // var myWords = [{word: "Running", size: "10"}, {word: "Surfing", size: "20"}, {word: "Climbing", size: "50"}, {word: "Kiting", size: "30"}, {word: "Sailing", size: "20"}, {word: "Snowboarding", size: "60"} ]
+
+    // set the dimensions and margins of the graph
+    var margin = {top: 10, right: 10, bottom: 10, left: 10},
+        width = 450 - margin.left - margin.right,
+        height = 450 - margin.top - margin.bottom;
+
+    // append the svg object to the body of the page
+    var svg = d3.select("#word_cloud").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform",
+              "translate(" + margin.left + "," + margin.top + ")");
+
+    // Constructs a new cloud layout instance. It run an algorithm to find the position of words that suits your requirements
+    // Wordcloud features that are different from one word to the other must be here
+    var layout = d3.layout.cloud()
+      .size([width, height])
+      .words(myWords.map(function(d) { return {text: d.word, size:d.size}; }))
+      .padding(5)        //space between words
+      .rotate(function() { return ~~(Math.random() * 2) * 90; })
+      .fontSize(function(d) { return d.size; })      // font size of words
+      .on("end", draw);
+    layout.start();
+
+    // This function takes the output of 'layout' above and draw the words
+    // Wordcloud features that are THE SAME from one word to the other can be here
+    function draw(words) {
+      svg
+        .append("g")
+          .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
+          .selectAll("text")
+            .data(words)
+          .enter().append("text")
+            .style("font-size", function(d) { return d.size; })
+            .style("fill", "#69b3a2")
+            .attr("text-anchor", "middle")
+            .style("font-family", "Impact")
+            .attr("transform", function(d) {
+              return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+            })
+            .text(function(d) { return d.text; });
+    }
 }

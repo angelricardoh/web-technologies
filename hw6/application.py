@@ -25,6 +25,7 @@ def index():
 def news():
     try:
         top_headlines = newsapi.get_top_headlines(sources='cnn,fox-news', page_size=30)
+        carousel_headlines = newsapi.get_top_headlines(country='us', page_size=30)
     except:
         return "Error server"
     articles = top_headlines["articles"]
@@ -42,6 +43,7 @@ def news():
     top_words = [a_tuple[0] for a_tuple in top_words_list]
 
     top_headlines["top_words"] = top_words[0:30]
+    top_headlines["carousel_headlines"] = carousel_headlines["articles"];
     return jsonify(top_headlines)
 
 

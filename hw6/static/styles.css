@@ -6,6 +6,10 @@ body {font-family: "Lato", sans-serif;}
     float: left;
   width: 30%;
   height: 100%;
+    display: flex;
+    /*justify-content: space-between;*/
+  justify-content: flex-end;
+  flex-direction: column;
 }
 
 /* Style the buttons inside the tab */
@@ -22,15 +26,44 @@ body {font-family: "Lato", sans-serif;}
   text-align: center;
   cursor: pointer;
   font-size: 14px;
+    margin-left: auto;
+    margin-right: 20px;
 }
 
-/*.news_button {*/
-/*    display: block;*/
-/*}*/
+/* Slideshow / Carousel */
 
-/*.search_button {*/
-/*    display: block;*/
-/*}*/
+.mySlides {
+    height: 100%;
+}
+/*img {vertical-align: middle;}*/
+
+/* Slideshow container */
+.slideshow-container {
+  width: 50%;
+    height: 450px;
+    float: left;
+    position: relative;
+}
+
+.imgSlide {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+/* Caption text */
+.mySlidesText {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 90%;
+  text-align: center;
+    /*float: bottom;*/
+}
+
+
 
 /* Change background color of buttons on hover */
 .tab button:hover {

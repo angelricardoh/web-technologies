@@ -65,46 +65,41 @@
         <div id="top_news"></div>
     </div>
 
-    <div id="Search" class="tabcontent" style="display:none">
-        <h3>Search</h3>
-        <p>Add everything regarding search</p>
-        <br>
-        <br>
-        <div class="form_styling">
-        <div class="form_heading_styling">
-        <h1><i>Events Search</i></h1>
-        </div>
-        <form method="post" action="search(this.form)"  id="form_search">
+    <div id="Search" class="tabcontent" name="Search" style="display:none">
+            <br method="post" action="search(this.form)"  id="form_search">
 
-        <b>Keyword</b><input type="text" name="keyword" id="keyword" required >
-        <br>
-        <b>Category</b>
-        <select name="category" id="category">
-        <option value="default" selected>Default</option>
-        <option value="music">Music</option>
-        <option value="sports">Sports</option>
-        <option value="art">Arts & Theatre</option>
-        <option value="film">Film</option>
-        <option value="miscellaneous">Miscellaneous</option>
-        </select>
-        <br>
-        <b>Distance (miles)</b><input type="text" name="distance" placeholder="10" id="distance"><b>from</b>
-        <input type="radio" name="location" value="here" onclick="here()" id="here_button" checked>Here <br>
-        <input type="radio" name="location" value="not_here" onclick="not_here()" id="location_textbox" >
-        <input type="text" name="location" placeholder="location" id="location_text" required="required" >
-        <br>
-        <input type="submit" value="Search" id="submit_button" ><input type="button" value="Clear" onclick="clearAllValues()">
-        <input type="text" name="here_latitude" id="here_latitude" style="display:none"><input type="text" name="here_longitude" id="here_longitude" style="display:none">
+            <b>Keyword</b>
+                <input type="text" name="keyword" id="keyword" required >
+            <br>
+            <b>From></b>
+                <input type="date" id="start" name="trip-start"
+                value="2018-07-22"
+                min="2018-01-01" max="2018-12-31">
+            <br>
+            <b>To></b>
+                <input type="date" id="start" name="trip-start"
+                value="2018-07-22"
+                min="2018-01-01" max="2018-12-31">
+            <br>
+            <b>Category</b>
+                <select name="category" id="category" onchange="generateSources(this.value)">
+                    <option value="all" selected>all</option>
+                    <option value="entertainment">Entertainment</option>
+                    <option value="general">General</option>
+                    <option value="health">Health</option>
+                    <option value="science">Science</option>
+                    <option value="sports">Sports</option>
+                    <option value="technology">Technology</option>
+                </select>
+            <br>
+            <b>Sources</b>
+                <select name="sources" id="sources">
+                    <option value="all" selected>all</option>
+                </select>
+            <br>
+            <input type="submit" value="Search" id="submit_button" >
+            <input type="button" value="Clear" onclick="clearAllValues()">
         </form>
-        </div>
-        <div>
-        <p id="tables"></p>
-        </div>
-        <p id="details"></p>
-        <p id="show_venue_info"></p>
-        <p id="venue_info"></p>
-        <p id="show_venue_photos"></p>
-        <p id="photo"></p>
     </div>
 
     <div class="clearfix"></div>

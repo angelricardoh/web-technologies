@@ -1,36 +1,46 @@
 let base_url = 'http://127.0.0.1:5000/';
 const CARD_LAYOUT_SIZE = 4;
+const SLIDE_LAYOUT_SIZE = 5;
 
 window.onload = function() {
     cleanSlides();
-    xmlhttp = new XMLHttpRequest();
-    let headlines_request_url = base_url + 'news';
-    // console.log(headlines_request_url);
-    xmlhttp.open("GET",headlines_request_url,true);
-    xmlhttp.onload = function (e) {
-      if (xmlhttp.readyState === 4) {
-        if (xmlhttp.status === 200) {
-            jsonObj = JSON.parse(xmlhttp.responseText);
-            top_words = jsonObj.top_words;
-            top_words_array = [];
-            for (top_words_index in top_words) {
-                top_words_array.push(top_words[top_words_index]);
+    try {
+        xmlhttp = new XMLHttpRequest();
+        let headlines_request_url = base_url + 'news';
+        xmlhttp.open("GET", headlines_request_url, true);
+        xmlhttp.onload = function (e) {
+            if (xmlhttp.readyState === 4) {
+                if (xmlhttp.status === 200) {
+                    jsonObj = JSON.parse(xmlhttp.responseText);
+                    top_words = jsonObj.top_words;
+                    top_words_array = [];
+                    for (top_words_index in top_words) {
+                        top_words_array.push(top_words[top_words_index]);
+                    }
+                    carousel_headlines = filterValidArticles(jsonObj.carousel_headlines);
+                    generateCarouselLayout(carousel_headlines);
+                    generateCarouselLayout(carousel_headlines.slice(0, SLIDE_LAYOUT_SIZE));
+                    generateWordsCloudLayout(top_words_array);
+                    console.log(jsonObj.articles);
+                    let validArticles = filterValidArticles(jsonObj.articles);
+                    generateArticlesLayout(validArticles);
+                } else {
+                    console.error(xmlhttp.statusText);
+                }
+            } else {
+                console.error(xmlhttp.readyState)
             }
-            carousel_headlines = filterValidArticles(jsonObj.carousel_headlines);
-            generateCarouselLayout(carousel_headlines);
-            generateWordsCloudLayout(top_words_array);
-            console.log(jsonObj.articles);
-            let validArticles = filterValidArticles(jsonObj.articles);
-            generateArticlesLayout(validArticles);
-        } else {
-          console.error(xmlhttp.statusText);
-        }
-      }
-    };
-    xmlhttp.onerror = function (e) {
-        console.error(xhr.statusText);
-    };
-    xmlhttp.send();
+        };
+        xmlhttp.onerror = function (e) {
+            console.error(xmlhttp.statusText);
+        };
+        xmlhttp.send();
+    }
+    catch (exception)
+    {
+        alert("Unknown error loading request " + exception.message);
+    }
+    generateSources()
 }
 
 function search() {
@@ -49,7 +59,7 @@ function selectMenuOption(menuOption) {
     tablinks[i].className = tablinks[i].className.replace(" active", "");
   }
   document.getElementById(menuOption).style.display = "block";
-  evt.currentTarget.className += " active";
+  // evt.currentTarget.className += " active";
 }
 
 function filterValidArticles(articles) {
@@ -158,19 +168,19 @@ function generateCarouselLayout(carousel_headlines) {
 
     showSlides();
     function showSlides() {
-        var i;
         var slides = document.getElementsByClassName("mySlides");
-        for (i = 0; i < slides.length; i++) {
+        for (var i = 0; i < slides.length; i++) {
             slides[i].style.display = "none";
         }
         slideIndex++;
         if (slideIndex > slides.length) {slideIndex = 1}
         currentSlide = slides[slideIndex-1];
+
         currentSlideText = currentSlide.getElementsByClassName("mySlidesText")[0];
         headlineTitle = currentSlideText.getElementsByClassName("headlineTitle")[0];
         headlineDescription = currentSlideText.getElementsByClassName("headlineDescription")[0];
         headlineImage = currentSlide.getElementsByClassName("imgSlide")[0];
-        console.log(headlineTitle.innerText);
+
         headlineTitle.innerText = headlines[slideIndex].title;
         headlineDescription.innerText = headlines[slideIndex].description;
         headlineImage.src = headlines[slideIndex].urlToImage;
@@ -226,5 +236,39 @@ function generateWordsCloudLayout(top_words){
               return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
             })
             .text(function(d) { return d.text; });
+    }
+}
+
+function generateSources(category = '') {
+    let sources_request_url = base_url + 'sources?category=' + category;
+    xmlhttp.open("GET", sources_request_url,true);
+    xmlhttp.onload = function (e) {
+      if (xmlhttp.readyState === 4) {
+        if (xmlhttp.status === 200) {
+            let jsonObj = JSON.parse(xmlhttp.responseText);
+            fillSources(jsonObj)
+        } else {
+          console.error(xmlhttp.statusText);
+        }
+      }
+    };
+    xmlhttp.onerror = function (e) {
+        console.error(xmlhttp.statusText);
+    };
+    xmlhttp.send();
+}
+
+function fillSources(sources){
+    let sourcesHtmlElement = document.getElementById("sources");
+    for (let i=sourcesHtmlElement.options.length-1; i>0; i--) {
+        sourcesHtmlElement.options.remove(i);
+    }
+    console.log(sourcesHtmlElement.children.length);
+    for (let sourceIndex in sources) {
+        let currentSource = sources[sourceIndex];
+        var option = document.createElement("option");
+        option.text = currentSource.name;
+        console.log(currentSource);
+        sourcesHtmlElement.add(option);
     }
 }

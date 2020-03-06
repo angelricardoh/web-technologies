@@ -76,7 +76,6 @@ def sources():
 def search():
     args = request.args
     keyword = ''
-    keyword = ''
     from_date = ''
     to_date = ''
     category = ''
@@ -97,8 +96,6 @@ def search():
     if "sources" in args:
         sources = args["sources"]
 
-    # jsonify(top_headlines)
-    # parse_json = json.loads(top_headlines)
     try:
         result = newsapi.get_everything(q=keyword, sources=sources,
                                         from_param=from_date, to=to_date, language='en', sort_by='relevancy', page_size=30)

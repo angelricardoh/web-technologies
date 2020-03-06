@@ -4,43 +4,51 @@ const SLIDE_LAYOUT_SIZE = 5;
 
 window.onload = function() {
     cleanSlides();
+    let headlines_request_url = base_url + 'news';
+    makeRequest(headlines_request_url, function (xmlhttpResponse) {
+        jsonObj = JSON.parse(xmlhttpResponse);
+        top_words = jsonObj.top_words;
+        top_words_array = [];
+        for (top_words_index in top_words) {
+            top_words_array.push(top_words[top_words_index]);
+        }
+        carousel_headlines = filterValidArticles(jsonObj.carousel_headlines);
+        generateCarouselLayout(carousel_headlines.slice(0, SLIDE_LAYOUT_SIZE + 1));
+        generateWordsCloudLayout(top_words_array);
+        console.log(jsonObj.articles);
+        let validArticles = filterValidArticles(jsonObj.articles);
+        generateArticlesLayout(validArticles);
+    },function (error) {
+        alert(error);
+    });
+    retrieveSources();
+}
+
+function makeRequest(url, sucessBlock, errorBlock) {
     try {
-        xmlhttp = new XMLHttpRequest();
+        let xmlHttpRequest = new XMLHttpRequest();
         let headlines_request_url = base_url + 'news';
-        xmlhttp.open("GET", headlines_request_url, true);
-        xmlhttp.onload = function (e) {
-            if (xmlhttp.readyState === 4) {
-                if (xmlhttp.status === 200) {
-                    jsonObj = JSON.parse(xmlhttp.responseText);
-                    top_words = jsonObj.top_words;
-                    top_words_array = [];
-                    for (top_words_index in top_words) {
-                        top_words_array.push(top_words[top_words_index]);
-                    }
-                    carousel_headlines = filterValidArticles(jsonObj.carousel_headlines);
-                    generateCarouselLayout(carousel_headlines);
-                    generateCarouselLayout(carousel_headlines.slice(0, SLIDE_LAYOUT_SIZE));
-                    generateWordsCloudLayout(top_words_array);
-                    console.log(jsonObj.articles);
-                    let validArticles = filterValidArticles(jsonObj.articles);
-                    generateArticlesLayout(validArticles);
+        xmlHttpRequest.open("GET", url, true);
+        xmlHttpRequest.onload = function (e) {
+            if (xmlHttpRequest.readyState === 4) {
+                if (xmlHttpRequest.status === 200) {
+                    sucessBlock(xmlHttpRequest.responseText);
                 } else {
-                    console.error(xmlhttp.statusText);
+                    errorBlock(xmlHttpRequest.statusText)
                 }
             } else {
-                console.error(xmlhttp.readyState)
+              errorBlock(xmlHttpRequest.statusText);
             }
         };
-        xmlhttp.onerror = function (e) {
-            console.error(xmlhttp.statusText);
+        xmlHttpRequest.onerror = function (e) {
+            errorBlock(xmlHttpRequest.statusText);
         };
-        xmlhttp.send();
+        xmlHttpRequest.send();
     }
     catch (exception)
     {
-        alert("Unknown error loading request " + exception.message);
+        errorBlock("Unkwown error loading request " + exception.message);
     }
-    generateSources()
 }
 
 function search() {
@@ -91,6 +99,98 @@ function filterValidArticles(articles) {
     return valid_articles
 }
 
+// pragma mark - Carousel
+
+function cleanSlides() {
+    var slides = document.getElementsByClassName("mySlides");
+    for (i = 0; i < SLIDE_LAYOUT_SIZE; i++) {
+        slides[i].style.display = "none";
+    }
+}
+
+var slideIndex = 0;
+function generateCarouselLayout(carousel_headlines) {
+    let headlines = carousel_headlines;
+
+    showSlides();
+    function showSlides() {
+        var slides = document.getElementsByClassName("mySlides");
+        for (var i = 0; i < SLIDE_LAYOUT_SIZE; i++) {
+            slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > SLIDE_LAYOUT_SIZE) {slideIndex = 1}
+        currentSlide = slides[slideIndex-1];
+
+        currentSlideText = currentSlide.getElementsByClassName("mySlidesText")[0];
+        headlineTitle = currentSlideText.getElementsByClassName("headlineTitle")[0];
+        headlineDescription = currentSlideText.getElementsByClassName("headlineDescription")[0];
+        headlineImage = currentSlide.getElementsByClassName("imgSlide")[0];
+
+        headlineTitle.innerText = headlines[slideIndex].title;
+        headlineDescription.innerText = headlines[slideIndex].description;
+        headlineImage.src = headlines[slideIndex].urlToImage;
+        currentSlide.style.display = "block";
+        currentSlide.onclick = function() {
+            window.open(headlines[slideIndex].url);
+        }
+        setTimeout(showSlides, 2000); // Change image every 2 seconds
+    }
+}
+
+// pragma mark - Words Cloud
+
+function generateWordsCloudLayout(top_words){
+    var myWords = top_words.map(function(d) {
+          return {word: d, size: 10 + Math.random() * 30};
+        })
+
+    // set the dimensions and margins of the graph
+    var margin = {top: 10, right: 10, bottom: 10, left: 10},
+        width = 450 - margin.left - margin.right,
+        height = 450 - margin.top - margin.bottom;
+
+    // append the svg object to the body of the page
+    var svg = d3.select("#word_cloud").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform",
+              "translate(" + margin.left + "," + margin.top + ")");
+
+    // Constructs a new cloud layout instance. It run an algorithm to find the position of words that suits your requirements
+    // Wordcloud features that are different from one word to the other must be here
+    var layout = d3.layout.cloud()
+      .size([width, height])
+      .words(myWords.map(function(d) { return {text: d.word, size:d.size}; }))
+      .padding(5)        //space between words
+      .rotate(function() { return ~~(Math.random() * 2) * 90; })
+      .fontSize(function(d) { return d.size; })      // font size of words
+      .on("end", draw);
+    layout.start();
+
+    // This function takes the output of 'layout' above and draw the words
+    // Wordcloud features that are THE SAME from one word to the other can be here
+    function draw(words) {
+      svg
+        .append("g")
+          .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
+          .selectAll("text")
+            .data(words)
+          .enter().append("text")
+            .style("font-size", function(d) { return d.size; })
+            .style("fill", "#69b3a2")
+            .attr("text-anchor", "middle")
+            .style("font-family", "Impact")
+            .attr("transform", function(d) {
+              return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+            })
+            .text(function(d) { return d.text; });
+    }
+}
+
+// pragma mark - News Layout
+
 function generateArticlesLayout(articles) {
     var cnn_articles = [];
     var fox_articles = [];
@@ -137,6 +237,9 @@ function createNewsContainer(title, articles) {
         let article = articles[article_index];
         var card = document.createElement("div");
         card.classList.add("card");
+        card.onclick = function() {
+            window.open(article.url);
+        }
         var image = document.createElement("img");
         image.src = article.urlToImage;
         var title_headline = document.createElement("p");
@@ -154,108 +257,17 @@ function createNewsContainer(title, articles) {
     return news_container
 }
 
-function cleanSlides() {
-        var slides = document.getElementsByClassName("mySlides");
-        for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-        }
-    }
+// pragma mark - Sources
 
-    var slideIndex = 0;
-function generateCarouselLayout(carousel_headlines) {
-    let headlines = carousel_headlines;
-    console.log(headlines);
-
-    showSlides();
-    function showSlides() {
-        var slides = document.getElementsByClassName("mySlides");
-        for (var i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-        slideIndex++;
-        if (slideIndex > slides.length) {slideIndex = 1}
-        currentSlide = slides[slideIndex-1];
-
-        currentSlideText = currentSlide.getElementsByClassName("mySlidesText")[0];
-        headlineTitle = currentSlideText.getElementsByClassName("headlineTitle")[0];
-        headlineDescription = currentSlideText.getElementsByClassName("headlineDescription")[0];
-        headlineImage = currentSlide.getElementsByClassName("imgSlide")[0];
-
-        headlineTitle.innerText = headlines[slideIndex].title;
-        headlineDescription.innerText = headlines[slideIndex].description;
-        headlineImage.src = headlines[slideIndex].urlToImage;
-        currentSlide.style.display = "block";
-        setTimeout(showSlides, 2000); // Change image every 2 seconds
-    }
-}
-
-function generateWordsCloudLayout(top_words){
-    var myWords = top_words.map(function(d) {
-          return {word: d, size: 10 + Math.random() * 30};
-        })
-    // var myWords = [{word: "Running", size: "10"}, {word: "Surfing", size: "20"}, {word: "Climbing", size: "50"}, {word: "Kiting", size: "30"}, {word: "Sailing", size: "20"}, {word: "Snowboarding", size: "60"} ]
-
-    // set the dimensions and margins of the graph
-    var margin = {top: 10, right: 10, bottom: 10, left: 10},
-        width = 450 - margin.left - margin.right,
-        height = 450 - margin.top - margin.bottom;
-
-    // append the svg object to the body of the page
-    var svg = d3.select("#word_cloud").append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-        .attr("transform",
-              "translate(" + margin.left + "," + margin.top + ")");
-
-    // Constructs a new cloud layout instance. It run an algorithm to find the position of words that suits your requirements
-    // Wordcloud features that are different from one word to the other must be here
-    var layout = d3.layout.cloud()
-      .size([width, height])
-      .words(myWords.map(function(d) { return {text: d.word, size:d.size}; }))
-      .padding(5)        //space between words
-      .rotate(function() { return ~~(Math.random() * 2) * 90; })
-      .fontSize(function(d) { return d.size; })      // font size of words
-      .on("end", draw);
-    layout.start();
-
-    // This function takes the output of 'layout' above and draw the words
-    // Wordcloud features that are THE SAME from one word to the other can be here
-    function draw(words) {
-      svg
-        .append("g")
-          .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
-          .selectAll("text")
-            .data(words)
-          .enter().append("text")
-            .style("font-size", function(d) { return d.size; })
-            .style("fill", "#69b3a2")
-            .attr("text-anchor", "middle")
-            .style("font-family", "Impact")
-            .attr("transform", function(d) {
-              return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-            })
-            .text(function(d) { return d.text; });
-    }
-}
-
-function generateSources(category = '') {
+function retrieveSources(category='') {
     let sources_request_url = base_url + 'sources?category=' + category;
-    xmlhttp.open("GET", sources_request_url,true);
-    xmlhttp.onload = function (e) {
-      if (xmlhttp.readyState === 4) {
-        if (xmlhttp.status === 200) {
-            let jsonObj = JSON.parse(xmlhttp.responseText);
-            fillSources(jsonObj)
-        } else {
-          console.error(xmlhttp.statusText);
-        }
-      }
-    };
-    xmlhttp.onerror = function (e) {
-        console.error(xmlhttp.statusText);
-    };
-    xmlhttp.send();
+
+    makeRequest(sources_request_url, function (xmlhttpResponse) {
+        let jsonObj = JSON.parse(xmlhttpResponse);
+        fillSources(jsonObj);
+    },function (error) {
+        alert(error);
+    });
 }
 
 function fillSources(sources){

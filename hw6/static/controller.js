@@ -12,12 +12,10 @@ window.onload = function() {
         for (top_words_index in top_words) {
             top_words_array.push(top_words[top_words_index]);
         }
-        carousel_articles = filterValidArticles(jsonObj.carousel_articles);
+        carousel_articles = jsonObj.carousel_articles;
         generateCarouselLayout(carousel_articles.slice(0, SLIDE_LAYOUT_SIZE + 1));
         generateWordsCloudLayout(top_words_array);
-        console.log(jsonObj.articles);
-        let validArticles = filterValidArticles(jsonObj.articles);
-        generateArticlesLayout(validArticles);
+        generateArticlesLayout(jsonObj.articles);
     },function (error) {
         alert(error);
     });
@@ -93,35 +91,6 @@ function selectMenuOption(menuOption) {
   }
   document.getElementById(menuOption).style.display = "block";
   // evt.currentTarget.className += " active";
-}
-
-function filterValidArticles(articles) {
-    var valid_articles = [];
-    for (let article_index in articles) {
-        article = articles[article_index];
-        author = article.author;
-        title = article.title;
-        description = article.description;
-        url = article.url;
-        urlToImage = article.urlToImage;
-        publishedAt = article.publishedAt;
-        source = article.source;
-
-        if (author == null || author.length == 0 ||
-            title == null || title.length == 0 ||
-            description == null || description.length == 0 ||
-            url == null || url.length == 0 ||
-            urlToImage == null ||
-            publishedAt == null || publishedAt.length == 0 ||
-            source == null || source.id == null || source.id.length == 0 ||
-            source.name == null || source.name.length == 0)
-        {
-            continue;
-        } else {
-            valid_articles.push(article);
-        }
-    }
-    return valid_articles
 }
 
 // pragma mark - Carousel
@@ -315,6 +284,11 @@ function fillSources(sources){
 
 function generateSearchResultsLayout(articles) {
     var search_results_container = document.getElementById("search_results");
+    var child = search_results_container.lastElementChild;
+    while (child) {
+        search_results_container.removeChild(child);
+        child = search_results_container.lastElementChild;
+    }
 
     for (let article_index in articles) {
         let article = articles[article_index];

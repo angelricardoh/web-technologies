@@ -8,6 +8,21 @@ import re
 app = Flask(__name__)
 newsapi = NewsApiClient(api_key='f020b671fc534b77b9cd0976b0fbdeb8')
 
+class Error(Exception):
+    """Base class for exceptions in this module."""
+    pass
+
+class GoogleNewsApiError(Error):
+    """Exception raised for errors in the input.
+
+    Attributes:
+        expression -- input expression in which the error occurred
+        message -- explanation of the error
+    """
+
+    def __init__(self, expression, message):
+        self.expression = "Google News Api Error"
+        self.message = message
 
 @app.route('/')
 @app.route('/index')
@@ -49,7 +64,8 @@ def news():
         top_words = [a_tuple[0] for a_tuple in top_words_list]
 
         top_headlines["top_words"] = top_words[0:30]
-        top_headlines["carousel_articles"] = carousel_headlines["articles"];
+        top_headlines["articles"] = filter_valid_articles(top_headlines["articles"])
+        top_headlines["carousel_articles"] = filter_valid_articles(carousel_headlines["articles"])
     except NameError:
         response = jsonify(NameError)
         response.status_code = 500
@@ -85,7 +101,32 @@ def sources():
     return jsonify(sources_list)
 
 
-# @app.route('/')
+def filter_valid_articles(articles):
+    valid_articles = []
+    for article in articles:
+        author = article["author"]
+        title = article["title"]
+        description = article["description"]
+        url = article["url"]
+        url_to_image = article["urlToImage"]
+        published_at = article["publishedAt"]
+        source = article["source"]
+        source_id = source["id"]
+        source_name = source["name"]
+
+        if author is None or len(author) == 0 or \
+            title is None or len(title) == 0 or \
+            description is None or len(description) == 0 or \
+            url is None or len(url) == 0 or \
+            url_to_image is None or \
+            published_at is None or len(published_at) == 0 or \
+            source is None or source_id is None or len(source_id) == 0 or source_name is None or len(source_name) == 0:
+            continue
+        else:
+            valid_articles.append(article)
+    return valid_articles
+
+
 @app.route('/search', methods=['GET'])
 def search():
     result = None
@@ -119,7 +160,7 @@ def search():
                                         sort_by='publishedAt',
                                         language='en',
                                         page_size=30)
-        result = result["articles"]
+        result = filter_valid_articles(result["articles"])
     except NameError:
         response = jsonify(NameError)
         response.status_code = 500

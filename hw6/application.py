@@ -5,7 +5,7 @@ from os import path
 from flask import current_app
 import re
 
-app = Flask(__name__)
+application = Flask(__name__)
 newsapi = NewsApiClient(api_key='f020b671fc534b77b9cd0976b0fbdeb8')
 
 
@@ -27,13 +27,13 @@ class GoogleNewsApiError(Error):
         self.message = message
 
 
-@app.route('/')
-@app.route('/index')
+@application.route('/')
+@application.route('/index')
 def index():
-    return app.send_static_file("index.html")
+    return application.send_static_file("index.html")
 
 
-@app.route('/news', methods=['GET'])
+@application.route('/news', methods=['GET'])
 def news():
     stop_words = []
     with current_app.open_resource('static/stopwords_en.txt') as input_f:
@@ -80,7 +80,7 @@ def news():
     return jsonify(top_headlines)
 
 
-@app.route('/sources', methods=['GET'])
+@application.route('/sources', methods=['GET'])
 def sources():
     args = request.args
 
@@ -132,7 +132,7 @@ def filter_valid_articles(articles):
     return valid_articles
 
 
-@app.route('/search', methods=['GET'])
+@application.route('/search', methods=['GET'])
 def search():
     result = None
     keyword = ''
@@ -180,5 +180,5 @@ def search():
 if __name__ == "__main__":
     # Setting debug to True enables debug output. This line should be
     # removed before deploying a production app.
-    app.debug = True
-    app.run()
+    application.debug = True
+    application.run()

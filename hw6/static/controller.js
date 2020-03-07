@@ -1,18 +1,20 @@
 const base_url = 'http://127.0.0.1:5000/';
-const CARD_LAYOUT_SIZE = 4;
-const SLIDE_LAYOUT_SIZE = 5;
+// const base_url = 'http://pythonapp-env.eba-spwwpq2j.us-east-1.elasticbeanstalk.com/';
+const CARD_LAYOUT_SIZE = 4
+const SLIDE_LAYOUT_SIZE = 5
+const MORE_ARTICLES_THRESHOLD = 5
 
 window.onload = function() {
     cleanSlides();
     let headlines_request_url = base_url + 'news';
     makeRequest(headlines_request_url, function (xmlhttpResponse) {
-        jsonObj = JSON.parse(xmlhttpResponse);
-        top_words = jsonObj.top_words;
-        top_words_array = [];
-        for (top_words_index in top_words) {
+        let jsonObj = JSON.parse(xmlhttpResponse);
+        let top_words = jsonObj.top_words;
+        let top_words_array = [];
+        for (let top_words_index in top_words) {
             top_words_array.push(top_words[top_words_index]);
         }
-        carousel_articles = jsonObj.carousel_articles;
+        let carousel_articles = jsonObj.carousel_articles;
         generateCarouselLayout(carousel_articles.slice(0, SLIDE_LAYOUT_SIZE + 1));
         generateWordsCloudLayout(top_words_array);
         generateArticlesLayout(jsonObj.articles);
@@ -27,7 +29,7 @@ window.onload = function() {
     });
 }
 
-function makeRequest(url, sucessBlock, errorBlock) {
+function makeRequest(url, successBlock, errorBlock) {
     try {
         let xmlHttpRequest = new XMLHttpRequest();
         let headlines_request_url = base_url + 'news';
@@ -35,7 +37,7 @@ function makeRequest(url, sucessBlock, errorBlock) {
         xmlHttpRequest.onload = function (e) {
             if (xmlHttpRequest.readyState === 4) {
                 if (xmlHttpRequest.status === 200) {
-                    sucessBlock(xmlHttpRequest.responseText);
+                    successBlock(xmlHttpRequest.responseText);
                 } else {
                     errorBlock(xmlHttpRequest.statusText)
                 }
@@ -303,17 +305,17 @@ function generateSearchResultsLayout(articles) {
 
         let author_headline = document.createElement("p");
         author_headline.classList.add("card-result-expandable-element");
-        author_headline.innerText = "Author" + article.author;
+        author_headline.innerHTML = "<span>Author:</span>" + " " + article.author;
         textContainer.appendChild(author_headline);
 
         let source_headline = document.createElement("p");
         source_headline.classList.add("card-result-expandable-element");
-        source_headline.innerText = article.source;
+        source_headline.innerHTML = "<span>Source:</span>" + " " + article.source.name;
         textContainer.appendChild(source_headline);
 
         let date_headline = document.createElement("p");
         date_headline.classList.add("card-result-expandable-element");
-        date_headline.innerText = article.date;
+        date_headline.innerHTML = "<span>Date:</span>" + " " + article.publishedAt.substring(0, 10);;
         textContainer.appendChild(date_headline);
 
         let description_headline = document.createElement("p");
@@ -325,6 +327,7 @@ function generateSearchResultsLayout(articles) {
         url_headline.classList.add("card-result-expandable-element");
         url_headline.innerText = "See Original Post";
         url_headline.href = article.url;
+        url_headline.target = "_blank";
         textContainer.appendChild(url_headline);
 
         cardContainer.appendChild(textContainer);
@@ -348,29 +351,32 @@ function generateSearchResultsLayout(articles) {
             expandResult(card, scrollHeight);
         });
         description_headline.classList.add("card-result-description-style");
-        let expandableElements = textContainer.getElementsByClassName("card-result-expandable-element");
-        for (let index = 0; index<expandableElements.length; index++) {
-            expandableElements[index].style.display = 'none';
-        }
 
-        if (article_index >= 5) {
+        // let expandableElements = textContainer.getElementsByClassName("card-result-expandable-element");
+        // for (let index = 0; index<expandableElements.length; index++) {
+        //     expandableElements[index].style.display = 'none';
+        // }
+        collapseResult(card)
+
+
+        if (article_index >= MORE_ARTICLES_THRESHOLD) {
             card.style.display = 'none';
         }
     }
 
-    if (articles.length > 5) {
+    if (articles.length > MORE_ARTICLES_THRESHOLD) {
         let showMoreLessButton = document.createElement("button");
         showMoreLessButton.textContent = "Show More";
         showMoreLessButton.value = "Show More";
         showMoreLessButton.onclick = function(){
             if (showMoreLessButton.value == "Show More") {
-                for (let i = 5; i<articles.length; i++){
+                for (let i = MORE_ARTICLES_THRESHOLD; i<articles.length; i++){
                     search_results_container.children[i].style.display = 'block';
                 }
                 showMoreLessButton.textContent = "Show Less";
                 showMoreLessButton.value = "Show Less";
             } else {
-                for (let i = 5; i<articles.length; i++){
+                for (let i = MORE_ARTICLES_THRESHOLD; i<articles.length; i++){
                     search_results_container.children[i].style.display = 'none';
                 }
                 showMoreLessButton.textContent = "Show More";

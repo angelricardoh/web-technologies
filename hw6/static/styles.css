@@ -123,6 +123,7 @@ body {font-family: "Lato", sans-serif;}
     padding: 10px;
     margin: 5px;
     position: relative;
+    vertical-align: middle;
 }
 
 .card-result-container {
@@ -141,7 +142,6 @@ body {font-family: "Lato", sans-serif;}
     height: 20px;
     border: none;
     background: none;
-
 }
 
 .card-result:hover {
@@ -149,10 +149,10 @@ body {font-family: "Lato", sans-serif;}
 }
 
 .card-result img {
-    width: 20%;
-    height: 100%;
+    width: 80px;
+    height: 80px;
+    margin: 10px;
     object-fit: cover;
-    border-radius: 5px 5px 0 0;
     float: left;
 }
 
@@ -176,21 +176,13 @@ body {font-family: "Lato", sans-serif;}
     display: block;
 }
 
+span {
+    font-weight: bold;
+}
+
 /* Search */
 
 /* TODO: Remove unneeded stuff */
-a
-{
-	cursor:pointer;
-	color:black;
-	text-decoration: none;
-}
-a:hover
-{
-	color: #888585;
-	text-decoration: none;
-}
-
 
 .form_styling
 {

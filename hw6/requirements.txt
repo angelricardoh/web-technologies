@@ -1,4 +1,4 @@
-newsapi
+newsapi-python==0.2.6
 Click==7.0
 Flask==1.0.2
 itsdangerous==1.1.0

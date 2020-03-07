@@ -12,8 +12,8 @@ window.onload = function() {
         for (top_words_index in top_words) {
             top_words_array.push(top_words[top_words_index]);
         }
-        carousel_headlines = filterValidArticles(jsonObj.carousel_headlines);
-        generateCarouselLayout(carousel_headlines.slice(0, SLIDE_LAYOUT_SIZE + 1));
+        carousel_articles = filterValidArticles(jsonObj.carousel_articles);
+        generateCarouselLayout(carousel_articles.slice(0, SLIDE_LAYOUT_SIZE + 1));
         generateWordsCloudLayout(top_words_array);
         console.log(jsonObj.articles);
         let validArticles = filterValidArticles(jsonObj.articles);
@@ -22,6 +22,11 @@ window.onload = function() {
         alert(error);
     });
     retrieveSources();
+    let form = document.getElementById( "form_search" );
+    form.addEventListener( "submit", function ( event ) {
+        event.preventDefault();
+        search(form);
+    });
 }
 
 function makeRequest(url, sucessBlock, errorBlock) {
@@ -51,8 +56,28 @@ function makeRequest(url, sucessBlock, errorBlock) {
     }
 }
 
-function search() {
-    // document.getElementById('headers').innerHTML= "Something else";
+function search(searchForm) {
+    let search_request_url = base_url + 'search?';
+    var searchValuesDict = {};
+    // let searchForm = document.getElementById("form_search")
+    for (let i = 0; i < searchForm.length; i++) {
+        searchValuesDict[searchForm.elements[i].name] = searchForm.elements[i].value;
+    }
+    console.log(searchValuesDict);
+    for (let key in searchValuesDict) {
+        if (key == "submit" || key == "clear") {
+            continue;
+        }
+        search_request_url += key + "=" + searchValuesDict[key] + "&"
+    }
+    search_request_url = search_request_url.slice(0, -1);
+
+    makeRequest(search_request_url, function (xmlhttpResponse) {
+        let jsonObj = JSON.parse(xmlhttpResponse);
+        generateSearchResultsLayout(jsonObj);
+    },function (error) {
+        alert(error);
+    });
 }
 
 function selectMenuOption(menuOption) {
@@ -174,18 +199,18 @@ function generateWordsCloudLayout(top_words){
     function draw(words) {
       svg
         .append("g")
-          .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
-          .selectAll("text")
-            .data(words)
-          .enter().append("text")
-            .style("font-size", function(d) { return d.size; })
-            .style("fill", "#69b3a2")
-            .attr("text-anchor", "middle")
-            .style("font-family", "Impact")
-            .attr("transform", function(d) {
-              return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-            })
-            .text(function(d) { return d.text; });
+        .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
+        .selectAll("text")
+        .data(words)
+        .enter().append("text")
+        .style("font-size", function(d) { return d.size+ "px"; })
+        .style("fill", "#69b3a2")
+        .attr("text-anchor", "middle")
+        .style("font-family", "Impact")
+        .attr("transform", function(d) {
+          return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+        })
+        .text(function(d) { return d.text; });
     }
 }
 
@@ -242,6 +267,7 @@ function createNewsContainer(title, articles) {
         }
         var image = document.createElement("img");
         image.src = article.urlToImage;
+        image.classList.add("card-img");
         var title_headline = document.createElement("p");
         var content_headline = document.createElement("p");
         title_headline.innerText = article.title;
@@ -282,5 +308,64 @@ function fillSources(sources){
         option.text = currentSource.name;
         console.log(currentSource);
         sourcesHtmlElement.add(option);
+    }
+}
+
+// pragma mark - Search Results
+
+function generateSearchResultsLayout(articles) {
+    var search_results_container = document.getElementById("search_results");
+
+    for (let article_index in articles) {
+        let article = articles[article_index];
+        var card = document.createElement("div");
+        card.classList.add("card-result");
+        card.onclick = function() {
+            // TODO: Expand card
+        }
+        var image = document.createElement("img");
+        image.classList.add("img-result");
+        image.src = article.urlToImage;
+
+        var textContainer = document.createElement("div");
+        textContainer.classList.add("text-container-result");
+
+        var title_headline = document.createElement("p");
+        var content_headline = document.createElement("p");
+        title_headline.innerText = article.title;
+        content_headline.innerText = article.description;
+
+        card.appendChild(image);
+        textContainer.appendChild(title_headline);
+        textContainer.appendChild(content_headline);
+        card.appendChild(textContainer);
+
+        if (article_index >= 5) {
+            card.style.display = 'none';
+        }
+
+        search_results_container.appendChild(card);
+    }
+
+    if (articles.length > 5) {
+        var showMoreLessButton = document.createElement("button");
+        showMoreLessButton.textContent = "Show More";
+        showMoreLessButton.value = "Show More";
+        showMoreLessButton.onclick = function(){
+            if (showMoreLessButton.value == "Show More") {
+                for (let i = 5; i<articles.length; i++){
+                    search_results_container.children[i].style.display = 'block';
+                }
+                showMoreLessButton.textContent = "Show Less";
+                showMoreLessButton.value = "Show Less";
+            } else {
+                for (let i = 5; i<articles.length; i++){
+                    search_results_container.children[i].style.display = 'none';
+                }
+                showMoreLessButton.textContent = "Show More";
+                showMoreLessButton.value = "Show More";
+            }
+        }
+        search_results_container.appendChild(showMoreLessButton);
     }
 }

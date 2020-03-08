@@ -1,4 +1,4 @@
-let base_url = 'http://127.0.0.1:5000/';
+const base_url = 'http://127.0.0.1:5000/';
 const CARD_LAYOUT_SIZE = 4;
 const SLIDE_LAYOUT_SIZE = 5;
 
@@ -56,7 +56,7 @@ function makeRequest(url, sucessBlock, errorBlock) {
 
 function search(searchForm) {
     let search_request_url = base_url + 'search?';
-    var searchValuesDict = {};
+    let searchValuesDict = {};
     // let searchForm = document.getElementById("form_search")
     for (let i = 0; i < searchForm.length; i++) {
         searchValuesDict[searchForm.elements[i].name] = searchForm.elements[i].value;
@@ -80,7 +80,7 @@ function search(searchForm) {
 
 function selectMenuOption(menuOption) {
   // Declare all variables
-  var i, tabcontent, tablinks;
+  let i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tabcontent");
   for (i = 0; i < tabcontent.length; i++) {
     tabcontent[i].style.display = "none";
@@ -108,18 +108,18 @@ function generateCarouselLayout(carousel_headlines) {
 
     showSlides();
     function showSlides() {
-        var slides = document.getElementsByClassName("mySlides");
-        for (var i = 0; i < SLIDE_LAYOUT_SIZE; i++) {
+        let slides = document.getElementsByClassName("mySlides");
+        for (let i = 0; i < SLIDE_LAYOUT_SIZE; i++) {
             slides[i].style.display = "none";
         }
         slideIndex++;
         if (slideIndex > SLIDE_LAYOUT_SIZE) {slideIndex = 1}
-        currentSlide = slides[slideIndex-1];
+        let currentSlide = slides[slideIndex-1];
 
-        currentSlideText = currentSlide.getElementsByClassName("mySlidesText")[0];
-        headlineTitle = currentSlideText.getElementsByClassName("headlineTitle")[0];
-        headlineDescription = currentSlideText.getElementsByClassName("headlineDescription")[0];
-        headlineImage = currentSlide.getElementsByClassName("imgSlide")[0];
+        let currentSlideText = currentSlide.getElementsByClassName("mySlidesText")[0];
+        let headlineTitle = currentSlideText.getElementsByClassName("headlineTitle")[0];
+        let headlineDescription = currentSlideText.getElementsByClassName("headlineDescription")[0];
+        let headlineImage = currentSlide.getElementsByClassName("imgSlide")[0];
 
         headlineTitle.innerText = headlines[slideIndex].title;
         headlineDescription.innerText = headlines[slideIndex].description;
@@ -135,17 +135,17 @@ function generateCarouselLayout(carousel_headlines) {
 // pragma mark - Words Cloud
 
 function generateWordsCloudLayout(top_words){
-    var myWords = top_words.map(function(d) {
+    let myWords = top_words.map(function(d) {
           return {word: d, size: 10 + Math.random() * 30};
         })
 
     // set the dimensions and margins of the graph
-    var margin = {top: 10, right: 10, bottom: 10, left: 10},
+    let margin = {top: 10, right: 10, bottom: 10, left: 10},
         width = 450 - margin.left - margin.right,
         height = 450 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
-    var svg = d3.select("#word_cloud").append("svg")
+    let svg = d3.select("#word_cloud").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
       .append("g")
@@ -154,7 +154,7 @@ function generateWordsCloudLayout(top_words){
 
     // Constructs a new cloud layout instance. It run an algorithm to find the position of words that suits your requirements
     // Wordcloud features that are different from one word to the other must be here
-    var layout = d3.layout.cloud()
+    let layout = d3.layout.cloud()
       .size([width, height])
       .words(myWords.map(function(d) { return {text: d.word, size:d.size}; }))
       .padding(5)        //space between words
@@ -173,7 +173,7 @@ function generateWordsCloudLayout(top_words){
         .data(words)
         .enter().append("text")
         .style("font-size", function(d) { return d.size+ "px"; })
-        .style("fill", "#69b3a2")
+        .style("fill", "#000000")
         .attr("text-anchor", "middle")
         .style("font-family", "Impact")
         .attr("transform", function(d) {
@@ -186,8 +186,8 @@ function generateWordsCloudLayout(top_words){
 // pragma mark - News Layout
 
 function generateArticlesLayout(articles) {
-    var cnn_articles = [];
-    var fox_articles = [];
+    let cnn_articles = [];
+    let fox_articles = [];
 
     for (let article_index in articles) {
         let article = articles[article_index];
@@ -205,8 +205,8 @@ function generateArticlesLayout(articles) {
         }
     }
 
-    var div_news_container = document.createElement("div");
-    var top_headline_container = document.createElement("div");
+    let div_news_container = document.createElement("div");
+    let top_headline_container = document.createElement("div");
     let cnn_news_container = createNewsContainer("CNN", cnn_articles);
     let fox_news_container = createNewsContainer("Fox News", fox_articles);
 
@@ -217,28 +217,28 @@ function generateArticlesLayout(articles) {
 }
 
 function createNewsContainer(title, articles) {
-    var news_container = document.createElement("div");
+    let news_container = document.createElement("div");
     news_container.classList.add("news_container");
 
-    var title_element = document.createElement("p");
+    let title_element = document.createElement("p");
     title_element.textContent = title;
-    var hr = document.createElement("hr");
+    let hr = document.createElement("hr");
 
     news_container.appendChild(title_element);
     news_container.appendChild(hr);
 
     for (let article_index in articles) {
         let article = articles[article_index];
-        var card = document.createElement("div");
+        let card = document.createElement("div");
         card.classList.add("card");
         card.onclick = function() {
             window.open(article.url);
         }
-        var image = document.createElement("img");
+        let image = document.createElement("img");
         image.src = article.urlToImage;
         image.classList.add("card-img");
-        var title_headline = document.createElement("p");
-        var content_headline = document.createElement("p");
+        let title_headline = document.createElement("p");
+        let content_headline = document.createElement("p");
         title_headline.innerText = article.title;
         content_headline.innerText = article.description;
         console.log("title: " + title_headline);
@@ -273,7 +273,7 @@ function fillSources(sources){
     console.log(sourcesHtmlElement.children.length);
     for (let sourceIndex in sources) {
         let currentSource = sources[sourceIndex];
-        var option = document.createElement("option");
+        let option = document.createElement("option");
         option.text = currentSource.name;
         console.log(currentSource);
         sourcesHtmlElement.add(option);
@@ -283,8 +283,8 @@ function fillSources(sources){
 // pragma mark - Search Results
 
 function generateSearchResultsLayout(articles) {
-    var search_results_container = document.getElementById("search_results");
-    var child = search_results_container.lastElementChild;
+    let search_results_container = document.getElementById("search_results");
+    let child = search_results_container.lastElementChild;
     while (child) {
         search_results_container.removeChild(child);
         child = search_results_container.lastElementChild;
@@ -292,26 +292,39 @@ function generateSearchResultsLayout(articles) {
 
     for (let article_index in articles) {
         let article = articles[article_index];
-        var card = document.createElement("div");
+        let card = document.createElement("div");
         card.classList.add("card-result");
         card.onclick = function() {
             // TODO: Expand card
+            if (card.style.maxHeight != "100px") {
+                let textContainer = card.getElementsByClassName("card-result-text-container")[0];
+                let cardDescription = card.getElementsByClassName("card-result-description-container")[0];
+                cardDescription.classList.add("card-result-description-container");
+                card.style.maxHeight = "100px";
+            } else {
+                let textContainer = card.getElementsByClassName("card-result-text-container")[0];
+                let cardDescription = card.getElementsByClassName("card-result-description-container")[0];
+                cardDescription.classList.remove("card-result-description-container");
+                card.style.maxHeight = card.scrollHeight + "px";
+            }
         }
-        var image = document.createElement("img");
-        image.classList.add("img-result");
+        let image = document.createElement("img");
         image.src = article.urlToImage;
 
-        var textContainer = document.createElement("div");
-        textContainer.classList.add("text-container-result");
+        let textContainer = document.createElement("div");
+        textContainer.classList.add("card-result-text-container");
 
-        var title_headline = document.createElement("p");
-        var content_headline = document.createElement("p");
+        let title_headline = document.createElement("h4");
+
+        let description_headline = document.createElement("p");
+        description_headline.classList.add("card-result-description-container");
+
         title_headline.innerText = article.title;
-        content_headline.innerText = article.description;
+        description_headline.innerText = article.description;
 
         card.appendChild(image);
         textContainer.appendChild(title_headline);
-        textContainer.appendChild(content_headline);
+        textContainer.appendChild(description_headline);
         card.appendChild(textContainer);
 
         if (article_index >= 5) {
@@ -322,7 +335,7 @@ function generateSearchResultsLayout(articles) {
     }
 
     if (articles.length > 5) {
-        var showMoreLessButton = document.createElement("button");
+        let showMoreLessButton = document.createElement("button");
         showMoreLessButton.textContent = "Show More";
         showMoreLessButton.value = "Show More";
         showMoreLessButton.onclick = function(){

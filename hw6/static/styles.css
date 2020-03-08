@@ -114,7 +114,7 @@ body {font-family: "Lato", sans-serif;}
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
   width: 70%;
-    height: 100px;
+    max-height: 100px;
   border-radius: 5px;
     float: bottom;
     padding: 10px;
@@ -125,13 +125,7 @@ body {font-family: "Lato", sans-serif;}
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
-.text-container-result {
-    height: 100%;
-    width: 80%;
-    overflow: hidden;
-}
-
-.img-result {
+.card-result img {
     width: 20%;
     height: 100%;
     object-fit: cover;
@@ -139,6 +133,21 @@ body {font-family: "Lato", sans-serif;}
     float: left;
 }
 
+.card-result-text-container {
+    height: 100%;
+    width: 80%;
+    overflow: hidden;
+}
+
+.card-result-text-container h4 {
+    max-lines: 2;
+}
+
+.card-result-description-container {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 /* Search */
 

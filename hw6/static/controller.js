@@ -7,6 +7,7 @@ const MORE_ARTICLES_THRESHOLD = 5
 window.onload = function() {
     cleanSlides();
     setFormDateDefaultValues();
+    document.getElementById("news_button").focus();
     let headlines_request_url = base_url + 'news';
     makeRequest(headlines_request_url, function (xmlhttpResponse) {
         let jsonObj = JSON.parse(xmlhttpResponse);
@@ -98,6 +99,9 @@ function search(searchForm) {
     let search_request_url = base_url + 'search?';
     let searchValuesDict = {};
 
+    let toDateElement = document.getElementById( "to_date" );
+    let fromDateElement = document.getElementById("from_date");
+
     for (let i = 0; i < searchForm.length; i++) {
         searchValuesDict[searchForm.elements[i].name] = searchForm.elements[i].value;
     }
@@ -139,16 +143,23 @@ function validateDate() {
     }
 }
 
-function selectMenuOption(menuOption) {
-  let tabcontent = document.getElementsByClassName("tabcontent");
-  for (let i = 0; i < tabcontent.length; i++) {
+function selectMenuOption(tab) {
+    tab.focus();
+    var menuOption = '';
+    if (tab.id == "news_button") {
+        menuOption = "News";
+    } else {
+        menuOption = 'Search';
+    }
+    let tabcontent = document.getElementsByClassName("tabcontent");
+    for (let i = 0; i < tabcontent.length; i++) {
     tabcontent[i].style.display = "none";
-  }
-  let tablinks = document.getElementsByClassName("tablinks");
-  for (let i = 0; i < tablinks.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" active", "");
-  }
-  document.getElementById(menuOption).style.display = "block";
+    }
+    let tablinks = document.getElementsByClassName("tablinks");
+    for (let i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(menuOption).style.display = "block";
 }
 
 // pragma mark - Carousel
@@ -280,7 +291,7 @@ function createNewsContainer(title, articles) {
     let news_container = document.createElement("div");
     news_container.classList.add("news_container");
 
-    let title_element = document.createElement("h2");
+    let title_element = document.createElement("h1");
     title_element.textContent = title;
     let hr = document.createElement("hr");
 

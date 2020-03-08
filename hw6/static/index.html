@@ -13,8 +13,8 @@
     <!-- Load d3-cloud -->
     <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
     <div class="tab">
-        <button class="tablinks" class="news_button" onclick="selectMenuOption('News')">Google News</button>
-        <button class="tablinks" class="search_button" onclick="selectMenuOption('Search')">Search</button>
+        <button id="news_button" class="tablinks" onclick="selectMenuOption(this)">Google News</button>
+        <button id="search_button" class="tablinks" onclick="selectMenuOption(this)">Search</button>
     </div>
 
     <div id="News" class="tabcontent">
@@ -67,46 +67,49 @@
 
     <div id="Search" class="tabcontent" name="Search" style="display:none">
         <form id="form_search">
-            <div class="div-form-elements">
-                <b>Keyword</b>
-                    <input type="text" name="keyword" id="keyword" required>
-                <br>
-            </div>
-            <div class="div-form-elements">
-                <b>From</b>
-                    <input type="date" name="from" id="from_date" onchange="validateDate()" required>
-                <br>
-            </div>
-            <div class="div-form-elements">
-                <b>To</b>
-                    <input type="date" name="to" id="to_date" onchange="validateDate()" required>
-                <br>
-            </div>
-            <div class="div-form-elements">
-                <b>Category</b>
-                    <select name="category" id="category" onchange="retrieveSources(this.value)">
-                        <option value="all" selected>all</option>
-                        <option value="entertainment">Entertainment</option>
-                        <option value="general">General</option>
-                        <option value="health">Health</option>
-                        <option value="science">Science</option>
-                        <option value="sports">Sports</option>
-                        <option value="technology">Technology</option>
-                    </select>
-                <br>
-            </div>
-            <div class="div-form-elements">
-                <b>Sources</b>
-                    <select name="source" id="source">
-                        <option value="all" selected>all</option>
-                    </select>
-                <br>
-            </div>
-            <div class="div-form-elements">
-                <input type="submit" name="submit" value="Search">
-            </div>
-            <div class="div-form-elements">
-                <input type="button" name="clear" value="Clear" onclick="clearForm()">
+            <div id="div-table">
+                <div class="div-table-row">
+                    <div class="div-table-cell">
+                        Keyword <span>*</span>
+                        <input type="text" name="keyword" id="keyword" required>
+                    </div>
+                    <div class="div-table-cell">
+                        From <span>*</span>
+                        <input type="date" name="from" id="from_date" onchange="validateDate()" required="required">
+                    </div>
+                    <div class="div-table-cell">
+                        To <span>*</span>
+                        <input type="date" name="to" id="to_date" onchange="validateDate()" required="">
+                    </div>
+                </div>
+                <div class="div-table-row2">
+                    <div class="div-table-cell">
+                    Category
+                        <select name="category" id="category" onchange="retrieveSources(this.value)">
+                            <option value="all" selected>all</option>
+                            <option value="entertainment">Entertainment</option>
+                            <option value="general">General</option>
+                            <option value="health">Health</option>
+                            <option value="science">Science</option>
+                            <option value="sports">Sports</option>
+                            <option value="technology">Technology</option>
+                        </select>
+                    </div>
+                    <div class="div-table-cell">
+                        Sources
+                            <select name="source" id="source">
+                                <option value="all" selected>all</option>
+                            </select>
+                    </div>
+                </div>
+                <div class="div-table-row2">
+                    <div class="div-table-cell2">
+                        <input type="submit" name="submit" value="Search">
+                    </div>
+                    <div class="div-table-cell2">
+                        <input type="button" name="clear" value="Clear" onclick="clearForm()">
+                    </div>
+                </div>
             </div>
         </form>
         <div class="clearfix"></div>

@@ -69,7 +69,9 @@ def sources():
     try:
         category = args['category']
         if category and category != 'all':
-            sources_response = newsapi.get_sources(category=category, language='en', country='us')
+            sources_response = newsapi.get_sources(category=category,
+                                                   language='en',
+                                                   country='us')
             sources_list = sources_response["sources"]
         else:
             sources_response = newsapi.get_sources()
@@ -139,11 +141,11 @@ def search():
 
     try:
         result = newsapi.get_everything(q=keyword,
-                                        sources=sources,
                                         from_param=from_date,
                                         to=to_date,
-                                        sort_by='publishedAt',
+                                        sources=sources,
                                         language='en',
+                                        sort_by='publishedAt',
                                         page_size=30)
         result = filter_valid_articles(result["articles"])
     except NewsAPIException as e:

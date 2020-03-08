@@ -30,7 +30,7 @@ window.onload = function() {
     });
 }
 
-function setFormDefaultValues() {
+function clearForm() {
     let keywordElement = document.getElementById("keyword");
     let categoryElement = document.getElementById("category");
     let sourceElement = document.getElementById("source");
@@ -41,6 +41,7 @@ function setFormDefaultValues() {
 
     setFormDateDefaultValues();
     retrieveSources();
+    clearSearchResults();
 }
 
 function setFormDateDefaultValues() {
@@ -100,6 +101,7 @@ function search(searchForm) {
     for (let i = 0; i < searchForm.length; i++) {
         searchValuesDict[searchForm.elements[i].name] = searchForm.elements[i].value;
     }
+    let fromDateValue, toDateValue;
     for (let key in searchValuesDict) {
         if (key == "submit" || key == "clear") {
             continue;
@@ -114,6 +116,27 @@ function search(searchForm) {
     },function (error) {
         alert(error);
     });
+}
+
+function validateDate() {
+    let toDateElement = document.getElementById( "to_date" );
+    let fromDateElement = document.getElementById("from_date");
+
+    if (toDateElement.value == '' || fromDateElement.valueOf() == '') {
+        return;
+    }
+
+    let toDate = new Date(toDateElement.value);
+    let fromDate = new Date(fromDateElement.value);
+
+    if (fromDate > toDate) {
+        alert("Incorrect time");
+        return
+    }
+    if (fromDate > new Date() || toDate > new Date()) {
+        alert("Incorrect time. Not possible to set a time in the future");
+        return
+    }
 }
 
 function selectMenuOption(menuOption) {
@@ -315,11 +338,7 @@ function fillSources(sources){
 
 function generateSearchResultsLayout(articles) {
     let search_results_container = document.getElementById("search_results");
-    let child = search_results_container.lastElementChild;
-    while (child) {
-        search_results_container.removeChild(child);
-        child = search_results_container.lastElementChild;
-    }
+    clearSearchResults();
 
     for (let article_index in articles) {
         let article = articles[article_index];
@@ -421,6 +440,15 @@ function generateSearchResultsLayout(articles) {
             }
         }
         search_results_container.appendChild(showMoreLessButton);
+    }
+}
+
+function clearSearchResults() {
+    let search_results_container = document.getElementById("search_results");
+    let child = search_results_container.lastElementChild;
+    while (child) {
+        search_results_container.removeChild(child);
+        child = search_results_container.lastElementChild;
     }
 }
 

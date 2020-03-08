@@ -5,26 +5,10 @@ from os import path
 from flask import current_app
 import re
 
+from newsapi.newsapi_exception import NewsAPIException
+
 application = Flask(__name__)
 newsapi = NewsApiClient(api_key='f020b671fc534b77b9cd0976b0fbdeb8')
-
-
-class Error(Exception):
-    """Base class for exceptions in this module."""
-    pass
-
-
-class GoogleNewsApiError(Error):
-    """Exception raised for errors in the input.
-
-    Attributes:
-        expression -- input expression in which the error occurred
-        message -- explanation of the error
-    """
-
-    def __init__(self, expression, message):
-        self.expression = "Google News Api Error"
-        self.message = message
 
 
 @application.route('/')
@@ -69,10 +53,8 @@ def news():
         top_headlines["top_words"] = top_words[0:30]
         top_headlines["articles"] = filter_valid_articles(top_headlines["articles"])
         top_headlines["carousel_articles"] = filter_valid_articles(carousel_headlines["articles"])
-    except NameError:
-        response = jsonify(NameError)
-        response.status_code = 500
-        return response
+    except NewsAPIException as e:
+        return e.get_message(), 500
     except:
         response = jsonify("Error server while retrieving headlines")
         response.status_code = 500
@@ -93,10 +75,8 @@ def sources():
             sources_response = newsapi.get_sources()
             all_sources_list = sources_response["sources"]
             sources_list = all_sources_list[0:10]
-    except NameError:
-        response = jsonify(NameError)
-        response.status_code = 500
-        return response
+    except NewsAPIException as e:
+        return e.get_message(), 500
     except:
         response = jsonify("Error server while retrieving sources")
         response.status_code = 500
@@ -166,10 +146,8 @@ def search():
                                         language='en',
                                         page_size=30)
         result = filter_valid_articles(result["articles"])
-    except NameError:
-        response = jsonify(NameError)
-        response.status_code = 500
-        return response
+    except NewsAPIException as e:
+        return e.get_message(), 500
     except:
         response = jsonify("Error server while retrieving search")
         response.status_code = 500

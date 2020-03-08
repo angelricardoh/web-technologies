@@ -68,21 +68,16 @@
     <div id="Search" class="tabcontent" name="Search" style="display:none">
         <form id="form_search">
             <b>Keyword</b>
-                <input type="text" name="keyword" required>
+                <input type="text" name="keyword" id="keyword" required>
             <br>
-{#            TODO: Change value to mm/dd/yyyy#}
-            <b>From></b>
-                <input type="date" name="from"
-                value="2020-03-01"
-                min="2018-01-01" max="2020-12-31">
+            <b>From</b>
+                <input type="date" name="from" id="from_date">
             <br>
-            <b>To></b>
-                <input type="date" name="to"
-                value="2020-03-07"
-                min="2018-01-01" max="2020-12-31">
+            <b>To</b>
+                <input type="date" name="to" id="to_date">
             <br>
             <b>Category</b>
-                <select name="category" onchange="retrieveSources(this.value)">
+                <select name="category" id="category" onchange="retrieveSources(this.value)">
                     <option value="all" selected>all</option>
                     <option value="entertainment">Entertainment</option>
                     <option value="general">General</option>
@@ -93,12 +88,12 @@
                 </select>
             <br>
             <b>Sources</b>
-                <select name="sources" id="sources">
+                <select name="source" id="source">
                     <option value="all" selected>all</option>
                 </select>
             <br>
             <input type="submit" name="submit" value="Search">
-            <input type="button" name="clear" value="Clear">
+            <input type="button" name="clear" value="Clear" onclick="setFormDefaultValues()">
         </form>
         <div class="clearfix"></div>
         <div id="search_results"></div>

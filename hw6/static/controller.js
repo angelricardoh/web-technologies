@@ -6,6 +6,7 @@ const MORE_ARTICLES_THRESHOLD = 5
 
 window.onload = function() {
     cleanSlides();
+    setFormDefaultValues();
     let headlines_request_url = base_url + 'news';
     makeRequest(headlines_request_url, function (xmlhttpResponse) {
         let jsonObj = JSON.parse(xmlhttpResponse);
@@ -21,12 +22,45 @@ window.onload = function() {
     },function (error) {
         alert(error);
     });
-    retrieveSources();
+
     let form = document.getElementById( "form_search" );
     form.addEventListener( "submit", function ( event ) {
         event.preventDefault();
         search(form);
     });
+}
+
+function setFormDefaultValues() {
+    let keywordElement = document.getElementById("keyword");
+    let toDateElement = document.getElementById( "to_date" );
+    let fromDateElement = document.getElementById("from_date");
+    let categoryElement = document.getElementById("category");
+    let sourceElement = document.getElementById("source");
+
+    keywordElement.value = '';
+    categoryElement.value = 'all';
+    sourceElement.value = 'all';
+
+    let currentDate = new Date();
+    let pastDate = new Date();
+    let weekInMilliseconds = 7 * 24 * 60 * 60 * 1000;
+    let pastDateTime = currentDate.getTime() - weekInMilliseconds;
+    pastDate.setTime(pastDateTime);
+    let pastString = formatDate(pastDate);
+
+
+    fromDateElement.value = formatDate(pastDate);
+    toDateElement.value = formatDate(currentDate);
+
+    retrieveSources();
+}
+
+function formatDate(date) {
+    let month = ("0" + date.getMonth()).slice(-2);
+    let day = ("0" + date.getDate()).slice(-2);
+    return date.getFullYear().toString() + "-" +
+        month.toString() + "-" +
+        day.toString();
 }
 
 function makeRequest(url, successBlock, errorBlock) {
@@ -39,14 +73,14 @@ function makeRequest(url, successBlock, errorBlock) {
                 if (xmlHttpRequest.status === 200) {
                     successBlock(xmlHttpRequest.responseText);
                 } else {
-                    errorBlock(xmlHttpRequest.statusText)
+                    errorBlock(xmlHttpRequest.responseText)
                 }
             } else {
-              errorBlock(xmlHttpRequest.statusText);
+              errorBlock(xmlHttpRequest.responseText);
             }
         };
         xmlHttpRequest.onerror = function (e) {
-            errorBlock(xmlHttpRequest.statusText);
+            errorBlock(xmlHttpRequest.responseText);
         };
         xmlHttpRequest.send();
     }
@@ -262,15 +296,15 @@ function retrieveSources(category='') {
 }
 
 function fillSources(sources){
-    let sourcesHtmlElement = document.getElementById("sources");
-    for (let i=sourcesHtmlElement.options.length-1; i>0; i--) {
-        sourcesHtmlElement.options.remove(i);
+    let sourceElement = document.getElementById("source");
+    for (let i=sourceElement.options.length-1; i>0; i--) {
+        sourceElement.options.remove(i);
     }
     for (let sourceIndex in sources) {
         let currentSource = sources[sourceIndex];
         let option = document.createElement("option");
         option.text = currentSource.name;
-        sourcesHtmlElement.add(option);
+        sourceElement.add(option);
     }
 }
 

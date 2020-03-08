@@ -69,7 +69,7 @@ def sources():
     try:
         category = args['category']
         if category and category != 'all':
-            sources_response = newsapi.get_sources(category=category)
+            sources_response = newsapi.get_sources(category=category, language='en', country='us')
             sources_list = sources_response["sources"]
         else:
             sources_response = newsapi.get_sources()

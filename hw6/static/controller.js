@@ -6,7 +6,7 @@ const MORE_ARTICLES_THRESHOLD = 5
 
 window.onload = function() {
     cleanSlides();
-    setFormDefaultValues();
+    setFormDateDefaultValues();
     let headlines_request_url = base_url + 'news';
     makeRequest(headlines_request_url, function (xmlhttpResponse) {
         let jsonObj = JSON.parse(xmlhttpResponse);
@@ -32,14 +32,20 @@ window.onload = function() {
 
 function setFormDefaultValues() {
     let keywordElement = document.getElementById("keyword");
-    let toDateElement = document.getElementById( "to_date" );
-    let fromDateElement = document.getElementById("from_date");
     let categoryElement = document.getElementById("category");
     let sourceElement = document.getElementById("source");
 
     keywordElement.value = '';
     categoryElement.value = 'all';
     sourceElement.value = 'all';
+
+    setFormDateDefaultValues();
+    retrieveSources();
+}
+
+function setFormDateDefaultValues() {
+    let toDateElement = document.getElementById( "to_date" );
+    let fromDateElement = document.getElementById("from_date");
 
     let currentDate = new Date();
     let pastDate = new Date();
@@ -48,15 +54,12 @@ function setFormDefaultValues() {
     pastDate.setTime(pastDateTime);
     let pastString = formatDate(pastDate);
 
-
     fromDateElement.value = formatDate(pastDate);
     toDateElement.value = formatDate(currentDate);
-
-    retrieveSources();
 }
 
 function formatDate(date) {
-    let month = ("0" + date.getMonth()).slice(-2);
+    let month = ("0" + (date.getMonth() + 1)).slice(-2);
     let day = ("0" + date.getDate()).slice(-2);
     return date.getFullYear().toString() + "-" +
         month.toString() + "-" +

@@ -289,29 +289,43 @@ function generateSearchResultsLayout(articles) {
 
         let cardContainer = document.createElement("div");
         cardContainer.classList.add("card-result-container");
-        cardContainer.addEventListener("click", function() {
-            expandResult(card);
-        });
 
         let image = document.createElement("img");
         image.src = article.urlToImage;
+        cardContainer.appendChild(image);
 
         let textContainer = document.createElement("div");
         textContainer.classList.add("card-result-text-container");
 
         let title_headline = document.createElement("h4");
+        title_headline.innerText = article.title;
+        textContainer.appendChild(title_headline);
+
+        let author_headline = document.createElement("p");
+        author_headline.classList.add("card-result-expandable-element");
+        author_headline.innerText = "Author" + article.author;
+        textContainer.appendChild(author_headline);
+
+        let source_headline = document.createElement("p");
+        source_headline.classList.add("card-result-expandable-element");
+        source_headline.innerText = article.source;
+        textContainer.appendChild(source_headline);
+
+        let date_headline = document.createElement("p");
+        date_headline.classList.add("card-result-expandable-element");
+        date_headline.innerText = article.date;
+        textContainer.appendChild(date_headline);
 
         let description_headline = document.createElement("p");
         description_headline.classList.add("card-result-description");
-        description_headline.classList.add("card-result-description-style")
-
-        title_headline.innerText = article.title;
         description_headline.innerText = article.description;
-
-        cardContainer.appendChild(image);
-
-        textContainer.appendChild(title_headline);
         textContainer.appendChild(description_headline);
+
+        let url_headline = document.createElement("a");
+        url_headline.classList.add("card-result-expandable-element");
+        url_headline.innerText = "See Original Post";
+        url_headline.href = article.url;
+        textContainer.appendChild(url_headline);
 
         cardContainer.appendChild(textContainer);
         card.appendChild(cardContainer);
@@ -325,11 +339,23 @@ function generateSearchResultsLayout(articles) {
             collapseResult(card);
         });
 
+        search_results_container.appendChild(card);
+
+        // Get scrollHeight with full content
+        let scrollHeight = card.scrollHeight;
+
+        cardContainer.addEventListener("click", function() {
+            expandResult(card, scrollHeight);
+        });
+        description_headline.classList.add("card-result-description-style");
+        let expandableElements = textContainer.getElementsByClassName("card-result-expandable-element");
+        for (let index = 0; index<expandableElements.length; index++) {
+            expandableElements[index].style.display = 'none';
+        }
+
         if (article_index >= 5) {
             card.style.display = 'none';
         }
-
-        search_results_container.appendChild(card);
     }
 
     if (articles.length > 5) {
@@ -360,17 +386,25 @@ function collapseResult(card) {
     let textContainer = cardContainer.getElementsByClassName("card-result-text-container")[0];
     let cardDescription = textContainer.getElementsByClassName("card-result-description")[0];
     cardDescription.classList.add("card-result-description-style");
+    let expandableElements = textContainer.getElementsByClassName("card-result-expandable-element");
+    for (let index = 0; index<expandableElements.length; index++) {
+        expandableElements[index].style.display = 'none';
+    }
     let collapsableButton = card.getElementsByClassName("collapsable-button")[0];
     collapsableButton.style.display = 'none';
     card.style.maxHeight = "100px";
 }
 
-function expandResult(card) {
+function expandResult(card, scrollHeight) {
     let cardContainer = card.getElementsByClassName("card-result-container")[0];
     let textContainer = cardContainer.getElementsByClassName("card-result-text-container")[0];
     let cardDescription = textContainer.getElementsByClassName("card-result-description")[0];
     cardDescription.classList.remove("card-result-description-style");
+    let expandableElements = textContainer.getElementsByClassName("card-result-expandable-element");
+    for (let index = 0; index<expandableElements.length; index++) {
+        expandableElements[index].style.display = 'block';
+    }
     let collapsableButton = card.getElementsByClassName("collapsable-button")[0];
     collapsableButton.style.display = "block";
-    card.style.maxHeight = card.scrollHeight + "px";
+    card.style.maxHeight = scrollHeight + "px";
 }

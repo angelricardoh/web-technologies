@@ -8,9 +8,11 @@ import re
 app = Flask(__name__)
 newsapi = NewsApiClient(api_key='f020b671fc534b77b9cd0976b0fbdeb8')
 
+
 class Error(Exception):
     """Base class for exceptions in this module."""
     pass
+
 
 class GoogleNewsApiError(Error):
     """Exception raised for errors in the input.
@@ -23,6 +25,7 @@ class GoogleNewsApiError(Error):
     def __init__(self, expression, message):
         self.expression = "Google News Api Error"
         self.message = message
+
 
 @app.route('/')
 @app.route('/index')
@@ -114,13 +117,15 @@ def filter_valid_articles(articles):
         source_id = source["id"]
         source_name = source["name"]
 
-        if author is None or len(author) == 0 or \
-            title is None or len(title) == 0 or \
-            description is None or len(description) == 0 or \
-            url is None or len(url) == 0 or \
-            url_to_image is None or \
-            published_at is None or len(published_at) == 0 or \
-            source is None or source_id is None or len(source_id) == 0 or source_name is None or len(source_name) == 0:
+        if author is None or len(author) == 0 or author == 'null' or \
+                title is None or len(title) == 0 or title == 'null' or \
+                description is None or len(description) == 0 or description == 'null' or \
+                url is None or len(url) == 0 or url == 'null' or \
+                url_to_image is None or len(url_to_image) == 0 or url_to_image == 'null' or \
+                published_at is None or len(published_at) == 0 or published_at == 'null' or \
+                source is None or \
+                source_id is None or len(source_id) == 0 or source_id == 'null' or \
+                source_name is None or len(source_name) == 0 or source_name == 'null':
             continue
         else:
             valid_articles.append(article)

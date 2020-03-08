@@ -57,11 +57,10 @@ function makeRequest(url, sucessBlock, errorBlock) {
 function search(searchForm) {
     let search_request_url = base_url + 'search?';
     let searchValuesDict = {};
-    // let searchForm = document.getElementById("form_search")
+
     for (let i = 0; i < searchForm.length; i++) {
         searchValuesDict[searchForm.elements[i].name] = searchForm.elements[i].value;
     }
-    console.log(searchValuesDict);
     for (let key in searchValuesDict) {
         if (key == "submit" || key == "clear") {
             continue;
@@ -79,24 +78,21 @@ function search(searchForm) {
 }
 
 function selectMenuOption(menuOption) {
-  // Declare all variables
-  let i, tabcontent, tablinks;
-  tabcontent = document.getElementsByClassName("tabcontent");
-  for (i = 0; i < tabcontent.length; i++) {
+  let tabcontent = document.getElementsByClassName("tabcontent");
+  for (let i = 0; i < tabcontent.length; i++) {
     tabcontent[i].style.display = "none";
   }
-  tablinks = document.getElementsByClassName("tablinks");
-  for (i = 0; i < tablinks.length; i++) {
+  let tablinks = document.getElementsByClassName("tablinks");
+  for (let i = 0; i < tablinks.length; i++) {
     tablinks[i].className = tablinks[i].className.replace(" active", "");
   }
   document.getElementById(menuOption).style.display = "block";
-  // evt.currentTarget.className += " active";
 }
 
 // pragma mark - Carousel
 
 function cleanSlides() {
-    var slides = document.getElementsByClassName("mySlides");
+    let slides = document.getElementsByClassName("mySlides");
     for (i = 0; i < SLIDE_LAYOUT_SIZE; i++) {
         slides[i].style.display = "none";
     }
@@ -220,7 +216,7 @@ function createNewsContainer(title, articles) {
     let news_container = document.createElement("div");
     news_container.classList.add("news_container");
 
-    let title_element = document.createElement("p");
+    let title_element = document.createElement("h2");
     title_element.textContent = title;
     let hr = document.createElement("hr");
 
@@ -241,8 +237,6 @@ function createNewsContainer(title, articles) {
         let content_headline = document.createElement("p");
         title_headline.innerText = article.title;
         content_headline.innerText = article.description;
-        console.log("title: " + title_headline);
-        console.log("content: " + content_headline);
 
         card.appendChild(image);
         card.appendChild(title_headline);
@@ -270,12 +264,10 @@ function fillSources(sources){
     for (let i=sourcesHtmlElement.options.length-1; i>0; i--) {
         sourcesHtmlElement.options.remove(i);
     }
-    console.log(sourcesHtmlElement.children.length);
     for (let sourceIndex in sources) {
         let currentSource = sources[sourceIndex];
         let option = document.createElement("option");
         option.text = currentSource.name;
-        console.log(currentSource);
         sourcesHtmlElement.add(option);
     }
 }
@@ -294,20 +286,13 @@ function generateSearchResultsLayout(articles) {
         let article = articles[article_index];
         let card = document.createElement("div");
         card.classList.add("card-result");
-        card.onclick = function() {
-            // TODO: Expand card
-            if (card.style.maxHeight != "100px") {
-                let textContainer = card.getElementsByClassName("card-result-text-container")[0];
-                let cardDescription = card.getElementsByClassName("card-result-description-container")[0];
-                cardDescription.classList.add("card-result-description-container");
-                card.style.maxHeight = "100px";
-            } else {
-                let textContainer = card.getElementsByClassName("card-result-text-container")[0];
-                let cardDescription = card.getElementsByClassName("card-result-description-container")[0];
-                cardDescription.classList.remove("card-result-description-container");
-                card.style.maxHeight = card.scrollHeight + "px";
-            }
-        }
+
+        let cardContainer = document.createElement("div");
+        cardContainer.classList.add("card-result-container");
+        cardContainer.addEventListener("click", function() {
+            expandResult(card);
+        });
+
         let image = document.createElement("img");
         image.src = article.urlToImage;
 
@@ -317,15 +302,28 @@ function generateSearchResultsLayout(articles) {
         let title_headline = document.createElement("h4");
 
         let description_headline = document.createElement("p");
-        description_headline.classList.add("card-result-description-container");
+        description_headline.classList.add("card-result-description");
+        description_headline.classList.add("card-result-description-style")
 
         title_headline.innerText = article.title;
         description_headline.innerText = article.description;
 
-        card.appendChild(image);
+        cardContainer.appendChild(image);
+
         textContainer.appendChild(title_headline);
         textContainer.appendChild(description_headline);
-        card.appendChild(textContainer);
+
+        cardContainer.appendChild(textContainer);
+        card.appendChild(cardContainer);
+
+        let collapsableButton = document.createElement("button");
+        collapsableButton.textContent = "X";
+        collapsableButton.classList.add("collapsable-button");
+        collapsableButton.style.display = 'none';
+        card.appendChild(collapsableButton);
+        collapsableButton.addEventListener("click", function() {
+            collapseResult(card);
+        });
 
         if (article_index >= 5) {
             card.style.display = 'none';
@@ -355,4 +353,24 @@ function generateSearchResultsLayout(articles) {
         }
         search_results_container.appendChild(showMoreLessButton);
     }
+}
+
+function collapseResult(card) {
+    let cardContainer = card.getElementsByClassName("card-result-container")[0];
+    let textContainer = cardContainer.getElementsByClassName("card-result-text-container")[0];
+    let cardDescription = textContainer.getElementsByClassName("card-result-description")[0];
+    cardDescription.classList.add("card-result-description-style");
+    let collapsableButton = card.getElementsByClassName("collapsable-button")[0];
+    collapsableButton.style.display = 'none';
+    card.style.maxHeight = "100px";
+}
+
+function expandResult(card) {
+    let cardContainer = card.getElementsByClassName("card-result-container")[0];
+    let textContainer = cardContainer.getElementsByClassName("card-result-text-container")[0];
+    let cardDescription = textContainer.getElementsByClassName("card-result-description")[0];
+    cardDescription.classList.remove("card-result-description-style");
+    let collapsableButton = card.getElementsByClassName("collapsable-button")[0];
+    collapsableButton.style.display = "block";
+    card.style.maxHeight = card.scrollHeight + "px";
 }

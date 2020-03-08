@@ -67,33 +67,47 @@
 
     <div id="Search" class="tabcontent" name="Search" style="display:none">
         <form id="form_search">
-            <b>Keyword</b>
-                <input type="text" name="keyword" id="keyword" required>
-            <br>
-            <b>From</b>
-                <input type="date" name="from" id="from_date" onchange="validateDate()" required>
-            <br>
-            <b>To</b>
-                <input type="date" name="to" id="to_date" onchange="validateDate()" required>
-            <br>
-            <b>Category</b>
-                <select name="category" id="category" onchange="retrieveSources(this.value)">
-                    <option value="all" selected>all</option>
-                    <option value="entertainment">Entertainment</option>
-                    <option value="general">General</option>
-                    <option value="health">Health</option>
-                    <option value="science">Science</option>
-                    <option value="sports">Sports</option>
-                    <option value="technology">Technology</option>
-                </select>
-            <br>
-            <b>Sources</b>
-                <select name="source" id="source">
-                    <option value="all" selected>all</option>
-                </select>
-            <br>
-            <input type="submit" name="submit" value="Search">
-            <input type="button" name="clear" value="Clear" onclick="clearForm()">
+            <div class="div-form-elements">
+                <b>Keyword</b>
+                    <input type="text" name="keyword" id="keyword" required>
+                <br>
+            </div>
+            <div class="div-form-elements">
+                <b>From</b>
+                    <input type="date" name="from" id="from_date" onchange="validateDate()" required>
+                <br>
+            </div>
+            <div class="div-form-elements">
+                <b>To</b>
+                    <input type="date" name="to" id="to_date" onchange="validateDate()" required>
+                <br>
+            </div>
+            <div class="div-form-elements">
+                <b>Category</b>
+                    <select name="category" id="category" onchange="retrieveSources(this.value)">
+                        <option value="all" selected>all</option>
+                        <option value="entertainment">Entertainment</option>
+                        <option value="general">General</option>
+                        <option value="health">Health</option>
+                        <option value="science">Science</option>
+                        <option value="sports">Sports</option>
+                        <option value="technology">Technology</option>
+                    </select>
+                <br>
+            </div>
+            <div class="div-form-elements">
+                <b>Sources</b>
+                    <select name="source" id="source">
+                        <option value="all" selected>all</option>
+                    </select>
+                <br>
+            </div>
+            <div class="div-form-elements">
+                <input type="submit" name="submit" value="Search">
+            </div>
+            <div class="div-form-elements">
+                <input type="button" name="clear" value="Clear" onclick="clearForm()">
+            </div>
         </form>
         <div class="clearfix"></div>
         <div id="search_results"></div>

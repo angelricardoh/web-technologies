@@ -1,5 +1,5 @@
 /*<!--{box-sizing: border-box}-->*/
-body {font-family: "Lato", sans-serif;}
+body {font-family: "Petersburg";}
 
 /* Style the tab */
 .tab {
@@ -60,6 +60,8 @@ body {font-family: "Lato", sans-serif;}
     height: 450px;
     float: left;
     position: relative;
+    overflow: hidden;
+    margin-right: 20px;
 }
 
 .imgSlide {
@@ -71,11 +73,13 @@ body {font-family: "Lato", sans-serif;}
 .mySlidesText {
   color: #f2f2f2;
   font-size: 15px;
-  padding: 8px 12px;
-  position: absolute;
-  bottom: 8px;
-  width: 90%;
-  text-align: center;
+    padding-right: 12px;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 40%;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.3);
 }
 
 /* CNN - Fox News headlines */
@@ -84,16 +88,26 @@ body {font-family: "Lato", sans-serif;}
   padding: 2px 16px;
   float: left;
     text-align: center;
+    display: block;
+}
+
+.card-container {
+    display: table;
+    width: 100%;
+      border-collapse: separate;
+  border-spacing: 10px;
 }
 
 .card {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
-  width: 150px;
+  width: 200px;
   border-radius: 5px;
-    float: left;
-    padding: 10px;
     margin: 5px;
+    display: table-cell;
+    overflow: hidden;
+    padding-bottom: 10px;
+    background-color: #F3F3F3;
 }
 
 .card:hover {
@@ -102,9 +116,9 @@ body {font-family: "Lato", sans-serif;}
 
 .card-img {
     width: 100%;
-    height: 40%;
+    height: 150px;
     object-fit: cover;
-    border-radius: 5px 5px 0 0;
+    border-radius: 5px;
 }
 
 /* Search results */
@@ -124,6 +138,7 @@ body {font-family: "Lato", sans-serif;}
     margin: 5px;
     position: relative;
     vertical-align: middle;
+    background-color: #F3F3F3;
 }
 
 .card-result-container {
@@ -182,8 +197,6 @@ span {
 
 /* Search */
 
-/* TODO: Remove unneeded stuff */
-
 .form_styling
 {
 	text-align: center;
@@ -201,206 +214,10 @@ span {
 	margin-top:-20px;
 	margin-left:10px;
     margin-right:10px;
-
 }
 
-form
+.div-form-elements
 {
-	text-align: left;
-    margin-left: 10px;
-    margin-top: -10px;
-	line-height: 150%;
+    display: table-cell;
+    margin: 100px;
 }
-
-h1
-{
-	text-align: center;
-    border-bottom: 3px solid lightgrey;
-	font-weight: lighter;
-}
-
-#location_textbox
-{
-    margin-left: 325px;
-}
-
-#submit_button
-{
-    margin-left: 65px;
-}
-#details
-{
-	margin-left: auto;
-	margin-right: auto;
-	width: 800px;
-}
-#no_venue_info
-{
-    text-align: center;
-    font-weight: bold;
-    height: 20px;
-}
-#show_venue_info
-{
-    width: 200px;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-	cursor: pointer;
-	line-height: 30px;
-}
-
-#show_venue_photos
-{
-    width: 200px;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-	cursor: pointer;
-	line-height: 30px;
-}
-#venue_info
-{
-    width: 800px;
-	margin-left: auto;
-    margin-right: auto;
-}
-#no_venue_photos
-{
-    text-align: center;
-    font-weight: bold;
-    height: 20px;
-}
- #show_photo_table
- {
-    text-align: center;
-	width: 640px;
-    margin:auto;
-    overflow-x:hidden;
-	position:center;
-}
-.walk_there
-{
-	position:absolute;
-    text-align: center;
-	background-color:lightgrey;
-	padding-top: 5px;
-	z-index:50;
-	height:30px;
-	width:90px;
-}
-.bike_there
-{
-	top: 30px;
-	position:absolute;
-	text-align: center;
-	background-color:lightgrey;
-	padding-top: 5px;
-	z-index:50;
-	height:30px;
-	width:90px;
-}
-.drive_there
-{
-    top: 60px;
-	position:absolute;
-	text-align: center;
-	background-color:lightgrey;
-	padding-top: 5px;
-	z-index:50;
-	height:30px;
-	width:90px;
-}
-
-.walk1
-{
-	position:absolute;
-    height:20px;
-    width:106px;
-	top:130px;
-    background-color:lightgrey;
-    text-align: left;
-
- }
- .bike1
- {
-    position:absolute;
-    height:20px;
-    width:106px;
-	top:150px;
-    background-color:lightgrey;
-    text-align: left;
- }
-.drive1
-{
-    position:absolute;
-    height:20px;
-    width:106px;
-	top:170px;
-    background-color:lightgrey;
-    text-align: left;
-}
-
-.cursor_style
-{
-    cursor: pointer;
-}
-
-.img_class
-{
-    position: relative;
-    float: center;
-	height: 400px;
-    width:  800px;
-    background-position: 50% 50%;
-    background-repeat:   no-repeat;
-    background-size:     cover;
-}
-
-.img_class_2
-{
-    position: relative;
-    float: center;
-	height: 40px;
-    width:90px;
-    background-position: 50% 50%;
-    background-repeat:   no-repeat;
-    background-size:     cover;
-}
-
-table
-{
-   text-align: center;
-   position:relative;
-   border-collapse:collapse;
-   width: 80%;
-   margin-left: auto;
-   margin-right: auto;
-}
-
- table, td, th
-{
-   border:1px solid lightgray;
-}
-
-th
-{
-  text-align: center;
-  height: 20px;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-td
-{
-   text-align: left;
-   height: 50px;
-   padding-left: 5px;
-}
-
-table.no_results_found th
-{
-	background-color: #FAFAFA;
-    border: 2px solid lightgrey;
-    font-weight: lighter;
-}
-

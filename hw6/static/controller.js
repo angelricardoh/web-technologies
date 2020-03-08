@@ -206,6 +206,7 @@ function generateWordsCloudLayout(top_words){
     let svg = d3.select("#word_cloud").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
+        .style("background-color", "#f3f3f3")
       .append("g")
         .attr("transform",
               "translate(" + margin.left + "," + margin.top + ")");
@@ -232,6 +233,7 @@ function generateWordsCloudLayout(top_words){
         .enter().append("text")
         .style("font-size", function(d) { return d.size+ "px"; })
         .style("fill", "#000000")
+          .style("align", "center")
         .attr("text-anchor", "middle")
         .style("font-family", "Impact")
         .attr("transform", function(d) {
@@ -285,6 +287,9 @@ function createNewsContainer(title, articles) {
     news_container.appendChild(title_element);
     news_container.appendChild(hr);
 
+    let card_container = document.createElement("div");
+    card_container.classList.add("card-container");
+
     for (let article_index in articles) {
         let article = articles[article_index];
         let card = document.createElement("div");
@@ -295,7 +300,7 @@ function createNewsContainer(title, articles) {
         let image = document.createElement("img");
         image.src = article.urlToImage;
         image.classList.add("card-img");
-        let title_headline = document.createElement("p");
+        let title_headline = document.createElement("h4");
         let content_headline = document.createElement("p");
         title_headline.innerText = article.title;
         content_headline.innerText = article.description;
@@ -303,8 +308,9 @@ function createNewsContainer(title, articles) {
         card.appendChild(image);
         card.appendChild(title_headline);
         card.appendChild(content_headline);
-        news_container.appendChild(card);
+        card_container.appendChild(card);
     }
+    news_container.appendChild(card_container);
     return news_container
 }
 
@@ -408,10 +414,6 @@ function generateSearchResultsLayout(articles) {
         });
         description_headline.classList.add("card-result-description-style");
 
-        // let expandableElements = textContainer.getElementsByClassName("card-result-expandable-element");
-        // for (let index = 0; index<expandableElements.length; index++) {
-        //     expandableElements[index].style.display = 'none';
-        // }
         collapseResult(card)
 
 

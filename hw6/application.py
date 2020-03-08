@@ -74,7 +74,8 @@ def sources():
                                                    country='us')
             sources_list = sources_response["sources"]
         else:
-            sources_response = newsapi.get_sources()
+            sources_response = newsapi.get_sources(language='en',
+                                                   country='us')
             all_sources_list = sources_response["sources"]
             sources_list = all_sources_list[0:10]
     except NewsAPIException as e:

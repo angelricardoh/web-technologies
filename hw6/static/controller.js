@@ -7,7 +7,6 @@ const MORE_ARTICLES_THRESHOLD = 5
 window.onload = function() {
     cleanSlides();
     setFormDateDefaultValues();
-    document.getElementById("news_button").focus();
     let headlines_request_url = base_url + 'news';
     makeRequest(headlines_request_url, "GET", function (xmlhttpResponse) {
         let jsonObj = JSON.parse(xmlhttpResponse);
@@ -157,25 +156,7 @@ function validateDate() {
     }
 }
 
-function selectMenuOption(tab) {
-    tab.focus();
-    var menuOption = '';
-
-    let tabcontent = document.getElementsByClassName("tabcontent");
-    for (let i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].style.display = "none";
-    }
-    let tablinks = document.getElementsByClassName("tablinks");
-    for (let i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    if (tab.id == "news_button") {
-        menuOption = "News";
-    } else {
-        menuOption = 'Search';
-    }
-    document.getElementById(menuOption).style.display = "block";
-}
+// document.getElementById("news_button").click();
 
 // pragma mark - Carousel
 
@@ -225,8 +206,8 @@ function generateWordsCloudLayout(top_words){
 
     // set the dimensions and margins of the graph
     let margin = {top: 10, right: 10, bottom: 10, left: 10},
-        width = 450 - margin.left - margin.right,
-        height = 450 - margin.top - margin.bottom;
+        width = 300 - margin.left - margin.right,
+        height = 300 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
     let svg = d3.select("#word_cloud").append("svg")

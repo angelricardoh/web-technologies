@@ -1,12 +1,12 @@
 /*<!--{box-sizing: border-box}-->*/
 body {
-    font-family: "Petersburg";
+    font-family: "Georgia";
 }
 
 /* Style the tab */
 .tab {
     float: left;
-    width: 30%;
+    width: 25%;
     height: 100%;
     display: flex;
     justify-content: flex-end;
@@ -15,11 +15,12 @@ body {
 
 /* Style the buttons inside the tab */
 .tab button {
+    font-family: "Georgia";
     float: right;
-    border: none;
     padding: 15px 32px;
     width: 150px;
-    border: none;
+    border-width: 1px;
+    border-color: gray;
     outline: none;
     text-align: center;
     cursor: pointer;
@@ -35,28 +36,26 @@ body {
     color: white;
 }
 
-.tab button:focus {
+.tab button.active {
     background-color: #555555;
     color: white;
-}
-
-.tab button:focus::-moz-focus-inner {
-    border: 0;
 }
 
 #news_button {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+    border-bottom: none;
 }
 
 #search_button {
+    border-top: none;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
 
 .tabcontent {
     float: left;
-    width: 70%;
+    width: 65%;
     height: 100%;
 }
 
@@ -69,12 +68,20 @@ body {
 /* Slideshow container */
 
 .slideshow-container {
-    width: 50%;
-    height: 450px;
+    display: inline;
+    width: 60%;
+    height: 300px;
     float: left;
     position: relative;
     overflow: hidden;
     margin-right: 20px;
+}
+
+#word_cloud {
+    display: inline;
+    width: 40%;
+    position: relative;
+    /*float: left;*/
 }
 
 .imgSlide {
@@ -85,7 +92,7 @@ body {
 
 .mySlidesText {
     color: #f2f2f2;
-    font-size: 15px;
+    font-size: 12px;
     padding-right: 12px;
     position: absolute;
     bottom: 0px;

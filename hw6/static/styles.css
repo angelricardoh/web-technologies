@@ -181,7 +181,7 @@ form
     display: inline-block;
 }
 
-input[type=submit]:focus, input[type=button]:focus{
+input[type=submit]:hover, input[type=button]:hover{
     background-color: #4CAF50;
     border: none;
     color: white;

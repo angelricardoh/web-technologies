@@ -9,7 +9,7 @@ window.onload = function() {
     setFormDateDefaultValues();
     document.getElementById("news_button").focus();
     let headlines_request_url = base_url + 'news';
-    makeRequest(headlines_request_url, function (xmlhttpResponse) {
+    makeRequest(headlines_request_url, "GET", function (xmlhttpResponse) {
         let jsonObj = JSON.parse(xmlhttpResponse);
         let top_words = jsonObj.top_words;
         let top_words_array = [];
@@ -23,6 +23,7 @@ window.onload = function() {
     },function (error) {
         alert(error);
     });
+    retrieveSources();
 
     let form = document.getElementById( "form_search" );
     form.addEventListener( "submit", function ( event ) {
@@ -68,11 +69,11 @@ function formatDate(date) {
         day.toString();
 }
 
-function makeRequest(url, successBlock, errorBlock) {
+function makeRequest(url, method = "GET", successBlock, errorBlock) {
     try {
         let xmlHttpRequest = new XMLHttpRequest();
         let headlines_request_url = base_url + 'news';
-        xmlHttpRequest.open("GET", url, true);
+        xmlHttpRequest.open(method, url, true);
         xmlHttpRequest.onload = function (e) {
             if (xmlHttpRequest.readyState === 4) {
                 if (xmlHttpRequest.status === 200) {
@@ -107,14 +108,27 @@ function search(searchForm) {
     }
     let fromDateValue, toDateValue;
     for (let key in searchValuesDict) {
+        var value = searchValuesDict[key];
         if (key == "submit" || key == "clear") {
             continue;
         }
-        search_request_url += key + "=" + searchValuesDict[key] + "&"
+        if (key == "source" && value == "all") {
+            value = '';
+            let sourceElement = document.getElementById("source");
+            for (let j = 1; j < sourceElement.options.length; j++) {
+                if (j == sourceElement.options.length - 1) {
+                    value += source.options[j].value;
+                } else {
+                    value += source.options[j].value + ",";
+                }
+            }
+            value = value.slice(0, -1);
+        }
+        search_request_url += key + "=" + value + "&"
     }
     search_request_url = search_request_url.slice(0, -1);
 
-    makeRequest(search_request_url, function (xmlhttpResponse) {
+    makeRequest(search_request_url, "POST", function (xmlhttpResponse) {
         let jsonObj = JSON.parse(xmlhttpResponse);
         generateSearchResultsLayout(jsonObj);
     },function (error) {
@@ -146,11 +160,7 @@ function validateDate() {
 function selectMenuOption(tab) {
     tab.focus();
     var menuOption = '';
-    if (tab.id == "news_button") {
-        menuOption = "News";
-    } else {
-        menuOption = 'Search';
-    }
+
     let tabcontent = document.getElementsByClassName("tabcontent");
     for (let i = 0; i < tabcontent.length; i++) {
     tabcontent[i].style.display = "none";
@@ -158,6 +168,11 @@ function selectMenuOption(tab) {
     let tablinks = document.getElementsByClassName("tablinks");
     for (let i = 0; i < tablinks.length; i++) {
         tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    if (tab.id == "news_button") {
+        menuOption = "News";
+    } else {
+        menuOption = 'Search';
     }
     document.getElementById(menuOption).style.display = "block";
 }
@@ -330,7 +345,7 @@ function createNewsContainer(title, articles) {
 function retrieveSources(category='') {
     let sources_request_url = base_url + 'sources?category=' + category;
 
-    makeRequest(sources_request_url, function (xmlhttpResponse) {
+    makeRequest(sources_request_url, "GET", function (xmlhttpResponse) {
         let jsonObj = JSON.parse(xmlhttpResponse);
         fillSources(jsonObj);
     },function (error) {

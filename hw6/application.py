@@ -72,19 +72,19 @@ def sources():
             sources_response = newsapi.get_sources(category=category,
                                                    language='en',
                                                    country='us')
-            sources_list = sources_response["sources"]
         else:
             sources_response = newsapi.get_sources(language='en',
                                                    country='us')
-            all_sources_list = sources_response["sources"]
-            sources_list = all_sources_list[0:10]
+        all_sources_list = sources_response["sources"]
     except NewsAPIException as e:
         return e.get_message(), 500
     except:
         response = jsonify("Error server while retrieving sources")
         response.status_code = 500
         return response
-    return jsonify(sources_list)
+    if category is None or category == '' or category == 'all':
+        return jsonify(all_sources_list)
+    return jsonify(all_sources_list[0:10])
 
 
 def filter_valid_articles(articles):
@@ -115,13 +115,13 @@ def filter_valid_articles(articles):
     return valid_articles
 
 
-@application.route('/search', methods=['GET'])
+@application.route('/search', methods=['GET', 'POST'])
 def search():
     result = None
     keyword = ''
     from_date = ''
     to_date = ''
-    sources = ''
+    source = ''
 
     if request.args:
         args = request.args
@@ -135,10 +135,8 @@ def search():
         if "to" in args:
             to_date = args["to"]
 
-        if "sources" in args:
-            sources = args["sources"]
-            if sources == 'all':
-                sources = ''
+        if "source" in args:
+            sources = args["source"]
 
     try:
         result = newsapi.get_everything(q=keyword,

@@ -1,5 +1,5 @@
-const base_url = 'http://127.0.0.1:5000/';
-// const base_url = 'http://pythonapp-env.eba-spwwpq2j.us-east-1.elasticbeanstalk.com/';
+// const base_url = 'http://127.0.0.1:5000/';
+const base_url = 'http://pythonapp-env.eba-spwwpq2j.us-east-1.elasticbeanstalk.com/';
 const CARD_LAYOUT_SIZE = 4
 const SLIDE_LAYOUT_SIZE = 5
 const MORE_ARTICLES_THRESHOLD = 5

@@ -8,7 +8,9 @@ import re
 from newsapi.newsapi_exception import NewsAPIException
 
 application = Flask(__name__)
-newsapi = NewsApiClient(api_key='f020b671fc534b77b9cd0976b0fbdeb8')
+# newsapi = NewsApiClient(api_key='f020b671fc534b77b9cd0976b0fbdeb8')
+# Test key
+newsapi = NewsApiClient(api_key='1262ddcc23a545bfb423113072b8fc60')
 
 
 @application.route('/')

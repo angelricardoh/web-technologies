@@ -403,7 +403,7 @@ function generateSearchResultsLayout(articles) {
         card.appendChild(cardContainer);
 
         let collapsableButton = document.createElement("button");
-        collapsableButton.textContent = "X";
+        collapsableButton.textContent = "×";
         collapsableButton.classList.add("collapsable-button");
         collapsableButton.style.display = 'none';
         card.appendChild(collapsableButton);
@@ -433,10 +433,11 @@ function generateSearchResultsLayout(articles) {
         let showMoreLessButton = document.createElement("button");
         showMoreLessButton.textContent = "Show More";
         showMoreLessButton.value = "Show More";
+        showMoreLessButton.classList.add("showMoreLessButton");
         showMoreLessButton.onclick = function(){
             if (showMoreLessButton.value == "Show More") {
                 for (let i = MORE_ARTICLES_THRESHOLD; i<articles.length; i++){
-                    search_results_container.children[i].style.display = 'block';
+                    search_results_container.children[i].style.display = 'inline-block';
                 }
                 showMoreLessButton.textContent = "Show Less";
                 showMoreLessButton.value = "Show Less";
@@ -472,7 +473,8 @@ function collapseResult(card) {
     }
     let collapsableButton = card.getElementsByClassName("collapsable-button")[0];
     collapsableButton.style.display = 'none';
-    card.style.maxHeight = "100px";
+    card.style.maxHeight = "90px";
+    card.style.height = "90px";
 }
 
 function expandResult(card, scrollHeight) {
@@ -487,4 +489,5 @@ function expandResult(card, scrollHeight) {
     let collapsableButton = card.getElementsByClassName("collapsable-button")[0];
     collapsableButton.style.display = "block";
     card.style.maxHeight = scrollHeight + "px";
+    card.style.height = scrollHeight + "px";
 }

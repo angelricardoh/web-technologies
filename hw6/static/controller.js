@@ -111,17 +111,22 @@ function search(searchForm) {
         if (key == "submit" || key == "clear") {
             continue;
         }
-        if (key == "source" && value == "all") {
-            value = '';
-            let sourceElement = document.getElementById("source");
-            for (let j = 1; j < sourceElement.options.length; j++) {
-                if (j == sourceElement.options.length - 1) {
-                    value += source.options[j].value;
-                } else {
-                    value += source.options[j].value + ",";
+        if (key == "source") {
+            if (value == "all") {
+                value = '';
+                let sourceElement = document.getElementById("source");
+                for (let j = 1; j < sourceElement.options.length; j++) {
+                    if (j == sourceElement.options.length - 1) {
+                        value += source.options[j].id;
+                    } else {
+                        value += source.options[j].id + ",";
+                    }
                 }
+                value = value.slice(0, -1);
+            } else {
+                let selectedIndex = searchForm.elements["source"].options.selectedIndex;
+                value = searchForm.elements["source"].options[selectedIndex].id;
             }
-            value = value.slice(0, -1);
         }
         search_request_url += key + "=" + value + "&"
     }
@@ -343,6 +348,7 @@ function fillSources(sources){
         let currentSource = sources[sourceIndex];
         let option = document.createElement("option");
         option.text = currentSource.name;
+        option.id = currentSource.id;
         sourceElement.add(option);
     }
 }

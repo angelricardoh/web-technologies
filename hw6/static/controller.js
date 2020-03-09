@@ -194,7 +194,7 @@ function generateCarouselLayout(carousel_headlines) {
         headlineTitle.innerText = headlines[slideIndex].title;
         headlineDescription.innerText = headlines[slideIndex].description;
         headlineImage.src = headlines[slideIndex].urlToImage;
-        currentSlide.style.display = "block";
+        currentSlide.style.display = "flex";
         currentSlide.onclick = function() {
             window.open(headlines[slideIndex].url);
         }

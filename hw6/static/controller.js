@@ -54,13 +54,13 @@ function setFormDateDefaultValues() {
     let weekInMilliseconds = 7 * 24 * 60 * 60 * 1000;
     let pastDateTime = currentDate.getTime() - weekInMilliseconds;
     pastDate.setTime(pastDateTime);
-    let pastString = formatDate(pastDate);
+    let pastString = formatShortDate(pastDate);
 
-    fromDateElement.value = formatDate(pastDate);
-    toDateElement.value = formatDate(currentDate);
+    fromDateElement.value = formatShortDate(pastDate);
+    toDateElement.value = formatShortDate(currentDate);
 }
 
-function formatDate(date) {
+function formatShortDate(date) {
     let month = ("0" + (date.getMonth() + 1)).slice(-2);
     let day = ("0" + date.getDate()).slice(-2);
     return date.getFullYear().toString() + "-" +
@@ -390,7 +390,9 @@ function generateSearchResultsLayout(articles) {
 
         let date_headline = document.createElement("p");
         date_headline.classList.add("card-result-expandable-element");
-        date_headline.innerHTML = "<span>Date:</span>" + " " + article.publishedAt.substring(0, 10);;
+        let dateString = article.publishedAt.substring(0, 10);
+        let date = new Date(dateString);
+        date_headline.innerHTML = "<span>Date:</span>" + " " + formatLocaleDate(date);
         textContainer.appendChild(date_headline);
 
         let description_headline = document.createElement("p");
@@ -457,6 +459,14 @@ function generateSearchResultsLayout(articles) {
         }
         search_results_container.appendChild(showMoreLessButton);
     }
+}
+
+function formatLocaleDate(date) {
+    let month = ("0" + (date.getMonth() + 1)).slice(-2);
+    let day = ("0" + date.getDate()).slice(-2);
+    return month.toString() + "/" +
+        day.toString() + "/" +
+        date.getFullYear().toString();
 }
 
 function clearSearchResults() {

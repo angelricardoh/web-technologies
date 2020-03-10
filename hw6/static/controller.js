@@ -3,6 +3,7 @@ const base_url = 'http://127.0.0.1:5000/';
 const CARD_LAYOUT_SIZE = 4
 const SLIDE_LAYOUT_SIZE = 5
 const MORE_ARTICLES_THRESHOLD = 5
+const CUT_SHORT_DESCRIPTION_SIZE = 75
 
 window.onload = function() {
     cleanSlides();
@@ -205,10 +206,11 @@ function generateCarouselLayout(carousel_headlines) {
 // pragma mark - Words Cloud
 
 function generateWordsCloudLayout(top_words){
-    let biggestFactor =  30 - top_words[0][1];
+
+    let biggestFactor =  40 / top_words[0][1];
 
     let myWords = top_words.map(function(d) {
-          return {word: d[0], size: d[1] + biggestFactor};
+          return {word: d[0], size: (d[1]  * biggestFactor)};
         })
 
     // set the dimensions and margins of the graph
@@ -399,7 +401,16 @@ function generateSearchResultsLayout(articles) {
 
         let description_headline = document.createElement("p");
         description_headline.classList.add("card-result-description");
-        description_headline.innerText = article.description;
+        let fullDescription = article.description;
+        let cutStringDescription = fullDescription.substring(0, CUT_SHORT_DESCRIPTION_SIZE);
+        let lastIndex = cutStringDescription.lastIndexOf(" ");
+        let shortStringDescription = cutStringDescription.substring(0, lastIndex);
+        let lastCharacterShortStringDescription = shortStringDescription.charAt(shortStringDescription.length - 1);
+        if (lastCharacterShortStringDescription == '.' || lastCharacterShortStringDescription == ',') {
+            shortStringDescription = shortStringDescription.slice(0, -1);
+        }
+        shortStringDescription += "...";
+        description_headline.innerText = fullDescription;
         textContainer.appendChild(description_headline);
 
         let url_headline = document.createElement("a");
@@ -418,7 +429,7 @@ function generateSearchResultsLayout(articles) {
         collapsableButton.style.display = 'none';
         card.appendChild(collapsableButton);
         collapsableButton.addEventListener("click", function() {
-            collapseResult(card);
+            collapseResult(card, shortStringDescription);
         });
 
         search_results_container.appendChild(card);
@@ -427,11 +438,11 @@ function generateSearchResultsLayout(articles) {
         let scrollHeight = card.scrollHeight;
 
         cardContainer.addEventListener("click", function() {
-            expandResult(card, scrollHeight);
+            expandResult(card, scrollHeight, fullDescription);
         });
         description_headline.classList.add("card-result-description-style");
 
-        collapseResult(card)
+        collapseResult(card, shortStringDescription)
 
 
         if (article_index >= MORE_ARTICLES_THRESHOLD) {
@@ -480,11 +491,12 @@ function clearSearchResults() {
     }
 }
 
-function collapseResult(card) {
+function collapseResult(card, shortDescription) {
     let cardContainer = card.getElementsByClassName("card-result-container")[0];
     let textContainer = cardContainer.getElementsByClassName("card-result-text-container")[0];
     let cardDescription = textContainer.getElementsByClassName("card-result-description")[0];
     cardDescription.classList.add("card-result-description-style");
+    cardDescription.innerText = shortDescription;
     let expandableElements = textContainer.getElementsByClassName("card-result-expandable-element");
     for (let index = 0; index<expandableElements.length; index++) {
         expandableElements[index].style.display = 'none';
@@ -495,11 +507,12 @@ function collapseResult(card) {
     card.style.height = "90px";
 }
 
-function expandResult(card, scrollHeight) {
+function expandResult(card, scrollHeight, fullDescription) {
     let cardContainer = card.getElementsByClassName("card-result-container")[0];
     let textContainer = cardContainer.getElementsByClassName("card-result-text-container")[0];
     let cardDescription = textContainer.getElementsByClassName("card-result-description")[0];
     cardDescription.classList.remove("card-result-description-style");
+    cardDescription.innerText = fullDescription;
     let expandableElements = textContainer.getElementsByClassName("card-result-expandable-element");
     for (let index = 0; index<expandableElements.length; index++) {
         expandableElements[index].style.display = 'block';

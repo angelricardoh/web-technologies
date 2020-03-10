@@ -47,11 +47,8 @@ def news():
                     titles_words_dict[title_word] += 1
                 else:
                     titles_words_dict[title_word] = 1
-        # TODO: Merge duplicated words with different case. Right now only first word is store no matter which case is using.
 
         top_words_list = sorted(titles_words_dict.items(), key=lambda x: x[1], reverse=True)
-        # # top_words_dict =
-        # top_words = [a_tuple[0] for a_tuple in top_words_list]
 
         top_headlines["top_words"] = top_words_list[0:30]
         top_headlines["articles"] = filter_valid_articles(top_headlines["articles"])

@@ -38,7 +38,7 @@ def news():
             title_words = title.split()
             for title_word in title_words:
                 title_word = re.sub('[^0-9a-zA-Z]+', '', title_word)
-                if title_word.lower() in stop_words: continue
+                if title_word.lower() in stop_words or len(title_word) == 0: continue
                 if titles_words_dict.get(title_word.capitalize()):
                     title_word = title_word.capitalize()
                 elif titles_words_dict.get(title_word.lower()):
@@ -50,9 +50,10 @@ def news():
         # TODO: Merge duplicated words with different case. Right now only first word is store no matter which case is using.
 
         top_words_list = sorted(titles_words_dict.items(), key=lambda x: x[1], reverse=True)
-        top_words = [a_tuple[0] for a_tuple in top_words_list]
+        # # top_words_dict =
+        # top_words = [a_tuple[0] for a_tuple in top_words_list]
 
-        top_headlines["top_words"] = top_words[0:30]
+        top_headlines["top_words"] = top_words_list[0:30]
         top_headlines["articles"] = filter_valid_articles(top_headlines["articles"])
         top_headlines["carousel_articles"] = filter_valid_articles(carousel_headlines["articles"])
     except NewsAPIException as e:

@@ -1,6 +1,7 @@
 /*<!--{box-sizing: border-box}-->*/
 body {
     font-family: "Georgia";
+    margin-top: 20px;
 }
 
 /* Style the tab */
@@ -64,6 +65,15 @@ body {
     height: 100%;
 }
 
+#News {
+    margin-top: 5px;
+}
+
+#Search {
+    margin-top: 10px;
+    margin-left: 25px;
+}
+
 /* Word cloud */
 
 #word_cloud {
@@ -83,6 +93,7 @@ body {
     position: relative;
     margin-right: 20px;
     white-space: normal;
+    margin-left: 20px
 }
 
 .mySlides {
@@ -121,16 +132,18 @@ body {
 /* CNN - Fox News headlines */
 
 .news_container {
-    padding: 2px 16px;
+    padding: 2px 0px;
     float: left;
     text-align: center;
     display: block;
+    width: 100%;
 }
 
 .card-container {
     display: table;
     border-collapse: separate;
     border-spacing: 10px;
+    width: 100%;
 }
 
 .card {
@@ -159,6 +172,11 @@ body {
     border-radius: 5px;
 }
 
+.card p {
+    font-size: 12px;
+    line-height: 1.3;
+}
+
 /* Search Form */
 
 form
@@ -174,6 +192,7 @@ form
     border-spacing: 10px;
     border-collapse: separate;
     background-color: #F3F3F3;
+    border-radius: 5px;
 }
 
 .div-table-row {
@@ -361,4 +380,8 @@ select {
 
 span {
     font-weight: bold;
+}
+
+hr {
+    border-top: 1px dotted black;
 }

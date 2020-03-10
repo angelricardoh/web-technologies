@@ -12,9 +12,13 @@
     <script src="https://d3js.org/d3.v4.js"></script>
     <!-- Load d3-cloud -->
     <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
-    <div class="tab">
-        <button id="news_button" class="tablinks" onclick="selectMenuOption(event, 'News')">Google News</button>
-        <button id="search_button" class="tablinks" onclick="selectMenuOption(event, 'Search')">Search</button>
+    <div class="tab" id="tab">
+        <div class="tab-button-container">
+            <div class="tab-button-inner-container">
+                <button id="news_button" class="tablinks" onclick="selectMenuOption(event, 'News')">Google News</button>
+                <button id="search_button" class="tablinks" onclick="selectMenuOption(event, 'Search')">Search</button>
+            </div>
+        </div>
     </div>
 
     <div id="News" class="tabcontent">

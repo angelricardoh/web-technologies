@@ -207,7 +207,7 @@ function generateCarouselLayout(carousel_headlines) {
 
 function generateWordsCloudLayout(top_words){
 
-    let biggestFactor =  45 / top_words[0][1];
+    let biggestFactor =  40 / top_words[0][1];
 
     let myWords = top_words.map(function(d) {
           return {word: d[0], size: (d[1]  * biggestFactor)};

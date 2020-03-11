@@ -349,6 +349,10 @@ select {
     padding-right: 15px;
 }
 
+.card-result-text-container a:visited {
+    color: #502267;
+}
+
 .card-result-text-container h4 {
     float: top;
     font-size: 14px;
@@ -394,6 +398,11 @@ select {
     font-size: 13px;
     padding: 4px 16px 4px 16px;
     display: inline-block;
+}
+
+.showMoreLessButton:hover {
+    background-color: #4CAF50;
+    color: white;
 }
 
 span {

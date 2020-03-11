@@ -162,10 +162,6 @@ function validateDate() {
         alert("Incorrect time");
         return
     }
-    if (fromDate > new Date() || toDate > new Date()) {
-        alert("Incorrect time. Not possible to set a time in the future");
-        return
-    }
 }
 
 // pragma mark - Carousel

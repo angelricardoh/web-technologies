@@ -286,6 +286,12 @@ select {
     position: relative;
 }
 
+#no_results {
+    width: 607px;
+    text-align: center;
+    font-size: 14px;
+}
+
 .card-result {
     width: 90%;
     max-height: 90px;

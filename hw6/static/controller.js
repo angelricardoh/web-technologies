@@ -1,5 +1,5 @@
-// const base_url = 'http://127.0.0.1:5000/';
-const base_url = 'http://pythonapp-env.eba-spwwpq2j.us-east-1.elasticbeanstalk.com/';
+const base_url = 'http://127.0.0.1:5000/';
+// const base_url = 'http://pythonapp-env.eba-spwwpq2j.us-east-1.elasticbeanstalk.com/';
 const CARD_LAYOUT_SIZE = 4
 const SLIDE_LAYOUT_SIZE = 5
 const MORE_ARTICLES_THRESHOLD = 5
@@ -97,6 +97,7 @@ function makeRequest(url, method = "GET", successBlock, errorBlock) {
 }
 
 function search(searchForm) {
+    clearSearchResults();
     let search_request_url = base_url + 'search?';
     let searchValuesDict = {};
 
@@ -135,6 +136,11 @@ function search(searchForm) {
 
     makeRequest(search_request_url, "POST", function (xmlhttpResponse) {
         let jsonObj = JSON.parse(xmlhttpResponse);
+        if (jsonObj.length == 0) {
+            let noResultElement = document.getElementById("no_results");
+            noResultElement.style.display = 'block';
+            return;
+        }
         generateSearchResultsLayout(jsonObj);
     },function (error) {
         alert(error);
@@ -161,8 +167,6 @@ function validateDate() {
         return
     }
 }
-
-// document.getElementById("news_button").click();
 
 // pragma mark - Carousel
 
@@ -363,6 +367,12 @@ function generateSearchResultsLayout(articles) {
     let search_results_container = document.getElementById("search_results");
     clearSearchResults();
 
+    if (articles.length == 0) {
+        let noResultElement = document.getElementById("no_results");
+        noResultElement.style.display = 'block';
+        return;
+    }
+
     for (let article_index in articles) {
         let article = articles[article_index];
         let card = document.createElement("div");
@@ -489,6 +499,8 @@ function clearSearchResults() {
         search_results_container.removeChild(child);
         child = search_results_container.lastElementChild;
     }
+    let noResultsElement = document.getElementById("no_results");
+    noResultsElement.style.display = 'none';
 }
 
 function collapseResult(card, shortDescription) {

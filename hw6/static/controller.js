@@ -1,5 +1,5 @@
-const base_url = 'http://127.0.0.1:5000/';
-// const base_url = 'http://pythonapp-env.eba-spwwpq2j.us-east-1.elasticbeanstalk.com/';
+// const base_url = 'http://127.0.0.1:5000/';
+const base_url = 'http://pythonapp-env.eba-spwwpq2j.us-east-1.elasticbeanstalk.com/';
 const CARD_LAYOUT_SIZE = 4
 const SLIDE_LAYOUT_SIZE = 5
 const MORE_ARTICLES_THRESHOLD = 5
@@ -211,7 +211,7 @@ function generateCarouselLayout(carousel_headlines) {
 
 function generateWordsCloudLayout(top_words){
 
-    let biggestFactor =  50 / top_words[0][1];
+    let biggestFactor =  45 / top_words[0][1];
 
     let myWords = top_words.map(function(d) {
           return {word: d[0], size: (d[1]  * biggestFactor)};

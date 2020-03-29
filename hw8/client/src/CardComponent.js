@@ -1,17 +1,18 @@
-import React from 'react'
+import React from "react";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
+import { css } from "./CardComponent";
 
-function CardComponent(props){
-
-    return (
-        <div className='cardComponent'>
-            <h2>Card Component</h2>
-            <h2>{props.source}</h2>
-            <h2>{props.articles}</h2>
-            {/*<img src={props.data.randomImage} alt='' />*/}
-            {/*<h2 className='top'>{props.data.topText}</h2>*/}
-            {/*<h2 className='bottom'>{props.data.bottomText}</h2>*/}
-        </div>
-    )
+function CardComponent(props) {
+  return (
+    <Card style={{ display: "inline-block" }}>
+      <Card.Img variant="primary" src={props.image} />
+      <Card.Body variant="primary">
+        <Card.Title>{props.title}</Card.Title>
+        <Card.Text>{props.description}</Card.Text>
+      </Card.Body>
+    </Card>
+  );
 }
 
-export default CardComponent
+export default CardComponent;

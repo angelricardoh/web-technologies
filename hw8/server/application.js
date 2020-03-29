@@ -4,12 +4,14 @@ const fetch = require("node-fetch")
 const path = require('path')
 const port = process.env.PORT || 8080
 const app = express()
+var cors = require('cors')
 
 const GUARDIAN_API_KEY = '4e22f01e-35ce-4b12-ad57-1a7f8116ee21'
 const NY_TIMES_API_KEY = 'nCfLNNY4zJ67wfSTpiLm8RxxdpLmJ5mL'
 
 // app.use(favicon(__dirname + '/build/favicon.ico'));
-// the __dirname is the current directory from where the script is running
+// the __dirname is the current directory from where the script is
+app.use(cors())
 app.use(express.static(__dirname))
 app.use(express.static(path.join(__dirname, 'public')))
 
@@ -73,18 +75,22 @@ app.get("/guardian_news", async function (req, res) {
             let body = blocks.body[0]
             let description = body.bodyTextSummary
             let article = {
-                article: {
-                    title: title,
-                    image: image,
-                    section: section,
-                    date: date,
-                    description: description
-                }
+                title: title,
+                image: image,
+                section: section,
+                date: date,
+                description: description
             }
             articles.push(article)
         }
+        let articles_json = {
+            "success":true,
+            "data":{
+                articles: articles
+            }
+        }
 
-        res.status(200).json(articles)
+        res.status(200).json(articles_json)
     } catch (error) {
         console.log("Error while retrieving news from homepage API: " + error)
         res.status(500).send("Error while retrieving news from homepage API: " + error)
@@ -120,18 +126,22 @@ app.get("/nytimes_news", async function (req, res) {
             let description = currentResult.abstract
 
             let article = {
-                article: {
-                    title: title,
-                    image: image,
-                    section: section,
-                    date: date,
-                    description: description
-                }
+                title: title,
+                image: image,
+                section: section,
+                date: date,
+                description: description
             }
             articles.push(article)
         }
+        let articles_json = {
+            "success":true,
+            "data":{
+                    articles: articles
+                }
+        }
 
-        res.status(200).json(articles);
+        res.status(200).json(articles_json)
     } catch (error) {
         console.log("Error while retrieving news from homepage API: " + error)
         res.status(500).send("Error while retrieving news from homepage API: " + error)

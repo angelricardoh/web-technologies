@@ -6,29 +6,38 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import Header from './Header'
+import CardContainer from './CardContainer'
 
 const IndexPage = () => {
-  return <h3>Home container</h3>;
+    // fetch( serverHost + '/guardian_news')
+    //     .then(response => response.json())
+    //     .then(response => {
+    //         console.log(response)
+    //         const articles = response.data
+    //         console.log(response.data)
+    //         return <CardContainer articles={articles}/>
+    //     })
+    return <CardContainer source='guardian'/>
 };
 
 const WorldPage = () => {
-  return <h3>World Page</h3>;
+  return <CardContainer />
 };
 
 const PoliticsPage = () => {
-  return <h3>Politics Page</h3>;
+  return <CardContainer />
 };
 
 const BusinessPage = () => {
-  return <h3>Business container</h3>;
+  return <CardContainer />
 };
 
 const TechnologyPage = () => {
-  return <h3>Technology container</h3>;
+  return <CardContainer />
 };
 
 const SportsPage = () => {
-  return <h3>Sports container</h3>;
+  return <CardContainer />
 };
 
 const App = () => {

@@ -12,7 +12,12 @@ function Header() {
     return (
         <header>
             <Navbar bg="primary" variant="dark">
-                <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+                {/*<Navbar.Brand href="#home">Navbar</Navbar.Brand>*/}
+                <Form inline>
+                    <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+                    <Button variant="outline-success">Search</Button>
+                </Form>
+
                 <Nav className="mr-auto">
                     <Nav.Link href="/">Home</Nav.Link>
                     <Nav.Link href="/world">World</Nav.Link>
@@ -21,11 +26,6 @@ function Header() {
                     <Nav.Link href="/technology">Technology</Nav.Link>
                     <Nav.Link href="/sports">Sports</Nav.Link>
                 </Nav>
-
-                <Form inline>
-                    <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                    <Button variant="outline-success">Search</Button>
-                </Form>
             </Navbar>
             <br />
         </header>

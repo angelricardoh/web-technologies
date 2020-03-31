@@ -1,7 +1,8 @@
 .card {
   display: inline-block;
   height: 18rem;
-  overflow: hidden;
+  /*overflow: hidden;*/
+  text-overflow: ellipsis;
 }
 
 .card > img {
@@ -14,13 +15,21 @@
 .card > body {
   float: right;
   width: 80%;
-  height: 100%;
   font-family: Georgia;
-  overflow: hidden;
+  /*overflow: hidden;*/
+  max-lines: 3;
 }
 
 .card > text {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
+  /*white-space: nowrap;*/
+  /*overflow: hidden;*/
+  max-lines: 3;
+}
+
+.card > p {
+  max-lines: 3;
+}
+
+.card-description {
+  max-lines: 3;
 }

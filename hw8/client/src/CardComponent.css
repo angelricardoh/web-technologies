@@ -1,8 +1,10 @@
 .card {
   display: inline-block;
-  height: 18rem;
-  /*overflow: hidden;*/
+  height: 14rem;
   text-overflow: ellipsis;
+  padding: 20px;
+  margin-top: 5px;
+  margin-bottom: 15px;
 }
 
 .card > img {
@@ -16,20 +18,5 @@
   float: right;
   width: 80%;
   font-family: Georgia;
-  /*overflow: hidden;*/
-  max-lines: 3;
-}
-
-.card > text {
-  /*white-space: nowrap;*/
-  /*overflow: hidden;*/
-  max-lines: 3;
-}
-
-.card > p {
-  max-lines: 3;
-}
-
-.card-description {
   max-lines: 3;
 }

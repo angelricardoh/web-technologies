@@ -15,23 +15,38 @@ app.use(cors())
 app.use(express.static(__dirname))
 app.use(express.static(path.join(__dirname, 'public')))
 
-function getGuardianArticles() {
+function getGuardianArticles(req) {
     return new Promise((resolve) => {
-        fetch('https://content.guardianapis.com/search?api-key=' + GUARDIAN_API_KEY +
-            '&section=(sport|business|technology|politics)&show-blocks=all')
-            .then(response => response.json())
-            .then(
-                data => {
-                    resolve(data)
-                },
-                error => {
-                    throw(error)
-                }
-            )
+        let sectionName = req.query.sectionName
+        if (sectionName) {
+            fetch('https://content.guardianapis.com/' + sectionName + '?api-key=' + GUARDIAN_API_KEY +
+                '&show-blocks=all')
+                .then(response => response.json())
+                .then(
+                    data => {
+                        resolve(data)
+                    },
+                    error => {
+                        throw(error)
+                    }
+                )
+        } else {
+            fetch('https://content.guardianapis.com/search?api-key=' + GUARDIAN_API_KEY +
+                '&section=(sport|business|technology|politics)&show-blocks=all')
+                .then(response => response.json())
+                .then(
+                    data => {
+                        resolve(data)
+                    },
+                    error => {
+                        throw(error)
+                    }
+                )
+        }
     });
 }
 
-function getNYTimesArticles() {
+function getNYTimesArticles(req) {
     return new Promise((resolve) => {
         fetch('https://api.nytimes.com/svc/topstories/v2/home.json?api-key=' + NY_TIMES_API_KEY)
             .then(response => response.json())
@@ -49,7 +64,7 @@ function getNYTimesArticles() {
 // GET response for The Guardian news
 app.get("/guardian_news", async function (req, res) {
     try {
-        let wrappedResponse = await getGuardianArticles()
+        let wrappedResponse = await getGuardianArticles(req)
         let response = wrappedResponse.response;
         let articles = []
 
@@ -60,7 +75,7 @@ app.get("/guardian_news", async function (req, res) {
             let blocks = currentResult.blocks
             let main = blocks.main
             let elements = main.elements
-            if (elements[0].type !== 'image') {
+            if (typeof elements === 'undefined' || elements[0].type !== 'image') {
                 continue
             }
             let assets = elements[0].assets

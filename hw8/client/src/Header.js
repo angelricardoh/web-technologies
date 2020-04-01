@@ -27,7 +27,6 @@ function Header() {
                     <Nav.Link href="/sports">Sports</Nav.Link>
                 </Nav>
             </Navbar>
-            <br />
         </header>
     )
 }

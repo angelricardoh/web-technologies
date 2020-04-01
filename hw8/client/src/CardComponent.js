@@ -12,7 +12,9 @@ function CardComponent(props) {
       <Card.Body variant="primary">
         <Card.Title>{props.title}</Card.Title>
         <Text numberOfLines={3}>{props.description}</Text>
-        <Badge variant="light">Light</Badge>
+          <br></br>
+        <Card.Text style={{float: "left"}}>{props.date}</Card.Text>
+        <Badge variant="light" style={{float: "right"}}>Light</Badge>
       </Card.Body>
     </Card>
   );

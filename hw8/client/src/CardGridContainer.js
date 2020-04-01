@@ -11,7 +11,23 @@ class CardGridContainer extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:8080/guardian_news")
+      let sectionName = this.props.sectionName
+      let url = ''
+      if (sectionName) {
+          url = 'http://localhost:8080/guardian_news?sectionName=' + sectionName
+      } else {
+          url = 'http://localhost:8080/guardian_news'
+      }
+      // let url = ''
+      // if (sectionName) {
+      //     url = new URL("http://localhost:8080/guardian_news"),
+      //         params = {sectionName: sectionName}
+      //     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+      // } else {
+      //     url = new URL("http://localhost:8080/guardian_news")
+      // }
+
+      fetch(url)
       .then(response => response.json())
       .then(response => {
         console.log(response.data);

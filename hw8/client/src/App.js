@@ -13,27 +13,27 @@ const IndexPage = () => {
   //         console.log(response.data)
   //         return <CardGridContainer articles={articles}/>
   //     })
-  return <CardGridContainer source="guardian" />;
+  return <CardGridContainer source='guardian'/>;
 };
 
 const WorldPage = () => {
-  return <CardGridContainer />;
+  return <CardGridContainer sectionName='world'/>;
 };
 
 const PoliticsPage = () => {
-  return <CardGridContainer />;
+  return <CardGridContainer sectionName='politics'/>;
 };
 
 const BusinessPage = () => {
-  return <CardGridContainer />;
+  return <CardGridContainer sectionName='business'/>;
 };
 
 const TechnologyPage = () => {
-  return <CardGridContainer />;
+  return <CardGridContainer sectionName='technology'/>;
 };
 
 const SportsPage = () => {
-  return <CardGridContainer />;
+  return <CardGridContainer sectionName='sports'/>;
 };
 
 const App = () => {

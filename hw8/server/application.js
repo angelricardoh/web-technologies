@@ -74,12 +74,17 @@ app.get("/guardian_news", async function (req, res) {
             let blocks = currentResult.blocks
             let main = blocks.main
             let elements = main.elements
+            let image = ""
             if (typeof elements === 'undefined' || elements[0].type !== 'image') {
-                continue
+                image = 'https://assets.guim.co.uk/images/eada8aa27c12fe2d5afa3a89d3fbae0d/fallback-logo.png'
+            } else {
+                let assets = elements[0].assets
+                let lastIndexedAsset = assets.length - 1
+                image = assets[lastIndexedAsset].file
+                if (typeof image === 'undefined' || image == null || image == '') {
+                    image = 'https://assets.guim.co.uk/images/eada8aa27c12fe2d5afa3a89d3fbae0d/fallback-logo.png'
+                }
             }
-            let assets = elements[0].assets
-            let lastIndexedAsset = assets.length - 1
-            let image = assets[lastIndexedAsset].file
 
             let section = currentResult.sectionId
 
@@ -127,6 +132,9 @@ app.get("/nytimes_news", async function (req, res) {
                     image = currentMultimediaItem.url
                     break
                 }
+            }
+            if (typeof image === 'undefined' || image == null || image == '') {
+                image = 'https://upload.wikimedia.org/wikipedia/commons/0/0e/Nytimes_hq.jpg'
             }
 
             let section = currentResult.section

@@ -1,6 +1,7 @@
-import React, { Component } from "react";
-import CardGridComponent from "./CardGridComponent";
-import { sections } from "./Constants";
+import React, { Component } from "react"
+import CardGridComponent from "./CardGridComponent"
+import axios from 'axios'
+import {host} from './Constants'
 // TODO: Remove in production
 import guardian_news from './guardian_news.json'
 import nytimes_news from './nytimes_news.json'
@@ -13,7 +14,7 @@ export default class CardGridContainer extends Component {
       articles: [],
       source: null,
       page: props.page
-    };
+    }
   }
 
   // Mock data
@@ -22,9 +23,9 @@ export default class CardGridContainer extends Component {
     let page = this.props.page;
     let response = null
     if (source === "nytimes") {
-      response = guardian_news
-    } else {
       response = nytimes_news
+    } else {
+      response = guardian_news
     }
 
     const { articles } = response.data
@@ -32,25 +33,22 @@ export default class CardGridContainer extends Component {
   }
 
   // componentDidMount() {
-  //   let source = this.props.source;
-  //   let page = this.props.page;
-  //   let url = "";
-  //   if (source === "nytimes") {
-  //     url = "http://localhost:8080/nytimes_news"
+  //   let source = this.props.source
+  //   let page = this.props.page
+  //   let url = ''
+  //   if (source === 'nytimes') {
+  //     url = host + 'nytimes_news?section=' + page
   //   } else {
-  //     url = "http://localhost:8080/guardian_news"
+  //     url = host + 'guardian_news?section=' + page
   //   }
   //
-  //   if (page in sections) {
-  //     url += "?sectionName=" + page
-  //   }
+  //   console.log('fetch url ' + url)
   //
-  //   fetch(url)
-  //     .then(response => response.json())
-  //     .then(response => {
-  //       const { articles } = response.data
-  //       this.setState({ articles: articles })
-  //     });
+  //   axios.get(url)
+  //       .then(response => {
+  //         const {articles} = response.data
+  //         this.setState({articles: articles})
+  //       })
   // }
 
   render() {
@@ -62,6 +60,6 @@ export default class CardGridContainer extends Component {
           <h2>Loading...</h2>
         )}
       </div>
-    );
+    )
   }
 }

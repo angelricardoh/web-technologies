@@ -30,12 +30,13 @@ export default class App extends Component {
   }
 
   handleChange(checked) {
+    console.log(checked)
     if (checked) {
       localStorage.setItem('source', 'guardian')
-      this.setState({source: 'nytimes', isGuardianChecked: true})
+      this.setState({source: 'guardian', isGuardianChecked: true})
     } else {
       localStorage.setItem('source', 'nytimes')
-      this.setState({source: 'guardian', isGuardianChecked: false})
+      this.setState({source: 'nytimes', isGuardianChecked: false})
     }
   }
 

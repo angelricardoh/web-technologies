@@ -1,6 +1,5 @@
 const express = require('express')
 const fetch = require("node-fetch")
-// const favicon = require('express-favicon');
 const path = require('path')
 const port = process.env.PORT || 8080
 const app = express()
@@ -9,17 +8,16 @@ var cors = require('cors')
 const GUARDIAN_API_KEY = '4e22f01e-35ce-4b12-ad57-1a7f8116ee21'
 const NY_TIMES_API_KEY = 'nCfLNNY4zJ67wfSTpiLm8RxxdpLmJ5mL'
 
-// app.use(favicon(__dirname + '/build/favicon.ico'));
-// the __dirname is the current directory from where the script is
+
 app.use(cors())
 app.use(express.static(__dirname))
 app.use(express.static(path.join(__dirname, 'public')))
 
 function getGuardianArticles(req) {
     return new Promise((resolve) => {
-        let sectionName = req.query.sectionName
-        if (sectionName) {
-            fetch('https://content.guardianapis.com/' + sectionName + '?api-key=' + GUARDIAN_API_KEY +
+        let section = req.query.section
+        if (section !== 'home') {
+            fetch('https://content.guardianapis.com/' + section + '?api-key=' + GUARDIAN_API_KEY +
                 '&show-blocks=all')
                 .then(response => response.json())
                 .then(
@@ -48,7 +46,8 @@ function getGuardianArticles(req) {
 
 function getNYTimesArticles(req) {
     return new Promise((resolve) => {
-        fetch('https://api.nytimes.com/svc/topstories/v2/home.json?api-key=' + NY_TIMES_API_KEY)
+        let section = req.query.section
+        fetch('https://api.nytimes.com/svc/topstories/v2/' + section + '.json?api-key=' + NY_TIMES_API_KEY)
             .then(response => response.json())
             .then(
                 data => {
@@ -99,13 +98,10 @@ app.get("/guardian_news", async function (req, res) {
             articles.push(article)
         }
         let articles_json = {
-            "success":true,
-            "data":{
-                articles: articles
-            }
+            articles
         }
 
-        res.status(200).json(articles_json)
+        res.status(200).send(articles_json)
     } catch (error) {
         console.log("Error while retrieving news from homepage API: " + error)
         res.status(500).send("Error while retrieving news from homepage API: " + error)
@@ -115,7 +111,7 @@ app.get("/guardian_news", async function (req, res) {
 // GET response for NY Times news
 app.get("/nytimes_news", async function (req, res) {
     try {
-        let response = await getNYTimesArticles()
+        let response = await getNYTimesArticles(req)
         let articles = []
 
         for (let index in response.results) {
@@ -150,10 +146,7 @@ app.get("/nytimes_news", async function (req, res) {
             articles.push(article)
         }
         let articles_json = {
-            "success":true,
-            "data":{
-                    articles: articles
-                }
+            articles
         }
 
         res.status(200).json(articles_json)

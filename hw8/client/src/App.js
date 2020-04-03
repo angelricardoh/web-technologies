@@ -30,7 +30,6 @@ export default class App extends Component {
   }
 
   handleChange(checked) {
-    console.log(checked)
     if (checked) {
       localStorage.setItem('source', 'guardian')
       this.setState({source: 'guardian', isGuardianChecked: true})

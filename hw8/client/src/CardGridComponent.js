@@ -13,6 +13,7 @@ function CardGridComponent(props) {
                     description={article.description}
                     page={props.data.page}
                     source={props.data.source}
+                    handleClickShare={props.handleClickShare}
                 />
             )
         }

@@ -34,6 +34,10 @@ function CardComponent(props) {
       <Card.Img variant="primary" src={props.image} />
       <Card.Body variant="primary">
         <Card.Title>{props.title}</Card.Title>
+        <span className="material-icons"
+              onClick={props.handleClickShare}>
+          share
+        </span>
         <Text numberOfLines={3}>{props.description}</Text>
         <br></br>
         <Card.Text style={{ float: "left" }}>{props.date}</Card.Text>

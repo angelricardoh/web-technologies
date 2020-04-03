@@ -34,7 +34,8 @@ function CardComponent(props) {
       <Card.Img variant="primary" src={props.image} />
       <Card.Body variant="primary">
         <Card.Title>{props.title}</Card.Title>
-        <span className="material-icons"
+        <span articleindex={props.articleIndex}
+              className="material-icons"
               onClick={props.handleClickShare}>
           share
         </span>

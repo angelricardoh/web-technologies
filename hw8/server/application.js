@@ -91,14 +91,18 @@ app.get("/guardian_news", async function (req, res) {
             let dateString = currentResult.webPublicationDate
             let date = formatShortDate(new Date(dateString))
 
+            let shareUrl = currentResult.webUrl
+
             let body = blocks.body[0]
             let description = body.bodyTextSummary
             let article = {
+                index: index,
                 title: title,
                 image: image,
                 section: section,
                 date: date,
-                description: description
+                description: description,
+                shareUrl: shareUrl
             }
             articles.push(article)
         }
@@ -144,12 +148,16 @@ app.get("/nytimes_news", async function (req, res) {
 
             let description = currentResult.abstract
 
+            let shareUrl = currentResult.url
+
             let article = {
+                index: index,
                 title: title,
                 image: image,
                 section: section,
                 date: date,
-                description: description
+                description: description,
+                shareUrl: shareUrl
             }
             articles.push(article)
         }

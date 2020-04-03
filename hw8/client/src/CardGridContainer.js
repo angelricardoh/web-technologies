@@ -17,7 +17,10 @@ export default class CardGridContainer extends Component {
       articles: [],
       source: null,
       page: props.page,
-      showShareModal: false
+      share: {
+        showShareModal: false,
+        articleIndex: null
+      }
     }
     this.handleClickShare = this.handleClickShare.bind(this)
     this.handleCloseModalShare = this.handleCloseModalShare.bind(this)
@@ -57,12 +60,15 @@ export default class CardGridContainer extends Component {
         })
   }
 
-  handleClickShare() {
-    this.setState({showShareModal: true})
+  handleClickShare(event) {
+    let articleIndex = event.target.getAttribute('articleindex')
+    let shareStatus = {showShareModal: true, articleIndex: articleIndex}
+    this.setState({share: shareStatus})
   }
 
   handleCloseModalShare() {
-    this.setState({showShareModal: false})
+    let shareStatus = {showShareModal: false, articleIndex: null}
+    this.setState({share: shareStatus})
   }
 
   render() {
@@ -77,7 +83,7 @@ export default class CardGridContainer extends Component {
         ) : (
           <h2>Loading...</h2>
         )}
-        <Modal show={this.state.showShareModal} onHide={this.handleCloseModalShare} animation={false}>
+        <Modal show={this.state.share.showShareModal} onHide={this.handleCloseModalShare} animation={false}>
           <Modal.Header closeButton>
             <Modal.Title>Modal heading</Modal.Title>
           </Modal.Header>

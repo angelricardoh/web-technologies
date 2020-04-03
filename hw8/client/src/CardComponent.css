@@ -20,3 +20,43 @@
   font-family: Georgia;
   max-lines: 3;
 }
+
+.world-section-style {
+  color: white;
+  background-color: #7c4eff;
+}
+
+.politics-section-style {
+  color: white;
+  background-color: #419387;
+}
+
+.business-section-style {
+  color: white;
+  background-color: #4796ec;
+}
+
+.technology-section-style {
+  color: black;
+  background-color: #cedc39;
+}
+
+.sports-section-style {
+  color: black;
+  background-color: #f7c242;
+}
+
+.health-section-style {
+  color: white;
+  background-color: #6e757c;
+}
+
+.guardian-source-style {
+  color: white;
+  background-color: #15284a;
+}
+
+.nytimes-source-style {
+  color: black;
+  background-color: #dddddd;
+}

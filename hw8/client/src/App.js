@@ -4,36 +4,38 @@ import "./App.css";
 import Header from "./Header";
 import CardGridContainer from "./CardGridContainer";
 
+const source = function() {
+  let storedSource = localStorage.getItem("source");
+  if (storedSource === "nytimes") {
+    return storedSource;
+  } else {
+    // default
+    return "guardian";
+  }
+};
+
 const IndexPage = () => {
-  // fetch( serverHost + '/guardian_news')
-  //     .then(response => response.json())
-  //     .then(response => {
-  //         console.log(response)
-  //         const articles = response.data
-  //         console.log(response.data)
-  //         return <CardGridContainer articles={articles}/>
-  //     })
-  return <CardGridContainer source='guardian'/>;
+  return <CardGridContainer page="home" source={source} />;
 };
 
 const WorldPage = () => {
-  return <CardGridContainer sectionName='world'/>;
+  return <CardGridContainer page="world" source={source} />;
 };
 
 const PoliticsPage = () => {
-  return <CardGridContainer sectionName='politics'/>;
+  return <CardGridContainer page="politics" source={source} />;
 };
 
 const BusinessPage = () => {
-  return <CardGridContainer sectionName='business'/>;
+  return <CardGridContainer page="business" source={source} />;
 };
 
 const TechnologyPage = () => {
-  return <CardGridContainer sectionName='technology'/>;
+  return <CardGridContainer page="technology" source={source} />;
 };
 
 const SportsPage = () => {
-  return <CardGridContainer sectionName='sports'/>;
+  return <CardGridContainer page="sports" />;
 };
 
 const App = () => {

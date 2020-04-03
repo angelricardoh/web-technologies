@@ -1,7 +1,5 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
-import { css } from "./CardComponent";
 import Badge from "react-bootstrap/Badge";
 import { Text } from "react-native";
 import { sections } from "./Constants";

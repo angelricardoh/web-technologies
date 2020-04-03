@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import CardGridComponent from "./CardGridComponent";
 import { sections } from "./Constants";
+// TODO: Remove in production
+import guardian_news from './guardian_news.json'
+import nytimes_news from './nytimes_news.json'
 
-class CardGridContainer extends Component {
+export default class CardGridContainer extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       articles: [],
@@ -13,34 +16,48 @@ class CardGridContainer extends Component {
     };
   }
 
+  // Mock data
   componentDidMount() {
     let source = this.props.source;
     let page = this.props.page;
-    let url = "";
+    let response = null
     if (source === "nytimes") {
-      url = "http://localhost:8080/nytimes_news";
+      response = guardian_news
     } else {
-      // default
-      url = "http://localhost:8080/guardian_news";
+      response = nytimes_news
     }
 
-    if (page in sections) {
-      url += "?sectionName=" + page;
-    }
-
-    fetch(url)
-      .then(response => response.json())
-      .then(response => {
-        const { articles } = response.data;
-        this.setState({ articles: articles });
-      });
+    const { articles } = response.data
+    this.setState({ articles: articles })
   }
+
+  // componentDidMount() {
+  //   let source = this.props.source;
+  //   let page = this.props.page;
+  //   let url = "";
+  //   if (source === "nytimes") {
+  //     url = "http://localhost:8080/nytimes_news"
+  //   } else {
+  //     url = "http://localhost:8080/guardian_news"
+  //   }
+  //
+  //   if (page in sections) {
+  //     url += "?sectionName=" + page
+  //   }
+  //
+  //   fetch(url)
+  //     .then(response => response.json())
+  //     .then(response => {
+  //       const { articles } = response.data
+  //       this.setState({ articles: articles })
+  //     });
+  // }
 
   render() {
     return (
       <div>
         {this.state.articles.length > 0 ? (
-          <CardGridComponent data={this.state} />
+          <CardGridComponent key={this.state.page} data={this.state} />
         ) : (
           <h2>Loading...</h2>
         )}
@@ -48,5 +65,3 @@ class CardGridContainer extends Component {
     );
   }
 }
-
-export default CardGridContainer;

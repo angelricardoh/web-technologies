@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Header from "./Header";
@@ -6,54 +6,72 @@ import CardGridContainer from "./CardGridContainer";
 
 const source = function() {
   let storedSource = localStorage.getItem("source");
-  if (storedSource === "nytimes") {
+  if (storedSource === 'nytimes') {
     return storedSource;
-  } else {
-    // default
-    return "guardian";
+  } else {  // default case
+    return 'guardian';
   }
 };
 
-const IndexPage = () => {
-  return <CardGridContainer page="home" source={source} />;
-};
+const isGuardianChecked = function() {
+  return source() === 'guardian' ? true : false
+}
 
-const WorldPage = () => {
-  return <CardGridContainer page="world" source={source} />;
-};
+export default class App extends Component {
 
-const PoliticsPage = () => {
-  return <CardGridContainer page="politics" source={source} />;
-};
+  constructor() {
+    super()
 
-const BusinessPage = () => {
-  return <CardGridContainer page="business" source={source} />;
-};
+    this.state = {
+      source: source(),
+      isGuardianChecked: isGuardianChecked()
+    }
+    this.handleChange = this.handleChange.bind(this)
+  }
 
-const TechnologyPage = () => {
-  return <CardGridContainer page="technology" source={source} />;
-};
+  handleChange(checked) {
+    if (checked) {
+      localStorage.setItem('source', 'guardian')
+      this.setState({source: 'nytimes', isGuardianChecked: true})
+    } else {
+      localStorage.setItem('source', 'nytimes')
+      this.setState({source: 'guardian', isGuardianChecked: false})
+    }
+  }
 
-const SportsPage = () => {
-  return <CardGridContainer page="sports" />;
+  render() {
+    return (
+        <section className="App">
+          <Header isGuardianChecked={this.state.isGuardianChecked} handleChange={this.handleChange}/>
+          <Router>
+            <Switch>
+              <Route exact
+                     path="/"
+                     component={() => <CardGridContainer key='home' page='home' source={this.state.source} />}
+              />
+              <Route exact
+                     path="/world"
+                     component={() => <CardGridContainer key='world' page='world' source={this.state.source} />}
+              />
+              <Route exact
+                     path="/politics"
+                     component={() => <CardGridContainer key='politics' page='politics' source={this.state.source} />}
+              />
+              <Route exact
+                     path="/business"
+                     component={() => <CardGridContainer key='business' page='business' source={this.state.source} />}
+              />
+              <Route exact
+                     path="/technology"
+                     component={() => <CardGridContainer key='technology' page='technology' source={this.state.source} />}
+              />
+              <Route exact
+                     path="/sports"
+                     component={() => <CardGridContainer key='sports' page='sports' source={this.state.source} />}
+              />
+            </Switch>
+          </Router>
+        </section>
+    );
+  }
 };
-
-const App = () => {
-  return (
-    <section className="App">
-      <Header />
-      <Router>
-        <Switch>
-          <Route exact path="/" component={IndexPage} />
-          <Route exact path="/world" component={WorldPage} />
-          <Route exact path="/politics" component={PoliticsPage} />
-          <Route exact path="/business" component={BusinessPage} />
-          <Route exact path="/technology" component={TechnologyPage} />
-          <Route exact path="/sports" component={SportsPage} />
-        </Switch>
-      </Router>
-    </section>
-  );
-};
-
-export default App;

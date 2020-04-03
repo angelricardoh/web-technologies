@@ -2,25 +2,23 @@ import React from "react";
 import CardComponent from "./CardComponent";
 
 function CardGridComponent(props) {
-  const cards = [];
+    const cards = props.data.articles.map((article) => {
+            return (
+                <CardComponent
+                    key={article.title}
+                    title={article.title}
+                    image={article.image}
+                    section={article.section}
+                    date={article.date}
+                    description={article.description}
+                    page={props.data.page}
+                    source={props.data.source}
+                />
+            )
+        }
+    )
 
-  for (const index in props.data.articles) {
-    let currentArticle = props.data.articles[index];
-    cards.push(
-      <CardComponent
-        title={currentArticle.title}
-        image={currentArticle.image}
-        section={currentArticle.section}
-        date={currentArticle.date}
-        description={currentArticle.description}
-        page={props.data.page}
-        source={props.data.source}
-      />
-    );
-    cards.push(<br></br>);
-  }
-
-  return <div>{cards}</div>;
+    return <div key="card-grid-component">{cards}</div>;
 }
 
 export default CardGridComponent;

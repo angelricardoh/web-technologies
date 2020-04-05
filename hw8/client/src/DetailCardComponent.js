@@ -1,22 +1,20 @@
 import React from "react";
-import ReadMore from './ReadMore'
+import ReadMore from "./ReadMore";
+import "./DetailCardComponent.css";
 
 export default function DetailCardComponent(props) {
-    // TODO: function to check if current article is in favorites
-    return (
-        <div className="card promoting-card">
-            {/*Card content*/}
-            <div className="card-body">
-                <p>{props.title}</p>
-                <br></br>
-                <p>{props.date}</p>
-                <img className='detail-card-image' src={props.image}/>
-                <div className="collapse-content">
-                    <p className="card-text collapse" id="collapseContent">{props.description}</p>
-                </div>
-                <ReadMore/>
-            </div>
-        </div>
-    );
+  // TODO: function to check if current article is in favorites
+  return (
+    <div className="card promoting-card">
+      {/*Card content*/}
+      <div className="card-body">
+        <p>{props.title}</p>
+        <p>{props.date}</p>
+        <img className="detail-card-image" src={props.image} />
+        <br />
+        <br />
+        <ReadMore description={props.description} />
+      </div>
+    </div>
+  );
 }
-

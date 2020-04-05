@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Truncate from "react-truncate";
+import { MdExpandMore, MdExpandLess } from 'react-icons/md'
 
 class ReadMore extends Component {
   constructor(...args) {
@@ -43,9 +44,11 @@ class ReadMore extends Component {
           ellipsis={
             <span>
               ...{" "}
-              <a href="#" onClick={this.toggleLines}>
-                {more}
-              </a>
+              <br/><br/>
+              <MdExpandMore size="2rem"
+                            style={{ float:'right'}}
+                            href="#"
+                            onClick={this.toggleLines}/>
             </span>
           }
           onTruncate={this.handleTruncate}
@@ -55,9 +58,11 @@ class ReadMore extends Component {
         {!truncated && expanded && (
           <span>
             {" "}
-            <a href="#" onClick={this.toggleLines}>
-              {less}
-            </a>
+            <br/><br/>
+            <MdExpandLess size="2rem"
+                          style={{ float:'right'}}
+                          href="#"
+                          onClick={this.toggleLines}/>
           </span>
         )}
       </div>

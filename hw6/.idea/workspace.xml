@@ -4,21 +4,9 @@
     <list default="true" id="3581d15d-5c63-452e-beee-dcbb2c59eb7f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hw8/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/src/App.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/src/App.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/src/App.test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/src/CardComponent.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/src/CardComponent.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/src/CardContainer.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/src/CardGridComponent.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/src/CardGridContainer.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/src/Header.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/src/index.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/src/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/src/logo.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/src/serviceWorker.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw8/client/src/DetailCardComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/DetailCardComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw8/client/src/ReadMore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/ReadMore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw8/server/application.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/server/application.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,6 +139,7 @@
       <workItem from="1585503877152" duration="5918000" />
       <workItem from="1585637453245" duration="1425000" />
       <workItem from="1585676972202" duration="191000" />
+      <workItem from="1586124015609" duration="374000" />
     </task>
     <servers />
   </component>

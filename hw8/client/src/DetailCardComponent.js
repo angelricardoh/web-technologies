@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Card from "react-bootstrap/Card";
 import ReadMore from "./ReadMore";
 import "./DetailCardComponent.css";
 import {
@@ -26,11 +27,15 @@ export default class DetailCardComponent extends Component {
 
   render() {
     return (
-      <div className="card promoting-card">
-        <div className="card-body" style={{ textAlign: "left" }}>
-          <h3>{this.props.detail.title}</h3>
-          <span>{this.props.detail.date}</span>
-          <div style={{ float: "right" }}>
+      <Card>
+        <Card.Body variant="primary" style={{ textAlign: "left" }}>
+          <h3 style={{ fontStyle:'italic' }}>{this.props.detail.title}</h3>
+          <h5 style={{ display: 'inline', marginLeft: "2rem"}}>{this.props.detail.date}</h5>
+          <div style={{
+            float: "right",
+            paddingBottom:'1rem',
+            display: 'inline'
+          }}>
             <FacebookShareButton
               url={this.props.detail.shareUrl}
               quote={"#" + sharePhrase}
@@ -69,8 +74,8 @@ export default class DetailCardComponent extends Component {
           <br />
           <br />
           <ReadMore description={this.props.detail.description} />
-        </div>
-      </div>
+        </Card.Body>
+      </Card>
     );
   }
 }

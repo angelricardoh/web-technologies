@@ -307,7 +307,7 @@ app.get("/article_detail", async function(req, res) {
       }
 
       let dateString = docs.pub_date;
-      let date = formatShortDate(new Date(dateString));
+      let date = formatShortDate(new Date(dateString), detail=true);
 
       let description = docs.abstract;
 

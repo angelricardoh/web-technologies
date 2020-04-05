@@ -29,7 +29,7 @@ function CardComponent(props) {
   }
 
   return (
-      // <Link to={'/article?articleId=' + props.id}>
+      <Link to={'/article?articleId=' + props.id}>
         <Card style={{display: "inline-block"}}>
           <Card.Img variant="primary" src={props.image}/>
           <Card.Body variant="primary">
@@ -49,7 +49,7 @@ function CardComponent(props) {
             {sectionBadge}
           </Card.Body>
         </Card>
-      // </Link>
+      </Link>
   );
 }
 

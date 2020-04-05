@@ -78,13 +78,9 @@ function getArticleDetail(req) {
                 )
         } else {
             let url = 'https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=web_url:("'
-            console.log(url)
             url += articleId
-            console.log(url)
             url += '")&api-key='
-            console.log(url)
             url += NY_TIMES_API_KEY
-            console.log(url)
             fetch(url)
                 .then(response => response.json())
                 .then(

@@ -12,7 +12,8 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.0",
     "react-share": "^4.1.0",
-    "react-switch": "^5.0.1"
+    "react-switch": "^5.0.1",
+    "react-truncate": "^2.4.0"
   },
   "scripts": {
     "start": "react-scripts start",

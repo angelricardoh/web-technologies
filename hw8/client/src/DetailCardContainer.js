@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { host } from "./Constants";
 import axios from "axios";
 import DetailCardComponent from "./DetailCardComponent";
+import PageWithComments from "./PageWithComments";
 
 export default class DetailCardContainer extends Component {
   constructor(props) {
@@ -29,17 +30,20 @@ export default class DetailCardContainer extends Component {
   }
 
   render() {
-    let cardGridComponent = null;
+    let cardDetailComponent = null
+    let commentBox = null
     let modal = null;
     if (this.state.detail != null) {
-      cardGridComponent = <DetailCardComponent detail={this.state.detail} />;
+      cardDetailComponent = <DetailCardComponent detail={this.state.detail} />
+      commentBox = <PageWithComments articleId={this.state.detail.id}/>
     } else {
-      cardGridComponent = <h2>Loading...</h2>;
+      cardDetailComponent = <h2>Loading...</h2>
     }
 
     return (
       <div>
-        {cardGridComponent}
+        {cardDetailComponent}
+        {commentBox}
         {modal}
       </div>
     );

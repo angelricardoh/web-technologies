@@ -2,14 +2,7 @@ import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
 import ReadMore from "./ReadMore";
 import "./DetailCardComponent.css";
-import {
-  EmailShareButton,
-  FacebookShareButton,
-  TwitterShareButton,
-  FacebookIcon,
-  TwitterIcon,
-  EmailIcon
-} from "react-share";
+import {EmailShareButton, FacebookShareButton, TwitterShareButton, FacebookIcon, TwitterIcon, EmailIcon} from "react-share";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 import { sharePhrase } from "./Constants";
 import ReactTooltip from "react-tooltip";

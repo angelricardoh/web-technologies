@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3581d15d-5c63-452e-beee-dcbb2c59eb7f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../hw8/client/src/BookmarkManager.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw8/client/src/CardComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/CardComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hw8/client/src/DetailCardComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/DetailCardComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/src/ReadMore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/ReadMore.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/server/application.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/server/application.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw8/client/src/DetailCardContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/DetailCardContainer.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,6 +140,7 @@
       <workItem from="1585637453245" duration="1425000" />
       <workItem from="1585676972202" duration="191000" />
       <workItem from="1586124015609" duration="374000" />
+      <workItem from="1586130734778" duration="540000" />
     </task>
     <servers />
   </component>

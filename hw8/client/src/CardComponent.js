@@ -9,7 +9,7 @@ export default class CardComponent extends Component {
   constructor(props) {
     super(props);
 
-    this.handleClickDetail = this.handleClickDetail.bind(this);
+    this.handleClickDetail = this.handleClickDetail.bind(this)
   }
 
   handleClickDetail(event) {

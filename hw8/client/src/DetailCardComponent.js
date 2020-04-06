@@ -10,9 +10,10 @@ import {
   TwitterIcon,
   EmailIcon
 } from "react-share";
-import { FaRegBookmark } from "react-icons/fa";
+import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 import { sharePhrase } from "./Constants";
 import ReactTooltip from "react-tooltip";
+import {addBookmark, isBookmarked, removeBookmark} from "./BookmarkManager";
 
 let socialNetworksButtonSize = "2.5rem";
 
@@ -21,11 +22,38 @@ export default class DetailCardComponent extends Component {
     super(props);
 
     this.state = {
-      bookmarked: false
+      bookmarked: isBookmarked(this.props.detail)
     };
+    this.handleBookmarkClick = this.handleBookmarkClick.bind(this)
+  }
+
+  handleBookmarkClick() {
+    if (this.state.bookmarked) {
+      removeBookmark(this.props.detail)
+    } else {
+      addBookmark(this.props.detail)
+    }
+    this.setState({ bookmarked: !this.state.bookmarked });
   }
 
   render() {
+    let bookmarkButton = null
+    if (this.state.bookmarked) {
+      bookmarkButton = <FaBookmark
+          onClick={this.handleBookmarkClick}
+          size={socialNetworksButtonSize}
+          style={{ marginLeft: "5rem" }}
+          data-tip="Bookmark"
+      />
+    } else {
+      bookmarkButton = <FaRegBookmark
+          onClick={this.handleBookmarkClick}
+          size={socialNetworksButtonSize}
+          style={{ marginLeft: "5rem" }}
+          data-tip="Bookmark"
+      />
+    }
+
     return (
       <Card>
         <Card.Body variant="primary" style={{ textAlign: "left" }}>
@@ -63,11 +91,7 @@ export default class DetailCardComponent extends Component {
             </EmailShareButton>
             <ReactTooltip />
 
-            <FaRegBookmark
-              size={socialNetworksButtonSize}
-              style={{ marginLeft: "5rem" }}
-              data-tip="Bookmark"
-            />
+            {bookmarkButton}
             <ReactTooltip />
           </div>
           <img className="detail-card-image" src={this.props.detail.image} />

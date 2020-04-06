@@ -13,10 +13,6 @@ import {
   EmailIcon
 } from "react-share";
 
-// TODO: Remove in production
-// import guardian_news from './guardian_news.json'
-// import nytimes_news from './nytimes_news.json'
-
 const shareQuote = 'CSCI_571_NewsApp'
 
 export default class CardGridContainer extends Component {
@@ -35,21 +31,6 @@ export default class CardGridContainer extends Component {
     this.handleClickShare = this.handleClickShare.bind(this)
     this.handleCloseModalShare = this.handleCloseModalShare.bind(this)
   }
-
-  // Mock data
-  // componentDidMount() {
-  //   let source = this.props.source;
-  //   let page = this.props.page;
-  //   let response = null
-  //   if (source === "nytimes") {
-  //     response = nytimes_news
-  //   } else {
-  //     response = guardian_news
-  //   }
-  //
-  //   const { articles } = response.data
-  //   this.setState({ articles: articles })
-  // }
 
   componentDidMount() {
     let source = this.props.source

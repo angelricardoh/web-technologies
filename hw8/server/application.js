@@ -60,6 +60,45 @@ function getNYTimesArticles(req) {
     });
 }
 
+function getArticleDetail(req) {
+    return new Promise((resolve) => {
+        let articleId = req.query.articleId
+        let source = req.query.source
+        if (source === 'guardian') {
+            fetch('https://content.guardianapis.com/' + articleId + '?api-key=' + GUARDIAN_API_KEY +
+                '&show-blocks=all')
+                .then(response => response.json())
+                .then(
+                    data => {
+                        resolve(data)
+                    },
+                    error => {
+                        throw(error)
+                    }
+                )
+        } else {
+            let url = 'https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=web_url:("'
+            console.log(url)
+            url += articleId
+            console.log(url)
+            url += '")&api-key='
+            console.log(url)
+            url += NY_TIMES_API_KEY
+            console.log(url)
+            fetch(url)
+                .then(response => response.json())
+                .then(
+                    data => {
+                        resolve(data)
+                    },
+                    error => {
+                        throw(error)
+                    }
+                )
+        }
+    });
+}
+
 // GET response for The Guardian news
 app.get("/guardian_news", async function (req, res) {
     try {
@@ -70,6 +109,7 @@ app.get("/guardian_news", async function (req, res) {
         for (let index in response.results) {
             let currentResult = response.results[index]
             let title = currentResult.webTitle
+            let id = currentResult.id
 
             let blocks = currentResult.blocks
             let main = blocks.main
@@ -96,6 +136,7 @@ app.get("/guardian_news", async function (req, res) {
             let body = blocks.body[0]
             let description = body.bodyTextSummary
             let article = {
+                id: id,
                 index: index,
                 title: title,
                 image: image,
@@ -149,8 +190,10 @@ app.get("/nytimes_news", async function (req, res) {
             let description = currentResult.abstract
 
             let shareUrl = currentResult.url
+            let id = currentResult.url
 
             let article = {
+                id: id,
                 index: index,
                 title: title,
                 image: image,
@@ -171,6 +214,99 @@ app.get("/nytimes_news", async function (req, res) {
         res.status(500).send("Error while retrieving news from homepage API: " + error)
     }
 });
+
+
+// GET response for The Guardian news
+app.get("/article_detail", async function (req, res) {
+    try {
+        let detail = null
+
+        let wrappedResponse = await getArticleDetail(req)
+        let source = req.query.source
+        if (source === 'guardian') {
+
+            let response = wrappedResponse.response
+
+            let content = response.content
+
+            let title = content.webTitle
+
+            let blocks = content.blocks
+            let main = blocks.main
+            let elements = main.elements
+
+            let image = ""
+            if (typeof elements === 'undefined' || elements[0].type !== 'image') {
+                image = 'https://assets.guim.co.uk/images/eada8aa27c12fe2d5afa3a89d3fbae0d/fallback-logo.png'
+            } else {
+                let assets = elements[0].assets
+                let lastIndexedAsset = assets.length - 1
+                image = assets[lastIndexedAsset].file
+                if (typeof image === 'undefined' || image == null || image == '') {
+                    image = 'https://assets.guim.co.uk/images/eada8aa27c12fe2d5afa3a89d3fbae0d/fallback-logo.png'
+                }
+            }
+
+            let dateString = content.webPublicationDate
+            let date = formatShortDate(new Date(dateString))
+
+            let body = blocks.body[0]
+            let description = body.bodyTextSummary
+
+            detail = {
+                title: title,
+                image: image,
+                date: date,
+                description: description,
+            }
+        } else { // nytimes
+
+            let response = wrappedResponse.response
+
+            let docs = response.docs[0]
+            let headline = docs.headline
+            let title = headline.main
+
+            let image = ""
+            let multimedia = docs.multimedia
+            for (let multimediaIndex in multimedia) {
+                let currentMultimediaItem = multimedia[multimediaIndex]
+                if (currentMultimediaItem.width >= 2000) {
+                    image = currentMultimediaItem.url
+                    break
+                }
+            }
+            if (typeof image === 'undefined' || image == null || image == '') {
+                image = 'https://upload.wikimedia.org/wikipedia/commons/0/0e/Nytimes_hq.jpg'
+            }
+
+            let dateString = docs.pub_date
+            let date = formatShortDate(new Date(dateString))
+
+            let description = docs.abstract
+
+            detail = {
+                title: title,
+                image: image,
+                date: date,
+                description: description,
+            }
+        }
+
+        let detail_json = {
+            detail
+        }
+
+        res.status(200).send(detail_json)
+
+
+    } catch (error) {
+        console.log("Error while retrieving news from homepage API: " + error)
+        res.status(500).send("Error while retrieving news from homepage API: " + error)
+    }
+});
+
+
 
 function formatShortDate(date) {
     let month = ("0" + (date.getMonth() + 1)).slice(-2)

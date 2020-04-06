@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form'
 import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
 import Switch from "react-switch";
+import "./Header.css";
 
 export default class Header extends Component {
 
@@ -39,9 +40,14 @@ export default class Header extends Component {
                         <Nav.Link href="/technology">Technology</Nav.Link>
                         <Nav.Link href="/sports">Sports</Nav.Link>
                     </Nav>
-
-                    <Switch onChange={this.handleChange} checked={this.state.checked}/>
-
+                    <span>NYTimes</span>
+                    <Switch onChange={this.handleChange}
+                            checked={this.state.checked}
+                            uncheckedIcon={false}
+                            checkedIcon={false}
+                            onColor='#0199FB'
+                    />
+                    <span>Guardian</span>
                 </Navbar>
             </header>
         )

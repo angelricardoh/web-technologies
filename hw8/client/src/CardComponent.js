@@ -12,8 +12,7 @@ function CardComponent(props) {
     sectionBadge = (
       <Badge
         style={{ float: "right" }}
-        bsPrefix={props.section + "-section-style"}
-      >
+        variant={props.section}>
         {props.section.toUpperCase()}
       </Badge>
     );
@@ -22,8 +21,7 @@ function CardComponent(props) {
     sourceBadge = (
       <Badge
         style={{ float: "right" }}
-        bsPrefix={props.source + "-source-style"}
-      >
+        variant={props.source}>
         {props.source.toUpperCase()}
       </Badge>
     );

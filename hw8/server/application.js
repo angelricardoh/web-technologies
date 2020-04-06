@@ -36,7 +36,7 @@ function getGuardianArticles(req) {
       fetch(
         "https://content.guardianapis.com/search?api-key=" +
           GUARDIAN_API_KEY +
-          "&section=(sport|business|technology|politics)&show-blocks=all"
+          "&section=(sport|business|technology|politics)&show-blocks=all&page-size=20"
       )
         .then(response => response.json())
         .then(
@@ -116,6 +116,7 @@ function getArticleDetail(req) {
 // GET response for The Guardian news
 app.get("/guardian_news", async function(req, res) {
   try {
+    let section = req.query.section;
     let wrappedResponse = await getGuardianArticles(req);
     let response = wrappedResponse.response;
     let articles = [];
@@ -151,6 +152,17 @@ app.get("/guardian_news", async function(req, res) {
 
       let body = blocks.body[0];
       let description = body.bodyTextSummary;
+
+      if (typeof id === 'undefined' || id === null || id.length == 0 ||
+          typeof title === 'undefined' || title === null || title.length == 0 ||
+          typeof image === 'undefined' || image === null || image.length == 0 ||
+          typeof section === 'undefined' || section === null || section.length == 0 ||
+          typeof date === 'undefined' || date === null || date.length == 0 ||
+          typeof description === 'undefined' || description === null || description.length == 0 ||
+          typeof shareUrl === 'undefined' || shareUrl === null || shareUrl.length == 0){
+        continue
+      }
+
       let article = {
         id: id,
         index: index,
@@ -163,6 +175,11 @@ app.get("/guardian_news", async function(req, res) {
       };
       articles.push(article);
     }
+
+    // if (section !== "home") {
+    //   articles = articles.slice(0, 10)
+    // }
+
     let articles_json = {
       articles
     };
@@ -179,6 +196,7 @@ app.get("/guardian_news", async function(req, res) {
 // GET response for NY Times news
 app.get("/nytimes_news", async function(req, res) {
   try {
+    let section = req.query.section;
     let response = await getNYTimesArticles(req);
     let articles = [];
 
@@ -211,6 +229,16 @@ app.get("/nytimes_news", async function(req, res) {
       let shareUrl = currentResult.url;
       let id = currentResult.url;
 
+      if (typeof id === 'undefined' || id === null || id.length == 0 ||
+          typeof title === 'undefined' || title === null || title.length == 0 ||
+          typeof image === 'undefined' || image === null || image.length == 0 ||
+          typeof section === 'undefined' || section === null || section.length == 0 ||
+          typeof date === 'undefined' || date === null || date.length == 0 ||
+          typeof description === 'undefined' || description === null || description.length == 0 ||
+          typeof shareUrl === 'undefined' || shareUrl === null || shareUrl.length == 0){
+        continue
+      }
+
       let article = {
         id: id,
         index: index,
@@ -223,6 +251,11 @@ app.get("/nytimes_news", async function(req, res) {
       };
       articles.push(article);
     }
+
+    if (section !== "home") {
+      articles = articles.slice(0, 10)
+    }
+
     let articles_json = {
       articles
     };

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Header from "./Header";
 import CardGridContainer from "./CardGridContainer";
+import DetailCardContainer from './DetailCardContainer'
 
 const source = function() {
   let storedSource = localStorage.getItem("source");
@@ -16,26 +17,6 @@ const source = function() {
 const isGuardianChecked = function() {
   return source() === 'guardian' ? true : false
 }
-
-const ArticlePage = ({ match, location }) => {
-  console.log(location)
-  // const {
-  //   params: { articleId }
-  // } = location.search;
-
-  let searchParams = new URLSearchParams(location.search)
-  console.log(location.search)
-  console.log(searchParams)
-
-  return (
-      <>
-        <p>
-          <strong>articleId: </strong>
-          {location.search}
-        </p>
-      </>
-  );
-};
 
 export default class App extends Component {
 
@@ -87,11 +68,21 @@ export default class App extends Component {
               />
               <Route exact
                      path="/sports"
-                     component={() => <CardGridContainer key='sports' page='sports' source={this.state.source} />}
+                     component={() =>
+                         <CardGridContainer key='sports' page='sports' source={this.state.source} />}
               />
               <Route exact
                      path="/article"
-                     component={ArticlePage}
+                     component={({ match, location }) =>
+                     {
+                       let searchParams = new URLSearchParams(location.search)
+                       let articleId = searchParams.get('articleId')
+                       return (
+                           <DetailCardContainer source={this.state.source}
+                                                articleId={articleId}
+                           />
+                       );
+                     }}
               />
             </Switch>
           </Router>

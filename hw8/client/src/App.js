@@ -17,6 +17,26 @@ const isGuardianChecked = function() {
   return source() === 'guardian' ? true : false
 }
 
+const ArticlePage = ({ match, location }) => {
+  console.log(location)
+  // const {
+  //   params: { articleId }
+  // } = location.search;
+
+  let searchParams = new URLSearchParams(location.search)
+  console.log(location.search)
+  console.log(searchParams)
+
+  return (
+      <>
+        <p>
+          <strong>articleId: </strong>
+          {location.search}
+        </p>
+      </>
+  );
+};
+
 export default class App extends Component {
 
   constructor() {
@@ -68,6 +88,10 @@ export default class App extends Component {
               <Route exact
                      path="/sports"
                      component={() => <CardGridContainer key='sports' page='sports' source={this.state.source} />}
+              />
+              <Route exact
+                     path="/article"
+                     component={ArticlePage}
               />
             </Switch>
           </Router>

@@ -57,6 +57,12 @@ export default class CardGridContainer extends Component {
     this.setState({share: shareStatus})
   }
 
+  handleClickDetail(event) {
+    let articleIndex = event.target.getAttribute('articleindex')
+    console.log(articleIndex)
+
+  }
+
   handleCloseModalShare() {
     let shareStatus = {showShareModal: false, articleIndex: null}
     this.setState({share: shareStatus})

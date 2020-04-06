@@ -5,7 +5,8 @@ function CardGridComponent(props) {
     const cards = props.data.articles.map((article) => {
             return (
                 <CardComponent
-                    key={article.index}
+                    key={article.id}
+                    id={article.id}
                     articleIndex={article.index}
                     title={article.title}
                     image={article.image}

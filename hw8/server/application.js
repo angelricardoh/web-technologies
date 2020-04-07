@@ -1,16 +1,16 @@
 const express = require("express");
 const fetch = require("node-fetch");
 const path = require("path");
-const port = process.env.PORT || 8080;
-const app = express();
+const port = 8081;
+const application = express();
 var cors = require("cors");
 
 const GUARDIAN_API_KEY = "4e22f01e-35ce-4b12-ad57-1a7f8116ee21";
 const NY_TIMES_API_KEY = "nCfLNNY4zJ67wfSTpiLm8RxxdpLmJ5mL";
 
-app.use(cors());
-app.use(express.static(__dirname));
-app.use(express.static(path.join(__dirname, "public")));
+application.use(cors());
+application.use(express.static(__dirname));
+application.use(express.static(path.join(__dirname, "public")));
 
 function getGuardianArticles(req) {
   return new Promise(resolve => {
@@ -114,7 +114,7 @@ function getArticleDetail(req) {
 }
 
 // GET response for The Guardian news
-app.get("/guardian_news", async function(req, res) {
+application.get("/guardian_news", async function(req, res) {
   try {
     let section = req.query.section;
     let wrappedResponse = await getGuardianArticles(req);
@@ -176,9 +176,9 @@ app.get("/guardian_news", async function(req, res) {
       articles.push(article);
     }
 
-    // if (section !== "home") {
-    //   articles = articles.slice(0, 10)
-    // }
+    if (section !== "home") {
+      articles = articles.slice(0, 10)
+    }
 
     let articles_json = {
       articles
@@ -194,7 +194,7 @@ app.get("/guardian_news", async function(req, res) {
 });
 
 // GET response for NY Times news
-app.get("/nytimes_news", async function(req, res) {
+application.get("/nytimes_news", async function(req, res) {
   try {
     let section = req.query.section;
     let response = await getNYTimesArticles(req);
@@ -270,7 +270,7 @@ app.get("/nytimes_news", async function(req, res) {
 });
 
 // GET response for The Guardian news
-app.get("/article_detail", async function(req, res) {
+application.get("/article_detail", async function(req, res) {
   try {
     let detail = null;
 
@@ -381,4 +381,4 @@ function formatShortDate(date, detail = false) {
   );
 }
 
-app.listen(port);
+application.listen(port);

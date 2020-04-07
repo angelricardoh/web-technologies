@@ -83,7 +83,6 @@ export default class DetailCardComponent extends Component {
               <EmailIcon size={socialNetworksButtonSize} round={true} />
             </EmailShareButton>
             <ReactTooltip />
-
             {bookmarkButton}
             <ReactTooltip />
           </div>

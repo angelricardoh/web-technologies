@@ -1,7 +1,7 @@
 const express = require("express");
 const fetch = require("node-fetch");
 const path = require("path");
-const port = 8081;
+const port = 8080;
 const application = express();
 var cors = require("cors");
 
@@ -249,6 +249,8 @@ application.get("/article_detail", async function(req, res) {
       let body = blocks.body[0];
       let description = body.bodyTextSummary;
 
+      let section = content.sectionName
+
       let shareUrl = content.webUrl;
 
       detail = {
@@ -256,7 +258,9 @@ application.get("/article_detail", async function(req, res) {
         image: image,
         date: date,
         description: description,
-        shareUrl: shareUrl
+        shareUrl: shareUrl,
+        section: section,
+        source: source
       };
     } else {
       // nytimes
@@ -286,6 +290,8 @@ application.get("/article_detail", async function(req, res) {
 
       let description = docs.abstract;
 
+      let section = docs.section_name
+
       let shareUrl = docs.web_url;
 
       detail = {
@@ -293,7 +299,9 @@ application.get("/article_detail", async function(req, res) {
         image: image,
         date: date,
         description: description,
-        shareUrl: shareUrl
+        shareUrl: shareUrl,
+        section: section,
+        source: source
       };
     }
 

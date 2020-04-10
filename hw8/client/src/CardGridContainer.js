@@ -3,13 +3,14 @@ import CardGridComponent from "./CardGridComponent";
 import ShareModal from "./ShareModal";
 import axios from "axios";
 import { host } from "./Constants";
+import { listBookmarks } from "./BookmarkManager";
 
 export default class CardGridContainer extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      articles: [],
+      articles: null,
       source: null,
       page: props.page,
       share: {
@@ -25,13 +26,27 @@ export default class CardGridContainer extends Component {
     let source = this.props.source;
     let page = this.props.page;
     let url = "";
-    if (source === "nytimes") {
-      url = host + "nytimes_news?section=" + page;
-    } else {
-      url = host + "guardian_news?section=" + page;
-    }
+    switch (page) {
+      case 'search':
+        let search = this.props.search;
+        url = host + 'search?source=' + source + "&search" + search;
+        break
 
-    console.log("fetch url " + url);
+      case 'favorites':
+        // TODO: Load favorites from BookmarkManager
+          let bookmarks = listBookmarks()
+          console.log(bookmarks)
+          this.setState({articles: bookmarks})
+        return
+
+      default:
+        if (source === "nytimes") {
+          url = host + "nytimes_news?section=" + page;
+        } else {
+          url = host + "guardian_news?section=" + page;
+        }
+        break
+    }
 
     axios.get(url).then(response => {
       const { articles } = response.data;
@@ -54,8 +69,12 @@ export default class CardGridContainer extends Component {
 
   render() {
     let cardGridComponent = null;
-    let modal = null;
-    if (this.state.articles.length > 0) {
+    let modal = null
+    if (this.state.articles == null) {
+      cardGridComponent = <h2>Loading...</h2>;
+    } else if (this.state.articles.length == 0) {
+      cardGridComponent = <h2>No results or bookmarks</h2>
+    } else {
       cardGridComponent = (
         <CardGridComponent
           key={this.state.page}
@@ -83,8 +102,6 @@ export default class CardGridContainer extends Component {
           );
         }
       }
-    } else {
-      cardGridComponent = <h2>Loading...</h2>;
     }
 
     return (

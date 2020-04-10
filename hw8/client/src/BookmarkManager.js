@@ -18,7 +18,7 @@ Storage.prototype.getObject = function(key) {
 export function listBookmarks() {
     let bookmarks = localStorage.getObject('bookmarks')
     if (typeof bookmarks === 'undefined' || bookmarks == null) {
-        return null
+        return []
     }
     // console.log(bookmarks)
     return bookmarks

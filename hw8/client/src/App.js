@@ -43,7 +43,9 @@ export default class App extends Component {
   render() {
     return (
         <section className="App">
-          <Header isGuardianChecked={this.state.isGuardianChecked} handleChange={this.handleChange}/>
+          <Header source={this.state.source}
+                  isGuardianChecked={this.state.isGuardianChecked}
+                  handleChange={this.handleChange}/>
           <Router>
             <Switch>
               <Route exact
@@ -80,6 +82,35 @@ export default class App extends Component {
                        return (
                            <DetailCardContainer source={this.state.source}
                                                 articleId={articleId}
+                           />
+                       );
+                     }}
+              />
+              <Route exact
+                     path="/search"
+                     component={({ match, location }) =>
+                     {
+                       let searchParams = new URLSearchParams(location.search)
+                       console.log(searchParams)
+                       let search = searchParams.get('search')
+                       console.log(search)
+                       return (
+                           <CardGridContainer key='search'
+                                              source={this.state.source}
+                                              page='search'
+                                              search={search}
+                           />
+                       );
+                     }}
+              />
+              <Route exact
+                     path="/favorites"
+                     component={({ match, location }) =>
+                     {
+                       return (
+                           <CardGridContainer key='favorites'
+                                              source={this.state.source}
+                                              page='favorites'
                            />
                        );
                      }}

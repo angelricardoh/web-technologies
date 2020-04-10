@@ -7,7 +7,9 @@ import Switch from "react-switch"
 import "./Header.css"
 import AsyncSelect from 'react-select/async'
 import {bingAutosuggestKey} from './Constants'
+import { FaRegBookmark } from "react-icons/fa";
 
+let socialNetworksButtonSize = "1.5rem";
 
 export default class Header extends Component {
 
@@ -29,9 +31,15 @@ export default class Header extends Component {
 
     handleSearchChange(value, { action }) {
         if (action === 'set-value') {
+            console.log(this.ref.select.select.state.focusedOption.value)
             // start search
-            console.log(this.ref.select.select.state.focusedOption)
+            window.location = "/search?source=" + this.props.source +
+                "&search=" + this.ref.select.select.state.focusedOption.value;
         }
+    }
+
+    handleBookmarkClick() {
+        window.location = '/favorites'
     }
 
     getAutosuggestionResults = inputValue => {
@@ -86,6 +94,12 @@ export default class Header extends Component {
                         <Nav.Link href="/technology">Technology</Nav.Link>
                         <Nav.Link href="/sports">Sports</Nav.Link>
                     </Nav>
+                    <FaRegBookmark
+                        onClick={this.handleBookmarkClick}
+                        size={socialNetworksButtonSize}
+                        style={{ marginRight: "5rem" }}
+                        data-tip="Bookmark"
+                    />
                     <span>NYTimes</span>
                     <Switch onChange={this.handleChange}
                             checked={this.state.checked}

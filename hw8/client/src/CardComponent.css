@@ -20,6 +20,16 @@
   max-lines: 3;
 }
 
+.card-compact {
+
+}
+
+.card-compact > img {
+  width: 100%;
+  height: 20%;
+  display: block;
+}
+
 .badge {
   color: white;
   background-color: #6e757c;

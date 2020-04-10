@@ -74,7 +74,7 @@ export default class App extends Component {
                          <CardGridContainer key='sports' page='sports' source={this.state.source} />}
               />
               <Route exact
-                     path="/article"
+                     path="/detail"
                      component={({ match, location }) =>
                      {
                        let searchParams = new URLSearchParams(location.search)

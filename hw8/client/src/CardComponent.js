@@ -17,7 +17,7 @@ export default class CardComponent extends NewsCard {
             {this.props.title}
             <span articleindex={this.props.data.index}
                   className="material-icons"
-                  onClick={this.props.data.handleClickShare}>
+                  onClick={this.props.handleClickShare}>
               share
             </span>
           </Card.Title>

@@ -33,9 +33,7 @@ export default class CardGridContainer extends Component {
         break
 
       case 'favorites':
-        // TODO: Load favorites from BookmarkManager
           let bookmarks = listBookmarks()
-          console.log(bookmarks)
           this.setState({articles: bookmarks})
         return
 

@@ -3,13 +3,18 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import Button from 'react-bootstrap/Button'
-import Switch from "react-switch"
 import "./Header.css"
 import AsyncSelect from 'react-select/async'
-import {bingAutosuggestKey} from './Constants'
-import { FaRegBookmark } from "react-icons/fa";
+import {bingAutosuggestKey, host} from './Constants'
+import { FaRegBookmark } from "react-icons/fa"
+import SwitchSource from "./SwitchSource";
 
-let socialNetworksButtonSize = "1.5rem";
+let socialNetworksButtonSize = "0.5rem";
+
+// function CurrentLocation() {
+//     let location = useLocation();
+//     return location.pathname
+// }
 
 export default class Header extends Component {
 
@@ -100,14 +105,8 @@ export default class Header extends Component {
                         style={{ marginRight: "5rem" }}
                         data-tip="Bookmark"
                     />
-                    <span>NYTimes</span>
-                    <Switch onChange={this.handleChange}
-                            checked={this.state.checked}
-                            uncheckedIcon={false}
-                            checkedIcon={false}
-                            onColor='#0199FB'
-                    />
-                    <span>Guardian</span>
+                    <SwitchSource handleChange={this.handleChange}
+                                  checked={this.state.checked}/>
                 </Navbar>
             </header>
         )

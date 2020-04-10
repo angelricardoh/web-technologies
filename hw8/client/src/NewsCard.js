@@ -8,6 +8,6 @@ export default class NewsCard extends Component {
     }
 
     handleClickDetail(event) {
-        window.location = "/article?articleId=" + this.props.data.id;
+        window.location = "/detail?articleId=" + this.props.data.id;
     }
 }

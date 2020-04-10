@@ -7,3 +7,8 @@ div > img {
     max-height: 100%;
     max-width: 100%;
 }
+
+.light-toast {
+    background: white;
+    color: black;
+}

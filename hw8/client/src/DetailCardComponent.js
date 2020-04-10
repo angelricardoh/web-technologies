@@ -7,6 +7,10 @@ import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 import { sharePhrase } from "./Constants";
 import ReactTooltip from "react-tooltip";
 import {addBookmark, isBookmarked, removeBookmark} from "./BookmarkManager";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { style } from "react-toastify";
+import { Slide, Zoom, Flip, Bounce } from 'react-toastify';
 
 let socialNetworksButtonSize = "2.5rem";
 
@@ -25,8 +29,9 @@ export default class DetailCardComponent extends Component {
       removeBookmark(this.props.detail)
     } else {
       addBookmark(this.props.detail)
+      toast('Saving ' + this.props.detail.title)
     }
-    this.setState({ bookmarked: !this.state.bookmarked });
+    this.setState({ bookmarked: !this.state.bookmarked })
   }
 
   render() {
@@ -91,6 +96,10 @@ export default class DetailCardComponent extends Component {
           <br />
           <ReadMore description={this.props.detail.description} />
         </Card.Body>
+        <ToastContainer transition={Zoom}
+                        position={toast.POSITION.TOP_CENTER}
+                        hideProgressBar={true}
+                        bodyClassName='light-toast'/>
       </Card>
     );
   }

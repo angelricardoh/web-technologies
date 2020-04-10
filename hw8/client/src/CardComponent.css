@@ -20,6 +20,11 @@
   max-lines: 3;
 }
 
+.badge {
+  color: white;
+  background-color: #6e757c;
+}
+
 .badge-world {
   color: white;
   background-color: #7c4eff;
@@ -43,11 +48,6 @@
 .badge-sports {
   color: black;
   background-color: #f7c242;
-}
-
-.badge-health {
-  color: white;
-  background-color: #6e757c;
 }
 
 .badge-guardian {

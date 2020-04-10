@@ -20,11 +20,11 @@ export default class CardComponent extends Component {
     const page = this.props.page;
     let sectionBadge = null;
     let sourceBadge = null;
-    if (!sections.includes(page)) {
+    if (this.props.section != null) {
       sectionBadge = (
-        <Badge style={{ float: "right" }} variant={this.props.section}>
-          {this.props.section.toUpperCase()}
-        </Badge>
+          <Badge style={{float: "right"}} variant={this.props.section}>
+            {this.props.section.toUpperCase()}
+          </Badge>
       );
     }
     if (page === "search" || page === "favorites") {

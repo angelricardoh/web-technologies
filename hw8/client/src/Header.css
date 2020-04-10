@@ -8,3 +8,9 @@ span > text{
     color: white;
     background-image: linear-gradient(15deg, #11284B 0%, #456BBB 100%);
 }
+
+.search-select {
+    width: 300px;
+    color: black;
+    text-align: left;
+}

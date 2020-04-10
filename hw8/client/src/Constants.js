@@ -10,6 +10,5 @@ export const sections = [
   "business",
   "technology",
   "sports",
-  "health"
 ];
 export const sharePhrase = "CSCI_571_NewsApp";

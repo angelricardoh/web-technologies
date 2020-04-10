@@ -2,14 +2,11 @@ import React, { Component } from "react"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
-import Form from 'react-bootstrap/Form'
-import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
 import Switch from "react-switch"
 import "./Header.css"
-import Select from 'react-select'
-import _ from "lodash"
-import AsyncSelect from 'react-select/async';
+import AsyncSelect from 'react-select/async'
+import {bingAutosuggestKey} from './Constants'
 
 
 export default class Header extends Component {
@@ -41,10 +38,9 @@ export default class Header extends Component {
         try {
             return fetch(
                 `https://api.cognitive.microsoft.com/bing/v7.0/suggestions?mkt=fr-FR&q=` + inputValue,
-                // `https://api.cognitive.microsoft.com/bing/v7.0/suggestions?mkt=fr-FR&q=${event}`,
                 {
                     headers: {
-                        "Ocp-Apim-Subscription-Key": "f4964c95567e4d4887e0c11be9e227b6"
+                        "Ocp-Apim-Subscription-Key": bingAutosuggestKey
                     }
                 }
             )

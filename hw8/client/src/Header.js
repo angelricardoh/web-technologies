@@ -2,16 +2,12 @@ import React, {Component} from "react"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
-// import "./Header.css"
 import AsyncSelect from 'react-select/async'
 import {bingAutosuggestKey} from './Constants'
 import { FaRegBookmark } from "react-icons/fa"
 import SwitchSource from "./SwitchSource";
 import { isGuardianChecked } from "./Constants";
-import { css } from './Header.css'
-// import {
-//     Link
-// } from "react-router-dom";
+import './Header.css'
 import { Link } from "react-router-dom";
 
 let socialNetworksButtonSize = "2.5rem";
@@ -100,7 +96,8 @@ export default class Header extends Component {
                         style={{ marginRight: "1rem" }}
                         data-tip="Bookmark"
                     />
-                    <SwitchSource handleChange={this.handleSwitchChange}
+                    <SwitchSource page={this.props.page}
+                                  handleChange={this.handleSwitchChange}
                                   checked={this.state.checked}/>
                 </Navbar>
             </header>

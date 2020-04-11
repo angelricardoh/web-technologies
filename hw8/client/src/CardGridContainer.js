@@ -23,13 +23,6 @@ export default class CardGridContainer extends Component {
     this.handleCloseModalShare = this.handleCloseModalShare.bind(this);
   }
 
-  // shouldComponentUpdate(nextProps, nextState, nextContext) {
-  //   if (this.props.source === nextProps.source) {
-  //     return false
-  //   }
-  //   return true
-  // }
-
   componentDidMount() {
     let source = this.props.source;
     let page = this.props.page;
@@ -58,10 +51,6 @@ export default class CardGridContainer extends Component {
       const { articles } = response.data;
       this.setState({ articles: articles});
     });
-  }
-
-  componentWillUnmount() {
-    console.log('componentWillUnmount cardgridcontainer')
   }
 
   handleClickShare(articleId) {

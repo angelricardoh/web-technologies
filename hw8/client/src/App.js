@@ -18,6 +18,7 @@ export default class App extends Component {
     this.handleSwitchChange = this.handleSwitchChange.bind(this)
     this.handleSearchChange = this.handleSearchChange.bind(this)
     this.handleBookmarkClick = this.handleBookmarkClick.bind(this)
+    this.handlePageChange = this.handlePageChange.bind(this)
   }
 
   handleSwitchChange(checked) {
@@ -38,6 +39,10 @@ export default class App extends Component {
     this.setState({page: '/favorites'})
   }
 
+  handlePageChange(newPage) {
+    this.setState({page: newPage})
+  }
+
   render() {
     return (
         <section key='app'>
@@ -45,10 +50,12 @@ export default class App extends Component {
             <Header
                 handleSwitchChange={this.handleSwitchChange}
                 handleSearchChange={this.handleSearchChange}
-                handleBookmarkClick={this.handleBookmarkClick}/>
+                handleBookmarkClick={this.handleBookmarkClick}
+                page={this.state.page}/>
             <AppComponent
                 source={this.state.source}
-                page={this.state.page}/>
+                page={this.state.page}
+                onPageChange={this.handlePageChange}/>
           </Router>
         </section>
     );

@@ -2,12 +2,17 @@ import React, {Component} from "react"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
-import "./Header.css"
+// import "./Header.css"
 import AsyncSelect from 'react-select/async'
 import {bingAutosuggestKey} from './Constants'
 import { FaRegBookmark } from "react-icons/fa"
 import SwitchSource from "./SwitchSource";
 import { isGuardianChecked } from "./Constants";
+import { css } from './Header.css'
+// import {
+//     Link
+// } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 let socialNetworksButtonSize = "2.5rem";
 
@@ -71,7 +76,7 @@ export default class Header extends Component {
     render() {
         return (
             <header>
-                <Navbar bg="primary" variant="dark">
+                <Navbar variant="dark">
                     <AsyncSelect
                             ref={ref => this.ref = ref}
                             placeholder='Enter keyword ..'
@@ -81,13 +86,13 @@ export default class Header extends Component {
                             onInputChange={this.handleSearchChange}
                             loadOptions={this.getAutosuggestionResults}
                     />
-                    <Nav className="mr-auto">
-                        <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="/world">World</Nav.Link>
-                        <Nav.Link href="/politics">Politics</Nav.Link>
-                        <Nav.Link href="/business">Business</Nav.Link>
-                        <Nav.Link href="/technology">Technology</Nav.Link>
-                        <Nav.Link href="/sports">Sports</Nav.Link>
+                    <Nav className="mr-auto" defaultActiveKey='/'>
+                        <Nav.Link as={Link} to='/'>Home</Nav.Link>
+                        <Nav.Link as={Link} to="/world">World</Nav.Link>
+                        <Nav.Link as={Link} to="/politics">Politics</Nav.Link>
+                        <Nav.Link as={Link} to="/business">Business</Nav.Link>
+                        <Nav.Link as={Link} to="/technology">Technology</Nav.Link>
+                        <Nav.Link as={Link} to="/sports">Sports</Nav.Link>
                     </Nav>
                     <FaRegBookmark
                         onClick={this.props.handleBookmarkClick}

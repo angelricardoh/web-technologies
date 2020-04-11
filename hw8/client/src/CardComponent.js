@@ -4,6 +4,7 @@ import Badge from "react-bootstrap/Badge";
 import { Text } from "react-native";
 import NewsCard from './NewsCard'
 import {Redirect} from "react-router-dom";
+import ShareButton from './ShareButton'
 
 export default class CardComponent extends NewsCard {
   render() {
@@ -22,12 +23,8 @@ export default class CardComponent extends NewsCard {
             variant="primary">
           <Card.Title>
             {this.props.data.title}
-            <span
-                articleId={this.props.data.id}
-                className="material-icons"
-                onClick={this.props.handleClickShare}>
-              share
-            </span>
+            <ShareButton articleId={this.props.data.id}
+                         onClick={this.handleClickShare}/>
           </Card.Title>
           <Text
               numberOfLines={3}>{this.props.data.description}</Text>

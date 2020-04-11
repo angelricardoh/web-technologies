@@ -14,3 +14,33 @@ span > text{
     color: black;
     text-align: left;
 }
+
+.navbar-nav > .active > a {
+    color: white;
+    background-color: chartreuse;
+}
+.nav-link > a:hover {
+    color: red;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    color: red; /* <—– change your color here*/
+}
+
+.selected {
+    color: white;
+}
+
+.active {
+    color: red;
+    text-decoration: none;
+}
+
+a {
+    color: #FFF;
+}
+a:hover {
+    color: #00F
+}

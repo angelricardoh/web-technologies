@@ -41,11 +41,11 @@ export default class App extends Component {
   render() {
     return (
         <section key='app'>
-          <Header
-              handleSwitchChange={this.handleSwitchChange}
-              handleSearchChange={this.handleSearchChange}
-              handleBookmarkClick={this.handleBookmarkClick}/>
           <Router>
+            <Header
+                handleSwitchChange={this.handleSwitchChange}
+                handleSearchChange={this.handleSearchChange}
+                handleBookmarkClick={this.handleBookmarkClick}/>
             <AppComponent
                 source={this.state.source}
                 page={this.state.page}/>

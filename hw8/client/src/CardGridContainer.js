@@ -18,11 +18,17 @@ export default class CardGridContainer extends Component {
         show: false,
         articleId: null
       },
-      loading: true
     };
     this.handleClickShare = this.handleClickShare.bind(this);
     this.handleCloseModalShare = this.handleCloseModalShare.bind(this);
   }
+
+  // shouldComponentUpdate(nextProps, nextState, nextContext) {
+  //   if (this.props.source === nextProps.source) {
+  //     return false
+  //   }
+  //   return true
+  // }
 
   componentDidMount() {
     let source = this.props.source;
@@ -48,17 +54,17 @@ export default class CardGridContainer extends Component {
         break
     }
 
-    console.log(url)
     axios.get(url).then(response => {
       const { articles } = response.data;
-      this.setState({ articles: articles, loading: false });
+      this.setState({ articles: articles});
     });
   }
 
-  handleClickShare(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    let articleId = event.target.getAttribute("articleId");
+  componentWillUnmount() {
+    console.log('componentWillUnmount cardgridcontainer')
+  }
+
+  handleClickShare(articleId) {
     let shareStatus = { show: true, articleId: articleId };
     this.setState({ share: shareStatus });
   }

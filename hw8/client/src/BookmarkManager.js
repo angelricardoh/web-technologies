@@ -4,8 +4,6 @@ Storage.prototype.setObject = function(key, value) {
 
 Storage.prototype.getObject = function(key) {
     let value = this.getItem(key);
-    console.log('getObject')
-    console.log(value)
     if (value === null) {
         return value
     }

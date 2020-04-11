@@ -4,6 +4,7 @@ import Badge from "react-bootstrap/Badge";
 import "./CardComponent.css";
 import NewsCard from './NewsCard'
 import {Redirect} from "react-router-dom";
+import ShareButton from "./ShareButton";
 
 export default class CompactCardComponent extends NewsCard {
     render() {
@@ -27,11 +28,8 @@ export default class CompactCardComponent extends NewsCard {
                   className='card-compact'
                   variant='compact'>
                     <Card.Text>{this.props.data.title}</Card.Text>
-                    <span articleId={this.props.data.id}
-                          className="material-icons"
-                          onClick={this.props.handleClickShare}>
-                        share
-                    </span>
+                    <ShareButton articleId={this.props.data.id}
+                             onClick={this.handleClickShare}/>
                 <Card.Img variant="primary"
                           src={this.props.data.image} />
                 <Card.Text style={{ float: "left" }}>{this.props.data.date}</Card.Text>

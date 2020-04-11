@@ -70,10 +70,9 @@ function getArticleDetail(req) {
     }
     let url = null
     if (source === "guardian") {
-
-      let url = "https://content.guardianapis.com/" + articleId + "?api-key=" + GUARDIAN_API_KEY + "&show-blocks=all"
+      url = "https://content.guardianapis.com/" + articleId + "?api-key=" + GUARDIAN_API_KEY + "&show-blocks=all"
     } else {
-      let url =
+      url =
           'https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=web_url:("';
       url += articleId;
       url += '")&api-key=';

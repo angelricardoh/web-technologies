@@ -40,6 +40,7 @@ export function removeBookmark(article) {
     }
 
     let indexBookmark = -1
+    // eslint-disable-next-line no-unused-vars
     for (const index in bookmarks) {
         let currentBookmark = bookmarks[index]
         if (currentBookmark.id === article.id) {
@@ -60,6 +61,7 @@ export function isBookmarked(article) {
     if (typeof bookmarks === 'undefined' || bookmarks == null) {
         return false
     }
+    // eslint-disable-next-line no-unused-vars
     for (const index in bookmarks) {
         let currentBookmark = bookmarks[index]
         if (currentBookmark.id === article.id) {

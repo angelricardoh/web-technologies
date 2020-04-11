@@ -7,10 +7,6 @@ import {withRouter} from 'react-router-dom'
 
 class AppComponent extends Component {
 
-    constructor(props) {
-        super(props)
-    }
-
     componentDidUpdate(prevProps) {
         if (prevProps.page !== this.props.page) {
             this.props.history.push(this.props.page)

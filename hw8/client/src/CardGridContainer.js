@@ -4,8 +4,6 @@ import ShareModal from "./ShareModal";
 import axios from "axios";
 import { host } from "./Constants";
 import { listBookmarks } from "./BookmarkManager";
-// import { css } from '@emotion/core'
-import BounceLoader from 'react-spinners/BounceLoader'
 import Loader from './Loader'
 
 export default class CardGridContainer extends Component {
@@ -71,6 +69,7 @@ export default class CardGridContainer extends Component {
   }
 
   render() {
+    let isFavorite = this.state.page === 'favorites' ? true : false
     let content = null;
     let modal = null
     if (this.state.articles == null) {
@@ -96,6 +95,7 @@ export default class CardGridContainer extends Component {
         if (typeof title !== "undefined" && typeof shareUrl !== "undefined") {
           modal = (
             <ShareModal
+              isFavorite={isFavorite}
               show={this.state.share.show}
               title={title}
               shareUrl={shareUrl}

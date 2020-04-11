@@ -1,4 +1,3 @@
-import loa from "react-switch";
 import React from "react";
 import BounceLoader from "react-spinners/BounceLoader";
 import { css } from "@emotion/core";

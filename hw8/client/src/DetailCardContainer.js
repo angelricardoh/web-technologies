@@ -3,6 +3,7 @@ import { host } from "./Constants";
 import axios from "axios";
 import DetailCardComponent from "./DetailCardComponent";
 import PageWithComments from "./PageWithComments";
+import Loader from './Loader'
 
 export default class DetailCardContainer extends Component {
   constructor(props) {
@@ -16,8 +17,7 @@ export default class DetailCardContainer extends Component {
   componentDidMount() {
     let source = this.props.source;
     let articleId = this.props.articleId;
-    let url =
-      host + "article_detail?source=" + source + "&articleId=" + articleId;
+    let url = host + "article_detail?source=" + source + "&articleId=" + articleId;
 
     console.log("fetch url " + url);
 
@@ -30,19 +30,19 @@ export default class DetailCardContainer extends Component {
   }
 
   render() {
-    let cardDetailComponent = null
+    let content = null
     let commentBox = null
     let modal = null;
     if (this.state.detail != null) {
-      cardDetailComponent = <DetailCardComponent detail={this.state.detail} />
+      content = <DetailCardComponent detail={this.state.detail} />
       commentBox = <PageWithComments articleId={this.state.detail.id}/>
     } else {
-      cardDetailComponent = <h2>Loading...</h2>
+      content = <Loader />
     }
 
     return (
       <div>
-        {cardDetailComponent}
+        {content}
         {commentBox}
         {modal}
       </div>

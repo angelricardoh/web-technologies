@@ -1,11 +1,8 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 import Header from "./Header";
-import CardGridContainer from "./CardGridContainer";
-import DetailCardContainer from './DetailCardContainer'
 import { source } from './Constants'
-import PropTypes from "prop-types";
 import AppComponent from "./AppComponent";
 
 export default class App extends Component {

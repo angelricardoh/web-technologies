@@ -3,7 +3,7 @@ const fetch = require("node-fetch");
 const path = require("path");
 const port = 8080;
 const application = express();
-var cors = require("cors");
+const cors = require("cors");
 
 const GUARDIAN_API_KEY = "4e22f01e-35ce-4b12-ad57-1a7f8116ee21";
 const NY_TIMES_API_KEY = "nCfLNNY4zJ67wfSTpiLm8RxxdpLmJ5mL";
@@ -15,60 +15,49 @@ application.use(express.static(path.join(__dirname, "public")));
 function getGuardianArticles(req) {
   return new Promise(resolve => {
     let section = req.query.section;
+    let url = null
     if (section !== "home") {
-      fetch(
-        "https://content.guardianapis.com/" +
-          section +
-          "?api-key=" +
-          GUARDIAN_API_KEY +
-          "&show-blocks=all"
-      )
-        .then(response => response.json())
-        .then(
-          data => {
-            resolve(data);
-          },
-          error => {
-            throw error;
-          }
-        );
+      url =  "https://content.guardianapis.com/" + section + "?api-key=" + GUARDIAN_API_KEY + "&show-blocks=all"
     } else {
-      fetch(
-        "https://content.guardianapis.com/search?api-key=" +
-          GUARDIAN_API_KEY +
+      url = "https://content.guardianapis.com/search?api-key=" + GUARDIAN_API_KEY +
           "&section=(sport|business|technology|politics)&show-blocks=all&page-size=20"
-      )
+    }
+
+    console.log("GET: " + url)
+
+    fetch(url)
         .then(response => response.json())
         .then(
-          data => {
-            resolve(data);
-          },
-          error => {
-            throw error;
-          }
+            data => {
+              resolve(data);
+            },
+            error => {
+              throw error;
+            }
         );
-    }
   });
 }
 
 function getNYTimesArticles(req) {
   return new Promise(resolve => {
     let section = req.query.section;
-    fetch(
-      "https://api.nytimes.com/svc/topstories/v2/" +
+    let url = "https://api.nytimes.com/svc/topstories/v2/" +
         section +
         ".json?api-key=" +
         NY_TIMES_API_KEY
-    )
-      .then(response => response.json())
-      .then(
-        data => {
-          resolve(data);
-        },
-        error => {
-          throw error;
-        }
-      );
+
+    console.log("GET: " + url)
+
+    fetch(url)
+        .then(response => response.json())
+        .then(
+            data => {
+              resolve(data);
+            },
+            error => {
+              throw error;
+            }
+        );
   });
 }
 
@@ -76,42 +65,33 @@ function getArticleDetail(req) {
   return new Promise(resolve => {
     let articleId = req.query.articleId;
     let source = req.query.source;
+    if (source !== 'guardian' && source !== 'nytimes') {
+      throw Error('bad request')
+    }
+    let url = null
     if (source === "guardian") {
-      fetch(
-        "https://content.guardianapis.com/" +
-          articleId +
-          "?api-key=" +
-          GUARDIAN_API_KEY +
-          "&show-blocks=all"
-      )
-        .then(response => response.json())
-        .then(
-          data => {
-            resolve(data);
-          },
-          error => {
-            throw error;
-          }
-        );
-    } else if(source === 'nytimes') {
+
+      let url = "https://content.guardianapis.com/" + articleId + "?api-key=" + GUARDIAN_API_KEY + "&show-blocks=all"
+    } else {
       let url =
-        'https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=web_url:("';
+          'https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=web_url:("';
       url += articleId;
       url += '")&api-key=';
       url += NY_TIMES_API_KEY;
-      fetch(url)
+    }
+
+    console.log("GET: " + url)
+
+    fetch(url)
         .then(response => response.json())
         .then(
-          data => {
-            resolve(data);
-          },
-          error => {
-            throw error;
-          }
+            data => {
+              resolve(data);
+            },
+            error => {
+              throw error;
+            }
         );
-    } else {
-      throw Error('bad request')
-    }
   });
 }
 
@@ -119,40 +99,35 @@ function getSearchResults(req) {
   return new Promise(resolve => {
     let search = req.query.search;
     let source = req.query.source;
+    if (source !== 'guardian' && source !== 'nytimes') {
+      throw Error('bad request')
+    }
+    let url = null
     if (source === "guardian") {
-      fetch(
-          "https://content.guardianapis.com/search?q=" +
+      url = "https://content.guardianapis.com/search?q=" +
           search +
           "&api-key=" +
           GUARDIAN_API_KEY +
           "&show-blocks=all"
-      )
-          .then(response => response.json())
-          .then(
-              data => {
-                resolve(data);
-              },
-              error => {
-                throw error;
-              }
-          );
-    } else if(source === 'nytimes') {
-      let url =
+    } else  {
+      url =
           'https://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + search +
           '&api-key=' + NY_TIMES_API_KEY;
-      fetch(url)
-          .then(response => response.json())
-          .then(
-              data => {
-                resolve(data);
-              },
-              error => {
-                throw error;
-              }
-          );
-    } else {
-      throw Error('bad request')
+
     }
+
+    console.log("GET: " + url)
+
+    fetch(url)
+        .then(response => response.json())
+        .then(
+            data => {
+              resolve(data);
+            },
+            error => {
+              throw error;
+            }
+        );
   });
 }
 
@@ -430,6 +405,11 @@ function getNYTimesArticlesData(response) {
     }
 
     let section = typeof currentResult.section !== 'undefined' ? currentResult.section : currentResult.news_desk
+    // Special case politics category
+    if (typeof currentResult.subsection !== 'undefined' && currentResult.subsection === 'politics') {
+      section = 'politics'
+    }
+
     let dateString = typeof currentResult.published_date !== 'undefined' ?
         currentResult.published_date : currentResult.pub_date
     let date = formatShortDate(new Date(dateString));

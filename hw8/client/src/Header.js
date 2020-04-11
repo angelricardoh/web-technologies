@@ -1,4 +1,4 @@
-import React, {Component, useReducer} from "react"
+import React, {Component} from "react"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
@@ -8,8 +8,7 @@ import {bingAutosuggestKey} from './Constants'
 import { FaRegBookmark } from "react-icons/fa"
 import SwitchSource from "./SwitchSource";
 import { isGuardianChecked } from "./Constants";
-import { useHistory } from "react-router-dom";
-import { Redirect } from 'react-router'
+
 let socialNetworksButtonSize = "2.5rem";
 
 export default class Header extends Component {
@@ -20,11 +19,13 @@ export default class Header extends Component {
         this.state = {
             checked: isGuardianChecked(),
         }
+        this.handleSwitchChange = this.handleSwitchChange.bind(this)
         this.handleSearchChange = this.handleSearchChange.bind(this)
     }
 
-    shouldComponentUpdate(nextProps, nextState, nextContext) {
-        return false
+    handleSwitchChange(checked) {
+        this.setState({ checked: checked })
+        this.props.handleSwitchChange(checked)
     }
 
     handleSearchChange(value, { action }) {
@@ -94,7 +95,7 @@ export default class Header extends Component {
                         style={{ marginRight: "1rem" }}
                         data-tip="Bookmark"
                     />
-                    <SwitchSource handleChange={this.props.handleSwitchChange}
+                    <SwitchSource handleChange={this.handleSwitchChange}
                                   checked={this.state.checked}/>
                 </Navbar>
             </header>

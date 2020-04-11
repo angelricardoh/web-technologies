@@ -1,0 +1,9 @@
+.loader-container {
+    display: flex;
+    height: 100vh;
+}
+
+.inner-loader-container {
+    margin: 0 auto;
+    align-self: center;
+}

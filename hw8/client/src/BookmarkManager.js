@@ -51,7 +51,6 @@ export function removeBookmark(article) {
         bookmarks.splice(indexBookmark, 1);
     }
     localStorage.setObject('bookmarks', bookmarks)
-    // console.log(bookmarks)
 }
 
 export function isBookmarked(article) {

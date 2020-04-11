@@ -21,7 +21,7 @@ export default class CardComponent extends NewsCard {
         <Card.Body
             variant="primary">
           <Card.Title>
-            {this.props.title}
+            {this.props.data.title}
             <span
                 articleindex={this.props.data.index}
                 className="material-icons"

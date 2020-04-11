@@ -23,7 +23,7 @@ export default class CardComponent extends NewsCard {
           <Card.Title>
             {this.props.data.title}
             <span
-                articleindex={this.props.data.index}
+                articleId={this.props.data.id}
                 className="material-icons"
                 onClick={this.props.handleClickShare}>
               share

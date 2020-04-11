@@ -27,7 +27,7 @@ export default class CompactCardComponent extends NewsCard {
                   className='card-compact'
                   variant='compact'>
                     <Card.Text>{this.props.data.title}</Card.Text>
-                    <span articleindex={this.props.data.index}
+                    <span articleId={this.props.data.id}
                           className="material-icons"
                           onClick={this.props.handleClickShare}>
                         share

@@ -11,7 +11,9 @@ const override = css`
 export default function Loader(props) {
     return (
         <div className='loader-container'>
-            <div className='inner-loader-container' style={{alignItems: 'center', justifyContent: 'center'}}>
+            <div className='inner-loader-container'
+                 style={{alignItems: 'center',
+                     justifyContent: 'center'}}>
                 <BounceLoader
                     css={override}
                     size={60}

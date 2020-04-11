@@ -16,7 +16,7 @@ export default class CardGridContainer extends Component {
       page: props.page,
       share: {
         show: false,
-        articleIndex: null
+        articleId: null
       },
       loading: true
     };
@@ -58,13 +58,13 @@ export default class CardGridContainer extends Component {
   handleClickShare(event) {
     event.preventDefault();
     event.stopPropagation();
-    let articleIndex = event.target.getAttribute("articleindex");
-    let shareStatus = { show: true, articleIndex: articleIndex };
+    let articleId = event.target.getAttribute("articleId");
+    let shareStatus = { show: true, articleId: articleId };
     this.setState({ share: shareStatus });
   }
 
   handleCloseModalShare() {
-    let shareStatus = { show: false, articleIndex: null };
+    let shareStatus = { show: false, articleId: null };
     this.setState({ share: shareStatus });
   }
 
@@ -85,24 +85,24 @@ export default class CardGridContainer extends Component {
         />
       );
 
-      let articleIndex = this.state.share.articleIndex;
-      if (
-        articleIndex != null &&
-        typeof this.state.articles[articleIndex] !== "undefined"
-      ) {
-        let title = this.state.articles[articleIndex].title;
-        let shareUrl = this.state.articles[articleIndex].shareUrl;
-        if (typeof title !== "undefined" && typeof shareUrl !== "undefined") {
-          modal = (
-            <ShareModal
-              isFavorite={isFavorite}
-              show={this.state.share.show}
-              title={title}
-              shareUrl={shareUrl}
-              source={this.props.source}
-              handleCloseModalShare={this.handleCloseModalShare}
-            />
-          );
+      let articleId = this.state.share.articleId;
+      if (articleId !== null) {
+        // eslint-disable-next-line no-unused-vars
+        for (const index in this.state.articles) {
+          let currentArticle = this.state.articles[index]
+          if (currentArticle.id === articleId) {
+            modal = (
+                <ShareModal
+                    isFavorite={isFavorite}
+                    show={this.state.share.show}
+                    title={currentArticle.title}
+                    shareUrl={currentArticle.shareUrl}
+                    source={this.props.source}
+                    handleCloseModalShare={this.handleCloseModalShare}
+                />
+            );
+            break
+          }
         }
       }
     }

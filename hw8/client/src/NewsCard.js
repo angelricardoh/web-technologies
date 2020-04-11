@@ -1,5 +1,4 @@
-import React, {Component} from "react";
-import {Redirect} from 'react-router-dom'
+import {Component} from "react";
 
 export default class NewsCard extends Component {
     constructor(props) {
@@ -15,9 +14,5 @@ export default class NewsCard extends Component {
         this.setState({redirect: "/detail?articleId=" + this.props.data.id})
     }
 
-    render() {
-        if (this.state.redirect !== null) {
-            return <Redirect push to={this.state.redirect}/>
-        }
-    }
+
 }

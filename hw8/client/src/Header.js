@@ -1,20 +1,16 @@
-import React, { Component } from "react"
+import React, {Component, useReducer} from "react"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
-import Button from 'react-bootstrap/Button'
 import "./Header.css"
 import AsyncSelect from 'react-select/async'
-import {bingAutosuggestKey, host} from './Constants'
+import {bingAutosuggestKey} from './Constants'
 import { FaRegBookmark } from "react-icons/fa"
 import SwitchSource from "./SwitchSource";
-
-let socialNetworksButtonSize = "0.5rem";
-
-// function CurrentLocation() {
-//     let location = useLocation();
-//     return location.pathname
-// }
+import { isGuardianChecked } from "./Constants";
+import { useHistory } from "react-router-dom";
+import { Redirect } from 'react-router'
+let socialNetworksButtonSize = "2.5rem";
 
 export default class Header extends Component {
 
@@ -22,29 +18,22 @@ export default class Header extends Component {
         super(props)
 
         this.state = {
-            checked: props.isGuardianChecked
+            checked: isGuardianChecked(),
         }
-
-        this.handleChange = this.handleChange.bind(this)
         this.handleSearchChange = this.handleSearchChange.bind(this)
     }
 
-    handleChange(checked) {
-        this.setState({ checked: checked })
-        this.props.handleChange(checked)
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        return false
     }
 
     handleSearchChange(value, { action }) {
         if (action === 'set-value') {
-            console.log(this.ref.select.select.state.focusedOption.value)
             // start search
-            window.location = "/search?source=" + this.props.source +
-                "&search=" + this.ref.select.select.state.focusedOption.value;
+            let searchPath = "/search?source=" + this.props.source +
+                "&search=" + this.ref.select.select.state.focusedOption.value
+            this.props.handleSearchChange(searchPath)
         }
-    }
-
-    handleBookmarkClick() {
-        window.location = '/favorites'
     }
 
     getAutosuggestionResults = inputValue => {
@@ -64,7 +53,7 @@ export default class Header extends Component {
                 let data = response
                 const resultsRaw = data.suggestionGroups[0].searchSuggestions;
                 const results = resultsRaw.map(result => ({value: result.displayText, label: result.displayText}));
-                if (results.length == 0) {
+                if (results.length === 0) {
                     return {value: 'nomatch', label: 'No Match'}
                 }
                 return results
@@ -100,12 +89,12 @@ export default class Header extends Component {
                         <Nav.Link href="/sports">Sports</Nav.Link>
                     </Nav>
                     <FaRegBookmark
-                        onClick={this.handleBookmarkClick}
+                        onClick={this.props.handleBookmarkClick}
                         size={socialNetworksButtonSize}
-                        style={{ marginRight: "5rem" }}
+                        style={{ marginRight: "1rem" }}
                         data-tip="Bookmark"
                     />
-                    <SwitchSource handleChange={this.handleChange}
+                    <SwitchSource handleChange={this.props.handleSwitchChange}
                                   checked={this.state.checked}/>
                 </Navbar>
             </header>

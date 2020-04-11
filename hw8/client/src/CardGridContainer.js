@@ -4,6 +4,8 @@ import ShareModal from "./ShareModal";
 import axios from "axios";
 import { host } from "./Constants";
 import { listBookmarks } from "./BookmarkManager";
+import { css } from '@emotion/core'
+import BounceLoader from 'react-spinners/BounceLoader'
 
 export default class CardGridContainer extends Component {
   constructor(props) {
@@ -16,7 +18,8 @@ export default class CardGridContainer extends Component {
       share: {
         show: false,
         articleIndex: null
-      }
+      },
+      loading: true
     };
     this.handleClickShare = this.handleClickShare.bind(this);
     this.handleCloseModalShare = this.handleCloseModalShare.bind(this);
@@ -48,7 +51,7 @@ export default class CardGridContainer extends Component {
 
     axios.get(url).then(response => {
       const { articles } = response.data;
-      this.setState({ articles: articles });
+      this.setState({ articles: articles, loading: false });
     });
   }
 
@@ -66,14 +69,19 @@ export default class CardGridContainer extends Component {
   }
 
   render() {
-    let cardGridComponent = null;
+    let content = null;
     let modal = null
     if (this.state.articles == null) {
-      cardGridComponent = <h2>Loading...</h2>;
-    } else if (this.state.articles.length == 0) {
-      cardGridComponent = <h2>No results or bookmarks</h2>
+      content = <h2>Loading ...</h2>
+      // content = <BounceLoader
+      //     // css={override}
+      //     size={150}
+      //     color={'#123abc'}
+      //     loading={this.state.loading}/>
+    } else if (this.state.articles.length === 0) {
+      content = <h2>No results or bookmarks</h2>
     } else {
-      cardGridComponent = (
+      content = (
         <CardGridComponent
           key={this.state.page}
           data={this.state}
@@ -104,7 +112,7 @@ export default class CardGridContainer extends Component {
 
     return (
       <div>
-        {cardGridComponent}
+        {content}
         {modal}
       </div>
     );

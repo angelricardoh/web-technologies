@@ -20,34 +20,29 @@ export function listBookmarks() {
     if (typeof bookmarks === 'undefined' || bookmarks == null) {
         return []
     }
-    // console.log(bookmarks)
     return bookmarks
 }
 
 export function addBookmark(article) {
     let bookmarks = localStorage.getObject('bookmarks')
     if (typeof bookmarks === 'undefined' || bookmarks == null) {
-        bookmarks = new Array()
+        bookmarks = []
     }
     bookmarks.push(article)
-    // console.log('addBookmark')
-    // console.log(bookmarks)
     localStorage.setObject('bookmarks', bookmarks)
     return bookmarks
 }
 
 export function removeBookmark(article) {
-    console.log('removeBookmark')
     let bookmarks = localStorage.getObject('bookmarks')
-    console.log(bookmarks)
     if (typeof bookmarks === 'undefined' || bookmarks == null) {
         return
     }
 
     let indexBookmark = -1
-    for (let index in bookmarks) {
+    for (const index in bookmarks) {
         let currentBookmark = bookmarks[index]
-        if (currentBookmark.id == article.id) {
+        if (currentBookmark.id === article.id) {
             indexBookmark = index
             break
         }
@@ -66,9 +61,9 @@ export function isBookmarked(article) {
     if (typeof bookmarks === 'undefined' || bookmarks == null) {
         return false
     }
-    for (let index in bookmarks) {
+    for (const index in bookmarks) {
         let currentBookmark = bookmarks[index]
-        if (currentBookmark.id == article.id) {
+        if (currentBookmark.id === article.id) {
             return true
         }
     }

@@ -4,118 +4,54 @@ import "./App.css";
 import Header from "./Header";
 import CardGridContainer from "./CardGridContainer";
 import DetailCardContainer from './DetailCardContainer'
-
-const source = function() {
-  let storedSource = localStorage.getItem("source");
-  if (storedSource === 'nytimes') {
-    return storedSource;
-  } else {  // default case
-    return 'guardian';
-  }
-};
-
-const isGuardianChecked = function() {
-  return source() === 'guardian' ? true : false
-}
+import { source } from './Constants'
+import PropTypes from "prop-types";
+import AppComponent from "./AppComponent";
 
 export default class App extends Component {
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
 
     this.state = {
       source: source(),
-      isGuardianChecked: isGuardianChecked()
+      page: null
     }
-    this.handleChange = this.handleChange.bind(this)
+
+    this.handleSwitchChange = this.handleSwitchChange.bind(this)
+    this.handleSearchChange = this.handleSearchChange.bind(this)
+    this.handleBookmarkClick = this.handleBookmarkClick.bind(this)
   }
 
-  handleChange(checked) {
+  handleSwitchChange(checked) {
     if (checked) {
       localStorage.setItem('source', 'guardian')
-      this.setState({source: 'guardian', isGuardianChecked: true})
+      this.setState({source: 'guardian'})
     } else {
       localStorage.setItem('source', 'nytimes')
-      this.setState({source: 'nytimes', isGuardianChecked: false})
+      this.setState({source: 'nytimes'})
     }
+  }
+
+  handleSearchChange(searchPath) {
+    this.setState({page: searchPath})
+  }
+
+  handleBookmarkClick() {
+    this.setState({page: '/favorites'})
   }
 
   render() {
     return (
-        <section className="App">
-          <Header source={this.state.source}
-                  isGuardianChecked={this.state.isGuardianChecked}
-                  handleChange={this.handleChange}/>
+        <section key='app'>
+          <Header
+              handleSwitchChange={this.handleSwitchChange}
+              handleSearchChange={this.handleSearchChange}
+              handleBookmarkClick={this.handleBookmarkClick}/>
           <Router>
-            <Switch>
-              <Route exact
-                     path="/"
-                     component={() => <CardGridContainer key='home' page='home' source={this.state.source} />}
-              />
-              <Route exact
-                     path="/world"
-                     component={() => <CardGridContainer key='world' page='world' source={this.state.source} />}
-              />
-              <Route exact
-                     path="/politics"
-                     component={() => <CardGridContainer key='politics' page='politics' source={this.state.source} />}
-              />
-              <Route exact
-                     path="/business"
-                     component={() => <CardGridContainer key='business' page='business' source={this.state.source} />}
-              />
-              <Route exact
-                     path="/technology"
-                     component={() => <CardGridContainer key='technology' page='technology' source={this.state.source} />}
-              />
-              <Route exact
-                     path="/sports"
-                     component={() =>
-                         <CardGridContainer key='sports' page='sports' source={this.state.source} />}
-              />
-              <Route exact
-                     path="/detail"
-                     component={({ match, location }) =>
-                     {
-                       let searchParams = new URLSearchParams(location.search)
-                       let articleId = searchParams.get('articleId')
-                       return (
-                           <DetailCardContainer source={this.state.source}
-                                                articleId={articleId}
-                           />
-                       );
-                     }}
-              />
-              <Route exact
-                     path="/search"
-                     component={({ match, location }) =>
-                     {
-                       let searchParams = new URLSearchParams(location.search)
-                       console.log(searchParams)
-                       let search = searchParams.get('search')
-                       console.log(search)
-                       return (
-                           <CardGridContainer key='search'
-                                              source={this.state.source}
-                                              page='search'
-                                              search={search}
-                           />
-                       );
-                     }}
-              />
-              <Route exact
-                     path="/favorites"
-                     component={({ match, location }) =>
-                     {
-                       return (
-                           <CardGridContainer key='favorites'
-                                              source={this.state.source}
-                                              page='favorites'
-                           />
-                       );
-                     }}
-              />
-            </Switch>
+            <AppComponent
+                source={this.state.source}
+                page={this.state.page}/>
           </Router>
         </section>
     );

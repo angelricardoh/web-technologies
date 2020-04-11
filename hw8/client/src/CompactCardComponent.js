@@ -1,15 +1,18 @@
-import React, { Component } from "react";
+import React from "react";
 import Card from "react-bootstrap/Card";
 import Badge from "react-bootstrap/Badge";
-import { Text } from "react-native";
-import { sections } from "./Constants";
 import "./CardComponent.css";
 import NewsCard from './NewsCard'
+import {Redirect} from "react-router-dom";
 
 export default class CompactCardComponent extends NewsCard {
     render() {
+        if (this.state.redirect !== null) {
+            return <Redirect push to={this.state.redirect}/>
+        }
+
         let sourceBadge = null
-        if (this.props.data.page == 'favorites'){
+        if (this.props.data.page === 'favorites'){
             sourceBadge = (
                 <Badge style={{ float: "right" }}
                        variant={this.props.data.source}>

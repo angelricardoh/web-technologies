@@ -16,3 +16,16 @@ export const sections = [
   "sports",
 ];
 export const sharePhrase = "CSCI_571_NewsApp";
+
+export const source = function() {
+  let storedSource = localStorage.getItem("source");
+  if (storedSource === 'nytimes') {
+    return storedSource;
+  } else {  // default case
+    return 'guardian';
+  }
+};
+
+export const isGuardianChecked = function() {
+  return source() === 'guardian' ? true : false
+}

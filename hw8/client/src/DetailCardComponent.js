@@ -9,8 +9,7 @@ import ReactTooltip from "react-tooltip";
 import {addBookmark, isBookmarked, removeBookmark} from "./BookmarkManager";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { style } from "react-toastify";
-import { Slide, Zoom, Flip, Bounce } from 'react-toastify';
+import { Zoom } from 'react-toastify';
 
 let socialNetworksButtonSize = "2.5rem";
 
@@ -91,7 +90,9 @@ export default class DetailCardComponent extends Component {
             {bookmarkButton}
             <ReactTooltip />
           </div>
-          <img className="detail-card-image" src={this.props.detail.image} />
+          <img className="detail-card-image"
+               alt="detail"
+               src={this.props.detail.image} />
           <br />
           <br />
           <ReadMore description={this.props.detail.description} />

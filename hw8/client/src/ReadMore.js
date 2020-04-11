@@ -33,7 +33,7 @@ class ReadMore extends Component {
   }
 
   render() {
-    const { description, more, less, lines } = this.props;
+    const { description, lines } = this.props;
 
     const { expanded, truncated } = this.state;
 

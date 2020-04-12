@@ -257,6 +257,8 @@ application.get("/article_detail", async function(req, res) {
       if (typeof image === "undefined" || image == null || image == "") {
         image =
           "https://upload.wikimedia.org/wikipedia/commons/0/0e/Nytimes_hq.jpg";
+      } else {
+        image = "https://nyt.com/" + image
       }
 
       let dateString = docs.pub_date;

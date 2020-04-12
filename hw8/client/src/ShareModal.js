@@ -38,7 +38,7 @@ export default function ShareModal(props) {
                 justifyContent: "space-around"
               }}
           >
-            <FacebookShareButton url={props.shareUrl} quote={"#" + sharePhrase}>
+            <FacebookShareButton url={props.shareUrl} hashtag={"#" + sharePhrase}>
               <FacebookIcon size={socialNetworksButtonSize} round={true}/>
             </FacebookShareButton>
             <TwitterShareButton url={props.shareUrl} hashtags={[sharePhrase]}>

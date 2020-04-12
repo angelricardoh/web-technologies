@@ -97,7 +97,8 @@ export default class DetailCardComponent extends Component {
           <br />
           <ReadMore description={this.props.detail.description} />
         </Card.Body>
-        <ToastContainer transition={Zoom}
+        <ToastContainer autoClose={3000}
+                        transition={Zoom}
                         position={toast.POSITION.TOP_CENTER}
                         hideProgressBar={true}
                         bodyClassName='light-toast'/>

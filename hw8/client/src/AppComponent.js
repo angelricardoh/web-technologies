@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
 import "./App.css";
 import CardGridContainer from "./CardGridContainer";
 import DetailCardContainer from './DetailCardContainer'
 
-export default class AppComponent extends Component {
+class AppComponent extends Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps.page !== this.props.page) {
@@ -84,3 +84,5 @@ export default class AppComponent extends Component {
         );
     }
 };
+
+export default withRouter(AppComponent)

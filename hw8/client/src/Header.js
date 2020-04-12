@@ -9,19 +9,43 @@ import SwitchSource from "./SwitchSource";
 import { isGuardianChecked } from "./Constants";
 import './Header.css'
 import { Link } from "react-router-dom";
+import { withRouter } from 'react-router-dom'
+import { section } from './Constants'
 
-let socialNetworksButtonSize = "2.5rem";
+let bookmarkButtonSize = "1.5rem";
 
-export default class Header extends Component {
+class Header extends Component {
 
     constructor(props) {
         super(props)
 
         this.state = {
             checked: isGuardianChecked(),
+            selectValue: null,
+            section: section(this.props.location)
         }
         this.handleSwitchChange = this.handleSwitchChange.bind(this)
         this.handleSearchChange = this.handleSearchChange.bind(this)
+        this.handleSectionChange = this.handleSectionChange.bind(this)
+        this.handleItemSelectChange = this.handleItemSelectChange.bind(this)
+        this.handleBookmarkClick = this.handleBookmarkClick.bind(this)
+    }
+
+    componentWillMount() {
+        this.unlisten = this.props.history.listen((location, action) => {
+            if (!location.pathname.includes('search')) {
+                this.setState({selectValue: null})
+            }
+            if (!location.pathname.includes('detail')) {
+                this.setState({section: 'detail'})
+            }
+            console.log("section changed")
+            console.log(this.state.section)
+        });
+    }
+
+    componentWillUnmount() {
+        this.unlisten();
     }
 
     handleSwitchChange(checked) {
@@ -31,11 +55,25 @@ export default class Header extends Component {
 
     handleSearchChange(value, { action }) {
         if (action === 'set-value') {
-            // start search
+            const selectedSearch = this.ref.select.select.state.focusedOption.value
             let searchPath = "/search?source=" + this.props.source +
-                "&search=" + this.ref.select.select.state.focusedOption.value
-            this.props.handleSearchChange(searchPath)
+                "&search=" + selectedSearch
+            this.props.history.push(searchPath)
+            this.setState({section: 'search'})
         }
+    }
+
+    handleSectionChange() {
+        this.setState({section: 'sections'})
+    }
+
+    handleItemSelectChange(option) {
+        this.setState({selectValue: option});
+    }
+
+    handleBookmarkClick() {
+        this.props.history.push('/favorites')
+        this.setState({section: 'favorites'})
     }
 
     getAutosuggestionResults = inputValue => {
@@ -75,28 +113,30 @@ export default class Header extends Component {
                 <Navbar variant="dark">
                     <AsyncSelect
                             ref={ref => this.ref = ref}
+                            value={this.state.selectValue}
                             placeholder='Enter keyword ..'
                             width='200px'
                             className='search-select'
                             cacheOptions
                             onInputChange={this.handleSearchChange}
                             loadOptions={this.getAutosuggestionResults}
+                            onChange={(option) => this.handleItemSelectChange(option)}
                     />
                     <Nav className="mr-auto" defaultActiveKey='/'>
-                        <Nav.Link as={Link} to='/'>Home</Nav.Link>
-                        <Nav.Link as={Link} to="/world">World</Nav.Link>
-                        <Nav.Link as={Link} to="/politics">Politics</Nav.Link>
-                        <Nav.Link as={Link} to="/business">Business</Nav.Link>
-                        <Nav.Link as={Link} to="/technology">Technology</Nav.Link>
-                        <Nav.Link as={Link} to="/sports">Sports</Nav.Link>
+                        <Nav.Link as={Link} to='/' onClick={this.handleSectionChange}>Home</Nav.Link>
+                        <Nav.Link as={Link} to="/world" onClick={this.handleSectionChange}>World</Nav.Link>
+                        <Nav.Link as={Link} to="/politics" onClick={this.handleSectionChange}>Politics</Nav.Link>
+                        <Nav.Link as={Link} to="/business" onClick={this.handleSectionChange}>Business</Nav.Link>
+                        <Nav.Link as={Link} to="/technology" onClick={this.handleSectionChange}>Technology</Nav.Link>
+                        <Nav.Link as={Link} to="/sports" onClick={this.handleSectionChange}>Sports</Nav.Link>
                     </Nav>
                     <FaRegBookmark
-                        onClick={this.props.handleBookmarkClick}
-                        size={socialNetworksButtonSize}
+                        onClick={this.handleBookmarkClick}
+                        size={bookmarkButtonSize}
                         style={{ marginRight: "1rem" }}
                         data-tip="Bookmark"
                     />
-                    <SwitchSource page={this.props.page}
+                    <SwitchSource section={this.state.section}
                                   handleChange={this.handleSwitchChange}
                                   checked={this.state.checked}/>
                 </Navbar>
@@ -104,3 +144,5 @@ export default class Header extends Component {
         )
     }
 }
+
+export default withRouter(Header)

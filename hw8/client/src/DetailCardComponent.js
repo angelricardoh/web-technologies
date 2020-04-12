@@ -11,6 +11,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Zoom } from 'react-toastify';
 
+let bookmarkButtonSize = "2.0rem";
 let socialNetworksButtonSize = "2.5rem";
 
 export default class DetailCardComponent extends Component {
@@ -38,15 +39,17 @@ export default class DetailCardComponent extends Component {
     if (this.state.bookmarked) {
       bookmarkButton = <FaBookmark
           onClick={this.handleBookmarkClick}
-          size={socialNetworksButtonSize}
-          style={{ marginLeft: "5rem" }}
+          size={bookmarkButtonSize}
+          style={{ marginLeft: "5rem",
+            color:'#DB0030' }}
           data-tip="Bookmark"
       />
     } else {
       bookmarkButton = <FaRegBookmark
           onClick={this.handleBookmarkClick}
-          size={socialNetworksButtonSize}
-          style={{ marginLeft: "5rem" }}
+          size={bookmarkButtonSize}
+          style={{ marginLeft: "5rem",
+            color:'#DB0030' }}
           data-tip="Bookmark"
       />
     }
@@ -87,7 +90,7 @@ export default class DetailCardComponent extends Component {
               <EmailIcon size={socialNetworksButtonSize} round={true} />
             </EmailShareButton>
             <ReactTooltip />
-            {bookmarkButton}
+              {bookmarkButton}
             <ReactTooltip />
           </div>
           <img className="detail-card-image"

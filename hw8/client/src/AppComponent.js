@@ -6,11 +6,11 @@ import DetailCardContainer from './DetailCardContainer'
 
 class AppComponent extends Component {
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.page !== this.props.page) {
-            this.props.history.push(this.props.page)
-        }
-    }
+    // componentDidUpdate(prevProps) {
+    //     if (prevProps.page !== this.props.page) {
+    //         this.props.history.push(this.props.page)
+    //     }
+    // }
 
     render() {
         return (
@@ -44,6 +44,7 @@ class AppComponent extends Component {
                            path="/detail"
                            component={({ match, location }) =>
                            {
+                               console.log('detail')
                                let searchParams = new URLSearchParams(location.search)
                                let articleId = searchParams.get('articleId')
                                return (

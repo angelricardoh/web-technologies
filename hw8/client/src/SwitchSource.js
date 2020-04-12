@@ -1,18 +1,15 @@
 import Switch from "react-switch";
 import React from "react";
-import { useLocation } from 'react-router-dom'
 
 export default function SwitchSource(props) {
-    const location = useLocation()
-    const pathname = location.pathname
-    let shouldSwitchBeDisplayed = 'flex'
-    if (pathname.includes('search') || pathname.includes('favorites') || pathname.includes('detail')) {
-        shouldSwitchBeDisplayed = 'none'
+    let displaySwitchValue = 'null'
+    if (props.section === 'search' || props.section === 'favorites' || props.section === 'detail') {
+        displaySwitchValue = 'none'
     } else {
-        shouldSwitchBeDisplayed = 'flex'
+        displaySwitchValue = 'flex'
     }
     return (
-        <div style={{display:shouldSwitchBeDisplayed}}>
+        <div style={{display:displaySwitchValue}}>
             <span>NYTimes</span>
             <Switch onChange={props.handleChange}
                     checked={props.checked}

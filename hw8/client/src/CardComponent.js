@@ -14,6 +14,7 @@ export default class CardComponent extends NewsCard {
 
     return (
       <Card
+          className='card'
           onClick={this.handleClickDetail}
           style={{ display: "inline-block" }}>
         <Card.Img

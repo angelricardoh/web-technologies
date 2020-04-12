@@ -29,3 +29,15 @@ export const source = function() {
 export const isGuardianChecked = function() {
   return source() === 'guardian' ? true : false
 }
+
+export const section = function(location) {
+  const pathname = location.pathname
+
+  if (pathname.includes('search')) {
+    return 'search'
+  }  else if (pathname.includes( 'favorites')) {
+    return 'favorites'
+  } else {
+    return 'sections'
+  }
+}

@@ -2,14 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3581d15d-5c63-452e-beee-dcbb2c59eb7f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw8/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw8/client/src/AppComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/AppComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw8/client/src/CardComponent.css" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/CardComponent.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw8/client/src/CardComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/CardComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw8/client/src/Constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/Constants.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hw8/client/src/DetailCardComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/DetailCardComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/server/application.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/server/application.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/server/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/server/routes/hike.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/server/routes/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/server/routes/users.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/server/views/hike.jade" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/server/views/layout.jade" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw8/client/src/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/Header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw8/client/src/SwitchSource.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/SwitchSource.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw8/client/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,6 +149,7 @@
       <workItem from="1586191947544" duration="39000" />
       <workItem from="1586192248966" duration="659000" />
       <workItem from="1586224707577" duration="194000" />
+      <workItem from="1586722557969" duration="611000" />
     </task>
     <servers />
   </component>

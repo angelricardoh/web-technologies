@@ -9,6 +9,7 @@ export default class NewsCard extends Component {
         }
         this.handleClickDetail = this.handleClickDetail.bind(this)
         this.handleClickShare = this.handleClickShare.bind(this)
+        this.handleRemoveBookmark = this.handleRemoveBookmark.bind(this)
     }
 
     handleClickDetail() {
@@ -19,8 +20,12 @@ export default class NewsCard extends Component {
         event.preventDefault();
         event.stopPropagation();
         let articleId = event.target.getAttribute("articleid");
-        console.log('articleId')
-        console.log(articleId)
         this.props.handleClickShare(articleId)
+    }
+
+    handleRemoveBookmark(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.props.handleRemoveBookmark(this.props.data.id)
     }
 }

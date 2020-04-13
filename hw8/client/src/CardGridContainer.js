@@ -5,6 +5,7 @@ import axios from "axios";
 import { host } from "./Constants";
 import { listBookmarks } from "./BookmarkManager";
 import Loader from './Loader'
+import {removeBookmark} from "./BookmarkManager";
 
 export default class CardGridContainer extends Component {
   constructor(props) {
@@ -19,8 +20,9 @@ export default class CardGridContainer extends Component {
         articleId: null
       },
     };
-    this.handleClickShare = this.handleClickShare.bind(this);
-    this.handleCloseModalShare = this.handleCloseModalShare.bind(this);
+    this.handleClickShare = this.handleClickShare.bind(this)
+    this.handleCloseModalShare = this.handleCloseModalShare.bind(this)
+    this.handleRemoveBookmark = this.handleRemoveBookmark.bind(this)
   }
 
   componentDidMount() {
@@ -63,6 +65,12 @@ export default class CardGridContainer extends Component {
     this.setState({ share: shareStatus });
   }
 
+  handleRemoveBookmark(articleId) {
+    removeBookmark(articleId)
+    let bookmarks = listBookmarks()
+    this.setState({articles: bookmarks})
+  }
+
   render() {
     let isFavorite = this.state.page === 'favorites' ? true : false
     let content = null;
@@ -75,6 +83,7 @@ export default class CardGridContainer extends Component {
           key={this.state.page}
           data={this.state}
           handleClickShare={this.handleClickShare}
+          handleRemoveBookmark={this.handleRemoveBookmark}
         />
       );
 

@@ -1,7 +1,6 @@
 import React from "react";
 import CardComponent from "./CardComponent";
 import CompactCardComponent from "./CompactCardComponent";
-import Card from "react-bootstrap/Card";
 
 function CardGridComponent(props) {
     let title = null
@@ -9,13 +8,13 @@ function CardGridComponent(props) {
     let titleStyle = { marginLeft: '30px'}
 
     if (props.data.page === 'search'){
-        if (props.data.articles.length == 0) {
+        if (props.data.articles.length === 0) {
             noresults = <h5 style={{textAlign:'center'}}>No Results</h5>
         } else {
             title = <h3 style={titleStyle}>Results</h3>
         }
     } else if (props.data.page === 'favorites') {
-        if (props.data.articles.length == 0) {
+        if (props.data.articles.length === 0) {
             noresults = <h5 style={{textAlign:'center'}}>You have no saved articles</h5>
         } else {
             title = <h3 style={titleStyle}>Favorites</h3>
@@ -34,7 +33,8 @@ function CardGridComponent(props) {
                 key={article.id}
                 data={articleData}
                 handleClickShare={props.handleClickShare}
-                />
+                handleRemoveBookmark={props.handleRemoveBookmark}
+            />
         } else {
             card = <CardComponent
                 key={article.id}

@@ -31,7 +31,7 @@ export function addBookmark(article) {
     return bookmarks
 }
 
-export function removeBookmark(article) {
+export function removeBookmark(articleId) {
     let bookmarks = localStorage.getObject('bookmarks')
     if (typeof bookmarks === 'undefined' || bookmarks == null) {
         return
@@ -41,7 +41,7 @@ export function removeBookmark(article) {
     // eslint-disable-next-line no-unused-vars
     for (const index in bookmarks) {
         let currentBookmark = bookmarks[index]
-        if (currentBookmark.id === article.id) {
+        if (currentBookmark.id === articleId) {
             indexBookmark = index
             break
         }

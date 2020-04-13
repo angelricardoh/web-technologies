@@ -69,8 +69,6 @@ export default class CardGridContainer extends Component {
     let modal = null
     if (this.state.articles == null) {
       content = <Loader />
-    } else if (this.state.articles.length === 0) {
-      content = <h2>No results or bookmarks</h2>
     } else {
       content = (
         <CardGridComponent

@@ -9,7 +9,7 @@ import {
   EmailIcon
 } from "react-share";
 import { sharePhrase } from "./Constants";
-let socialNetworksButtonSize = "2.5rem";
+let socialNetworksButtonSize = "40px";
 
 export default function ShareModal(props) {
 

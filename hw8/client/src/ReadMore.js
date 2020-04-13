@@ -45,7 +45,7 @@ class ReadMore extends Component {
             <span>
               ...{" "}
               <br/><br/>
-              <MdExpandMore size="2rem"
+              <MdExpandMore size="32px"
                             style={{ float:'right'}}
                             href="#"
                             onClick={this.toggleLines}/>
@@ -59,7 +59,7 @@ class ReadMore extends Component {
           <span>
             {" "}
             <br/><br/>
-            <MdExpandLess size="2rem"
+            <MdExpandLess size="32px"
                           style={{ float:'right'}}
                           href="#"
                           onClick={this.toggleLines}/>

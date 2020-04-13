@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import { withRouter } from 'react-router-dom'
 import { section } from './Constants'
 
-let bookmarkButtonSize = "1.5rem";
+let bookmarkButtonSize = "24px";
 
 class Header extends Component {
 
@@ -36,7 +36,7 @@ class Header extends Component {
             if (!location.pathname.includes('search')) {
                 this.setState({selectValue: null})
             }
-            if (!location.pathname.includes('detail')) {
+            if (location.pathname.includes('detail')) {
                 this.setState({section: 'detail'})
             }
             console.log("section changed")
@@ -133,7 +133,7 @@ class Header extends Component {
                     <FaRegBookmark
                         onClick={this.handleBookmarkClick}
                         size={bookmarkButtonSize}
-                        style={{ marginRight: "1rem" }}
+                        style={{ marginRight: "16px" }}
                         data-tip="Bookmark"
                     />
                     <SwitchSource section={this.state.section}

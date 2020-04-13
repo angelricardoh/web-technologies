@@ -11,8 +11,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Zoom } from 'react-toastify';
 
-let bookmarkButtonSize = "2.0rem";
-let socialNetworksButtonSize = "2.5rem";
+let bookmarkButtonSize = "32px";
+let socialNetworksButtonSize = "40px";
 
 export default class DetailCardComponent extends Component {
   constructor(props) {
@@ -40,7 +40,7 @@ export default class DetailCardComponent extends Component {
       bookmarkButton = <FaBookmark
           onClick={this.handleBookmarkClick}
           size={bookmarkButtonSize}
-          style={{ marginLeft: "5rem",
+          style={{ marginLeft: "80px",
             color:'#DB0030' }}
           data-tip="Bookmark"
       />
@@ -48,7 +48,7 @@ export default class DetailCardComponent extends Component {
       bookmarkButton = <FaRegBookmark
           onClick={this.handleBookmarkClick}
           size={bookmarkButtonSize}
-          style={{ marginLeft: "5rem",
+          style={{ marginLeft: "80px",
             color:'#DB0030' }}
           data-tip="Bookmark"
       />
@@ -58,10 +58,10 @@ export default class DetailCardComponent extends Component {
       <Card>
         <Card.Body variant="primary" style={{ textAlign: "left" }}>
           <h3 style={{ fontStyle:'italic' }}>{this.props.detail.title}</h3>
-          <h5 style={{ display: 'inline', marginLeft: "2rem"}}>{this.props.detail.date}</h5>
+          <h5 style={{ display: 'inline', marginLeft: "32px"}}>{this.props.detail.date}</h5>
           <div style={{
             float: "right",
-            paddingBottom:'1rem',
+            paddingBottom:'16px',
             display: 'inline'
           }}>
             <FacebookShareButton

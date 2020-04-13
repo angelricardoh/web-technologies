@@ -1,12 +1,11 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: "Georgia";
+  font-family: "Georgia", serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: "Georgia",
-    monospace;
+  font-family: "Georgia",  serif;
 }

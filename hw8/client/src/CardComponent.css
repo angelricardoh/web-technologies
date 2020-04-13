@@ -17,8 +17,15 @@
 .card > body {
   float: top;
   height: 100%;
-  display: block;
+  display: inline-block;
   max-lines: 3;
+}
+
+.card-description {
+  color: red;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .image-container {
@@ -36,4 +43,17 @@
   flex-wrap: wrap;
   width: 20%;
   height: 100%;
+}
+
+.card-row-title-container {
+  display: flex;
+}
+
+.share-button {
+  display: inline;
+}
+
+.card-row-title-container > .material-icons {
+  font-size: 20px;
+  margin-top: -10px;
 }

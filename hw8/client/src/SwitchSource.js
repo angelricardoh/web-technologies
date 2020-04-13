@@ -1,5 +1,6 @@
 import Switch from "react-switch";
 import React from "react";
+import './SwitchSource.css'
 
 export default function SwitchSource(props) {
     let displaySwitchValue = 'null'
@@ -11,7 +12,8 @@ export default function SwitchSource(props) {
     return (
         <div style={{display:displaySwitchValue}}>
             <span>NYTimes</span>
-            <Switch onChange={props.handleChange}
+            <Switch className='switch-source'
+                    onChange={props.handleChange}
                     checked={props.checked}
                     uncheckedIcon={false}
                     checkedIcon={false}

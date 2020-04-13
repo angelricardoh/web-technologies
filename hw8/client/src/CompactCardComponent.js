@@ -29,13 +29,13 @@ export default class CompactCardComponent extends NewsCard {
             <Card onClick={this.handleClickDetail}
                   className='card-compact'
                   variant='compact'>
-                <Card.Text style={{fontWeight:'bold'}}>{this.props.data.title}
+                <Card.Title>{this.props.data.title}
                     <span>
                             <ShareButton articleId={this.props.data.id}
                                          onClick={this.handleClickShare}/>
                         {removeFavoritesCan}
                     </span>
-                </Card.Text>
+                </Card.Title>
                 <div className='image-container'>
                     <Card.Img variant="primary"
                               src={this.props.data.image}/>

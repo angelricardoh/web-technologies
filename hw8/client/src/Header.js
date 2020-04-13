@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import { withRouter } from 'react-router-dom'
 import { section } from './Constants'
 
-let bookmarkButtonSize = "24px";
+let bookmarkButtonSize = "20px";
 
 class Header extends Component {
 

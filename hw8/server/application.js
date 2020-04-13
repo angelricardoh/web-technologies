@@ -448,7 +448,7 @@ function getNYTimesArticlesData(response) {
 function formatShortDate(date, detail = false) {
   let month = ("0" + (date.getMonth() + 1)).slice(-2);
   let day = ("0" + date.getDate()).slice(-2);
-  let dateSeparator = detail ? "-" : "/";
+  let dateSeparator = "-";
   return (
     date.getFullYear().toString() +
     dateSeparator +

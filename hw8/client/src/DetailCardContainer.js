@@ -24,7 +24,6 @@ export default class DetailCardContainer extends Component {
     axios.get(url).then(response => {
       const { detail } = response.data;
       detail.id = articleId
-      console.log(detail);
       this.setState({ detail: detail });
     });
   }

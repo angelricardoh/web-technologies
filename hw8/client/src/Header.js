@@ -4,7 +4,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import AsyncSelect from 'react-select/async'
 import {bingAutosuggestKey} from './Constants'
-import { FaRegBookmark } from "react-icons/fa"
+import { FaBookmark, FaRegBookmark } from "react-icons/fa"
 import SwitchSource from "./SwitchSource";
 import { isGuardianChecked } from "./Constants";
 import './Header.css'
@@ -31,7 +31,7 @@ class Header extends Component {
         this.handleBookmarkClick = this.handleBookmarkClick.bind(this)
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.unlisten = this.props.history.listen((location, action) => {
             if (!location.pathname.includes('search')) {
                 this.setState({selectValue: null})
@@ -39,7 +39,7 @@ class Header extends Component {
             if (location.pathname.includes('detail')) {
                 this.setState({section: 'detail'})
             }
-            console.log("section changed")
+            console.log("current section")
             console.log(this.state.section)
         });
     }
@@ -108,6 +108,21 @@ class Header extends Component {
     }
 
     render() {
+        let bookmarkTabButton = null
+        if (this.state.section === 'favorites') {
+            bookmarkTabButton = <FaBookmark onClick={this.handleBookmarkClick}
+                        size={bookmarkButtonSize}
+                        style={{ marginRight: "16px" }}
+                        data-tip="Bookmark"
+            />
+        } else {
+            bookmarkTabButton = <FaRegBookmark
+                onClick={this.handleBookmarkClick}
+                size={bookmarkButtonSize}
+                style={{ marginRight: "16px" }}
+                data-tip="Bookmark"
+            />
+        }
         return (
             <header>
                 <Navbar variant="dark">
@@ -130,12 +145,7 @@ class Header extends Component {
                         <Nav.Link as={Link} to="/technology" onClick={this.handleSectionChange}>Technology</Nav.Link>
                         <Nav.Link as={Link} to="/sports" onClick={this.handleSectionChange}>Sports</Nav.Link>
                     </Nav>
-                    <FaRegBookmark
-                        onClick={this.handleBookmarkClick}
-                        size={bookmarkButtonSize}
-                        style={{ marginRight: "16px" }}
-                        data-tip="Bookmark"
-                    />
+                    {bookmarkTabButton}
                     <SwitchSource section={this.state.section}
                                   handleChange={this.handleSwitchChange}
                                   checked={this.state.checked}/>

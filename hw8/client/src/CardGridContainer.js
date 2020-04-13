@@ -49,6 +49,8 @@ export default class CardGridContainer extends Component {
         break
     }
 
+    console.log("fetch url " + url);
+
     axios.get(url).then(response => {
       const { articles } = response.data;
       this.setState({ articles: articles});

@@ -26,8 +26,7 @@ function CardGridComponent(props) {
         let articleData = article
         articleData.page = props.data.page
         // articleData.source = props.data.source
-        console.log("CardGridComponent + props.data.page")
-        console.log(props.data.page)
+
         if (props.data.page === 'search' || props.data.page === 'favorites') {
             card = <CompactCardComponent
                 key={article.id}

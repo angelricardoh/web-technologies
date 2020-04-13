@@ -3,3 +3,35 @@ button {
     padding: 0;
     background-color: white;
 }
+
+.card-compact {
+    /*display: table-cell;*/
+    display: table-cell;
+    width: 315px;
+    padding: 20px;
+    /*overflow: hidden;*/
+}
+
+.card-compact > img {
+    height: 20%;
+    width: 100%;
+    display: block;
+    background-color: red;
+}
+
+.card-compact > .image-container {
+    margin: auto;
+    /*margin-top: 25px;*/
+    /*margin-bottom: 35px;*/
+    /*margin-left: 20px;*/
+    /*margin-right: 20px;*/
+    border-radius: 5px;
+    border: solid 10px;
+    border-width: 1px;
+    border-color: #DBDDDF;
+    display: block;
+    /*display: flex;*/
+    /*flex-wrap: wrap;*/
+    width: 100%;
+    height: 100%;
+}

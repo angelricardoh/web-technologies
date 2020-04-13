@@ -1,72 +1,39 @@
+.card-container {
+  display: table-row;
+}
+
 .card {
-  text-overflow: ellipsis;
-  padding: 20px;
-  margin-top: 5px;
-  margin-bottom: 15px;
+  display: inline-block;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  width: 100%;
+  height: 100%;
 }
 
 .card > img {
-  float: left;
-  width: 20%;
-  height: 100%;
   object-fit: cover;
+  width: 100px;
 }
 
 .card > body {
-  width: 80%;
+  float: top;
   height: 100%;
   display: block;
-  font-family: Georgia;
   max-lines: 3;
 }
 
-.card-compact {
-
-}
-
-.card-compact > img {
-  width: 100%;
-  height: 20%;
-  display: block;
-}
-
-.badge {
-  color: white;
-  background-color: #6e757c;
-}
-
-.badge-world {
-  color: white;
-  background-color: #7c4eff;
-}
-
-.badge-politics {
-  color: white;
-  background-color: #419387;
-}
-
-.badge-business {
-  color: white;
-  background-color: #4796ec;
-}
-
-.badge-technology {
-  color: black;
-  background-color: #cedc39;
-}
-
-.badge-sports {
-  color: black;
-  background-color: #f7c242;
-}
-
-.badge-guardian {
-  color: white;
-  background-color: #15284a;
-}
-
-.badge-nytimes {
-  color: black;
-  background-color: #dddddd;
+.image-container {
+  margin-top: 25px;
+  margin-bottom: 35px;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 5px;
+  border: solid 10px;
+  border-width: 1px;
+  border-color: #DBDDDF;
+  padding: 5px;
+  float: left;
+  display: flex;
+  flex-wrap: wrap;
+  width: 20%;
+  height: 100%;
 }

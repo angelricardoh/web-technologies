@@ -2,16 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3581d15d-5c63-452e-beee-dcbb2c59eb7f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../hw8/client/src/NewsCard.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/src/AppComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/AppComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hw8/client/src/CardComponent.css" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/CardComponent.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hw8/client/src/CardComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/CardComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/src/Constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/Constants.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/src/DetailCardComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/DetailCardComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/src/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/src/SwitchSource.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/SwitchSource.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw8/client/src/CardGridComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/CardGridComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw8/client/src/CardGridContainer.css" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/CardGridContainer.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw8/client/src/CompactCardComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/CompactCardComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw8/client/src/CompactCardComponents.css" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/CompactCardComponents.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw8/client/src/NewsCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/NewsCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw8/client/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,7 +149,8 @@
       <workItem from="1586191947544" duration="39000" />
       <workItem from="1586192248966" duration="659000" />
       <workItem from="1586224707577" duration="194000" />
-      <workItem from="1586722557969" duration="611000" />
+      <workItem from="1586722557969" duration="612000" />
+      <workItem from="1586748870240" duration="3430000" />
     </task>
     <servers />
   </component>

@@ -13,13 +13,15 @@ export default class CardComponent extends NewsCard {
     }
 
     return (
+        <div className='card-container'>
       <Card
           className='card'
-          onClick={this.handleClickDetail}
-          style={{ display: "inline-block" }}>
-        <Card.Img
+          onClick={this.handleClickDetail}>
+        <div className='image-container'>
+          <Card.Img
             variant="primary"
             src={this.props.data.image} />
+        </div>
         <Card.Body
             variant="primary">
           <Card.Title>
@@ -27,11 +29,9 @@ export default class CardComponent extends NewsCard {
             <ShareButton articleId={this.props.data.id}
                          onClick={this.handleClickShare}/>
           </Card.Title>
-          <Text
-              numberOfLines={3}>{this.props.data.description}</Text>
+          <Text numberOfLines={3}>{this.props.data.description}</Text>
           <br></br>
-          <Card.Text
-              style={{ float: "left" }}>{this.props.data.date}</Card.Text>
+          <Card.Text style={{ float: "left" }}>{this.props.data.date}</Card.Text>
           <Badge
               style={{float: "right"}}
               variant={this.props.data.section}>
@@ -39,6 +39,7 @@ export default class CardComponent extends NewsCard {
           </Badge>
         </Card.Body>
       </Card>
+        </div>
     );
   }
 }

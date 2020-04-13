@@ -1,0 +1,39 @@
+.badge {
+    color: white;
+    background-color: #6e757c;
+}
+
+.badge-world {
+    color: white;
+    background-color: #7c4eff;
+}
+
+.badge-politics {
+    color: white;
+    background-color: #419387;
+}
+
+.badge-business {
+    color: white;
+    background-color: #4796ec;
+}
+
+.badge-technology {
+    color: black;
+    background-color: #cedc39;
+}
+
+.badge-sports {
+    color: black;
+    background-color: #f7c242;
+}
+
+.badge-guardian {
+    color: white;
+    background-color: #15284a;
+}
+
+.badge-nytimes {
+    color: black;
+    background-color: #dddddd;
+}

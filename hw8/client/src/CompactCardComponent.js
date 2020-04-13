@@ -15,9 +15,9 @@ export default class CompactCardComponent extends NewsCard {
         }
 
         let sourceBadge, removeFavoritesCan = null
-        if (this.props.data.page === 'favorites'){
+        if (this.props.data.page === 'favorites') {
             sourceBadge =
-                <Badge style={{ float: "right" }}
+                <Badge style={{float: "right"}}
                        variant={this.props.data.source}>
                     {this.props.data.source.toUpperCase()}
                 </Badge>
@@ -25,22 +25,23 @@ export default class CompactCardComponent extends NewsCard {
             removeFavoritesCan = <RemoveBookmarkButton handleRemoveBookmark={this.handleRemoveBookmark}/>
         }
 
-        return(
+        return (
             <Card onClick={this.handleClickDetail}
-                  style={{ width: '18rem',
-                      display: "inline-block" }}
                   className='card-compact'
                   variant='compact'>
-                    <Card.Text>{this.props.data.title}
-                        <span>
+                <Card.Text style={{fontWeight:'bold'}}>{this.props.data.title}
+                    <span>
                             <ShareButton articleId={this.props.data.id}
-                                     onClick={this.handleClickShare}/>
-                            {removeFavoritesCan}
-                        </span>
-                    </Card.Text>
-                <Card.Img variant="primary"
-                          src={this.props.data.image} />
-                <Card.Text style={{ float: "left" }}>{this.props.data.date}</Card.Text>
+                                         onClick={this.handleClickShare}/>
+                        {removeFavoritesCan}
+                    </span>
+                </Card.Text>
+                <div className='image-container'>
+                    <Card.Img variant="primary"
+                              src={this.props.data.image}/>
+                </div>
+                <Card.Text style={{float: "left"}}>{this.props.data.date}</Card.Text>
+
                 <Badge style={{float: "right"}}
                        variant={this.props.data.section}>
                     {this.props.data.section.toUpperCase()}

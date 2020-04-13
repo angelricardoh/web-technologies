@@ -7,3 +7,9 @@
     margin: 0 auto;
     align-self: center;
 }
+
+.card-grid-container {
+    display: table;
+    border-collapse: separate;
+    border-spacing: 10px;
+}

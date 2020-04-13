@@ -45,11 +45,16 @@ function CardGridComponent(props) {
         }
     )
 
-    return <div key="card-grid-component">
-        {title}
-        {noresults}
-        {cards}
-    </div>;
+    return (
+        <div>
+            {title}
+            {noresults}
+            <div key="card-grid-container"
+                 className='card-grid-container'>
+                {cards}
+            </div>
+        </div>
+    )
 }
 
 export default CardGridComponent;

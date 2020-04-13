@@ -1,4 +1,5 @@
 import {Component} from "react";
+import './NewsCard.css'
 
 export default class NewsCard extends Component {
     constructor(props) {

@@ -2,16 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3581d15d-5c63-452e-beee-dcbb2c59eb7f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../hw8/client/src/NewsCard.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../hw8/client/src/CardHeader.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hw8/client/src/CardComponent.css" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/CardComponent.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hw8/client/src/CardComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/CardComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/src/CardGridComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/CardGridComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/src/CardGridContainer.css" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/CardGridContainer.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hw8/client/src/CompactCardComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/CompactCardComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/src/CompactCardComponents.css" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/CompactCardComponents.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/src/NewsCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/NewsCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw8/client/src/NewsCard.css" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/NewsCard.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw8/client/src/RemoveBookmarkButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/RemoveBookmarkButton.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw8/client/src/ShareButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/ShareButton.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

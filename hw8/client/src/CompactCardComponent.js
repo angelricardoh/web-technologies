@@ -4,9 +4,8 @@ import Badge from "react-bootstrap/Badge";
 import "./CardComponent.css";
 import NewsCard from './NewsCard'
 import {Redirect} from "react-router-dom";
-import ShareButton from "./ShareButton";
-import RemoveBookmarkButton from "./RemoveBookmarkButton";
 import './CompactCardComponents.css'
+import CardHeader from "./CardHeader";
 
 export default class CompactCardComponent extends NewsCard {
     render() {
@@ -14,28 +13,25 @@ export default class CompactCardComponent extends NewsCard {
             return <Redirect push to={this.state.redirect}/>
         }
 
-        let sourceBadge, removeFavoritesCan = null
+        let sourceBadge = null
         if (this.props.data.page === 'favorites') {
             sourceBadge =
-                <Badge style={{float: "right"}}
-                       variant={this.props.data.source}>
+                <Badge
+                    style={{float: "right"}}
+                    variant={this.props.data.source}>
                     {this.props.data.source.toUpperCase()}
                 </Badge>
-
-            removeFavoritesCan = <RemoveBookmarkButton handleRemoveBookmark={this.handleRemoveBookmark}/>
         }
 
         return (
             <Card onClick={this.handleClickDetail}
                   className='card-compact'
                   variant='compact'>
-                <Card.Title>{this.props.data.title}
-                    <span>
-                            <ShareButton articleId={this.props.data.id}
-                                         onClick={this.handleClickShare}/>
-                        {removeFavoritesCan}
-                    </span>
-                </Card.Title>
+                <CardHeader
+                    data={this.props.data}
+                    handleClickShare={this.handleClickShare}
+                    handleRemoveBookmark={this.handleRemoveBookmark}
+                />
                 <div className='image-container'>
                     <Card.Img variant="primary"
                               src={this.props.data.image}/>

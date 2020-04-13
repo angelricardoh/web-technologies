@@ -4,8 +4,7 @@ import Badge from "react-bootstrap/Badge"
 import { Text } from "react-native"
 import NewsCard from './NewsCard'
 import {Redirect} from "react-router-dom"
-import ShareButton from './ShareButton'
-import Truncate from 'react-truncate'
+import CardHeader from './CardHeader'
 
 export default class CardComponent extends NewsCard {
   render() {
@@ -25,15 +24,10 @@ export default class CardComponent extends NewsCard {
             </div>
             <Card.Body
                 variant="primary">
-              <div className='card-row-title-container'>
-                <Card.Title className='card-row-title'>
-                  {this.props.data.title}
-                </Card.Title>
-                <ShareButton
-                    className='share-button'
-                    articleId={this.props.data.id}
-                    onClick={this.handleClickShare}/>
-              </div>
+              <CardHeader
+                  data={this.props.data}
+                  handleClickShare={this.handleClickShare}
+              />
               <Text
                   style={{textAlign: 'justify',
                     textJustify: 'inter-word',
@@ -43,7 +37,7 @@ export default class CardComponent extends NewsCard {
                     textOverflow: 'ellipsis'}}
                   numberOfLines={3}>{this.props.data.description}</Text>
               <br></br>
-              <Card.Text style={{float: "left"}}>{this.props.data.date}</Card.Text>
+              <Card.Text className="card-date" style={{float: "left"}}>{this.props.data.date}</Card.Text>
               <Badge
                   style={{float: "right"}}
                   variant={this.props.data.section}>

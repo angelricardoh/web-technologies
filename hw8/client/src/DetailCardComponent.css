@@ -1,8 +1,3 @@
-detail-card-image {
-    height: 100%;
-    width: 100%;
-}
-
 div > img {
     max-height: 100%;
     max-width: 100%;
@@ -13,6 +8,12 @@ div > img {
     color: black;
 }
 
+.card-detail-container {
+    display: flex;
+    width: 100%
+}
+
 .card-detail {
     margin: 15px;
+    padding-bottom: 20px;
 }

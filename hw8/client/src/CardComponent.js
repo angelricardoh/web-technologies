@@ -13,39 +13,37 @@ export default class CardComponent extends NewsCard {
     }
 
     return (
-        <div className='card-container'>
-          <Card
-              className='card-row'
-              onClick={this.handleClickDetail}>
-            <div className='image-container'>
-              <Card.Img
-                  variant="primary"
-                  src={this.props.data.image}/>
-            </div>
-            <Card.Body
-                variant="primary">
-              <CardHeader
-                  data={this.props.data}
-                  handleClickShare={this.handleClickShare}
-              />
-              <Text
-                  style={{textAlign: 'justify',
-                    textJustify: 'inter-word',
-                    lineHeight:'24px',
-                    textDecoration:'none',
-                    fontSize:'16px',
-                    textOverflow: 'ellipsis'}}
-                  numberOfLines={3}>{this.props.data.description}</Text>
-              <br></br>
-              <Card.Text className="card-date" style={{float: "left"}}>{this.props.data.date}</Card.Text>
-              <Badge
-                  style={{float: "right"}}
-                  variant={this.props.data.section}>
-                {this.props.data.section.toUpperCase()}
-              </Badge>
-            </Card.Body>
-          </Card>
+      <Card
+          className='card-row'
+          onClick={this.handleClickDetail}>
+        <div className='image-container'>
+          <Card.Img
+              variant="primary"
+              src={this.props.data.image}/>
         </div>
+        <Card.Body
+            variant="primary">
+          <CardHeader
+              data={this.props.data}
+              handleClickShare={this.handleClickShare}
+          />
+          <Text
+              style={{textAlign: 'justify',
+                textJustify: 'inter-word',
+                lineHeight:'24px',
+                textDecoration:'none',
+                fontSize:'16px',
+                textOverflow: 'ellipsis'}}
+              numberOfLines={3}>{this.props.data.description}</Text>
+          <br></br>
+          <Card.Text className="card-date" style={{float: "left"}}>{this.props.data.date}</Card.Text>
+          <Badge
+              style={{float: "right"}}
+              variant={this.props.data.section}>
+            {this.props.data.section.toUpperCase()}
+          </Badge>
+        </Card.Body>
+      </Card>
     );
   }
 }

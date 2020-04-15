@@ -12,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Zoom } from 'react-toastify';
 
 let bookmarkButtonSize = "32px";
-let socialNetworksButtonSize = "40px";
+let socialNetworksButtonSize = "32px";
 
 export default class DetailCardComponent extends Component {
   constructor(props) {
@@ -55,57 +55,59 @@ export default class DetailCardComponent extends Component {
     }
 
     return (
-      <Card className='card-detail'>
-        <Card.Body variant="primary" style={{ textAlign: "left" }}>
-          <h3 style={{ fontStyle:'italic' }}>{this.props.detail.title}</h3>
-          <h5 style={{ display: 'inline', marginLeft: "32px"}}>{this.props.detail.date}</h5>
-          <div style={{
-            float: "right",
-            paddingBottom:'16px',
-            display: 'inline'
-          }}>
-            <FacebookShareButton
-              url={this.props.detail.shareUrl}
-              quote={"#" + sharePhrase}
-              data-tip="Facebook"
-            >
-              <FacebookIcon size={socialNetworksButtonSize} round={true} />
-            </FacebookShareButton>
-            <ReactTooltip />
+        <div className='card-detail-container'>
+          <Card className='card-detail'>
+            <Card.Body variant="primary" style={{textAlign: "left"}}>
+              <h3 style={{fontStyle: 'italic'}}>{this.props.detail.title}</h3>
+              <h5 style={{display: 'inline', marginLeft: "32px"}}>{this.props.detail.date}</h5>
+              <div style={{
+                float: "right",
+                paddingBottom: '16px',
+                display: 'inline'
+              }}>
+                <FacebookShareButton
+                    url={this.props.detail.shareUrl}
+                    quote={"#" + sharePhrase}
+                    data-tip="Facebook"
+                >
+                  <FacebookIcon size={socialNetworksButtonSize} round={true}/>
+                </FacebookShareButton>
+                <ReactTooltip/>
 
-            <TwitterShareButton
-              url={this.props.detail.shareUrl}
-              hashtags={[sharePhrase]}
-              data-tip="Twitter"
-            >
-              <TwitterIcon size={socialNetworksButtonSize} round={true} />
-            </TwitterShareButton>
-            <ReactTooltip />
+                <TwitterShareButton
+                    url={this.props.detail.shareUrl}
+                    hashtags={[sharePhrase]}
+                    data-tip="Twitter"
+                >
+                  <TwitterIcon size={socialNetworksButtonSize} round={true}/>
+                </TwitterShareButton>
+                <ReactTooltip/>
 
-            <EmailShareButton
-              url={this.props.detail.shareUrl}
-              subject={"#" + sharePhrase}
-              data-tip="Email"
-            >
-              <EmailIcon size={socialNetworksButtonSize} round={true} />
-            </EmailShareButton>
-            <ReactTooltip />
-              {bookmarkButton}
-            <ReactTooltip />
-          </div>
-          <img className="detail-card-image"
-               alt="detail"
-               src={this.props.detail.image} />
-          <br />
-          <br />
-          <ReadMore description={this.props.detail.description} />
-        </Card.Body>
-        <ToastContainer autoClose={3000}
-                        transition={Zoom}
-                        position={toast.POSITION.TOP_CENTER}
-                        hideProgressBar={true}
-                        bodyClassName='light-toast'/>
-      </Card>
+                <EmailShareButton
+                    url={this.props.detail.shareUrl}
+                    subject={"#" + sharePhrase}
+                    data-tip="Email"
+                >
+                  <EmailIcon size={socialNetworksButtonSize} round={true}/>
+                </EmailShareButton>
+                <ReactTooltip/>
+                {bookmarkButton}
+                <ReactTooltip/>
+              </div>
+              <img className="detail-card-image"
+                   alt="detail"
+                   src={this.props.detail.image}/>
+              <br/>
+              <br/>
+              <ReadMore description={this.props.detail.description}/>
+            </Card.Body>
+            <ToastContainer autoClose={3000}
+                            transition={Zoom}
+                            position={toast.POSITION.TOP_CENTER}
+                            hideProgressBar={true}
+                            bodyClassName='light-toast'/>
+          </Card>
+        </div>
     );
   }
 }

@@ -4,17 +4,21 @@ button {
     background-color: white;
 }
 
+/*.card-compact-container {*/
+/*    display: table-cell;*/
+/*}*/
+
 .card-compact {
-    display: table-cell;
-    width: 315px;
+    float: left;
+    width: 375px;
     padding: 20px;
+    margin: 5px;
 }
 
 .card-compact > img {
     height: 20%;
     width: 100%;
     display: block;
-    background-color: red;
 }
 
 .card-compact > .image-container {
@@ -26,4 +30,5 @@ button {
     display: block;
     width: 100%;
     height: 100%;
+    margin-bottom: 10px;
 }

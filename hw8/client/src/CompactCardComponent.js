@@ -17,13 +17,14 @@ export default class CompactCardComponent extends NewsCard {
         if (this.props.data.page === 'favorites') {
             sourceBadge =
                 <Badge
-                    style={{float: "right"}}
+                    style={{float: "right", marginRight:'10px'}}
                     variant={this.props.data.source}>
                     {this.props.data.source.toUpperCase()}
                 </Badge>
         }
 
         return (
+            <div className='card-compact-container'>
             <Card onClick={this.handleClickDetail}
                   className='card-compact'
                   variant='compact'>
@@ -41,9 +42,11 @@ export default class CompactCardComponent extends NewsCard {
                 <Badge style={{float: "right"}}
                        variant={this.props.data.section}>
                     {this.props.data.section.toUpperCase()}
+                {/*<div style={{height:'1px', width: '10px' }}/>*/}
                 </Badge>
                 {sourceBadge}
             </Card>
+                </div>
         );
     }
 }

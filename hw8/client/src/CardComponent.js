@@ -5,6 +5,7 @@ import { Text } from "react-native"
 import NewsCard from './NewsCard'
 import {Redirect} from "react-router-dom"
 import CardHeader from './CardHeader'
+import Col from 'react-bootstrap/Col'
 
 export default class CardComponent extends NewsCard {
   render() {
@@ -13,6 +14,7 @@ export default class CardComponent extends NewsCard {
     }
 
     return (
+        <Col md="auto" className="my-3">
       <Card
           className='card-row'
           onClick={this.handleClickDetail}>
@@ -44,6 +46,7 @@ export default class CardComponent extends NewsCard {
           </Badge>
         </Card.Body>
       </Card>
+        </Col>
     );
   }
 }

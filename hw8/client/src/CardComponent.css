@@ -1,7 +1,3 @@
-.card-container {
-  display: table-row;
-}
-
 .card-row {
   display: inline-block;
   height: 240px;

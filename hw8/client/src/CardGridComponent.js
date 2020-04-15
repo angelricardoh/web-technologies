@@ -1,6 +1,8 @@
 import React from "react";
 import CardComponent from "./CardComponent";
 import CompactCardComponent from "./CompactCardComponent";
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
 
 function CardGridComponent(props) {
     let title = null
@@ -49,10 +51,13 @@ function CardGridComponent(props) {
         <div>
             {title}
             {noresults}
-            <div key="card-grid-container"
-                 className='card-grid-container'>
+            <Container fluid>
+                <Row md={4}
+                    // style={{justifyContent:'space-around'}}
+                >
                 {cards}
-            </div>
+                </Row>
+            </Container>
         </div>
     )
 }

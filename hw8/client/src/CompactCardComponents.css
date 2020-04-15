@@ -1,16 +1,10 @@
 button {
     border: 0;
-    /*padding: 0;*/
     background-color: white;
 }
 
-/*.card-compact-container {*/
-/*    display: table-cell;*/
-/*}*/
-
 .card-compact {
     float: left;
-    width: 375px;
     padding: 20px;
     margin: 5px;
 }

@@ -12,3 +12,7 @@ div > img {
     background: white;
     color: black;
 }
+
+.card-detail {
+    margin: 15px;
+}

@@ -55,7 +55,7 @@ export default class DetailCardComponent extends Component {
     }
 
     return (
-      <Card>
+      <Card className='card-detail'>
         <Card.Body variant="primary" style={{ textAlign: "left" }}>
           <h3 style={{ fontStyle:'italic' }}>{this.props.detail.title}</h3>
           <h5 style={{ display: 'inline', marginLeft: "32px"}}>{this.props.detail.date}</h5>

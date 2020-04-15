@@ -2,14 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3581d15d-5c63-452e-beee-dcbb2c59eb7f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../hw8/client/src/CardHeader.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hw8/client/src/CardComponent.css" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/CardComponent.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/src/CardComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/CardComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/src/CompactCardComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/CompactCardComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hw8/client/src/NewsCard.css" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/NewsCard.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/src/RemoveBookmarkButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/RemoveBookmarkButton.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw8/client/src/ShareButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/../hw8/client/src/ShareButton.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,6 +144,7 @@
       <workItem from="1586224707577" duration="194000" />
       <workItem from="1586722557969" duration="612000" />
       <workItem from="1586748870240" duration="3430000" />
+      <workItem from="1586969162131" duration="607000" />
     </task>
     <servers />
   </component>

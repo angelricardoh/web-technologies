@@ -6,6 +6,8 @@ import NewsCard from './NewsCard'
 import {Redirect} from "react-router-dom"
 import CardHeader from './CardHeader'
 import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
+
 
 export default class CardComponent extends NewsCard {
   render() {
@@ -15,37 +17,45 @@ export default class CardComponent extends NewsCard {
 
     return (
         <Col md="auto" className="my-3">
-      <Card
-          className='card-row'
-          onClick={this.handleClickDetail}>
-        <div className='image-container'>
-          <Card.Img
-              variant="primary"
-              src={this.props.data.image}/>
-        </div>
-        <Card.Body
-            variant="primary">
-          <CardHeader
-              data={this.props.data}
-              handleClickShare={this.handleClickShare}
-          />
-          <Text
-              style={{textAlign: 'justify',
-                textJustify: 'inter-word',
-                lineHeight:'24px',
-                textDecoration:'none',
-                fontSize:'16px',
-                textOverflow: 'ellipsis'}}
-              numberOfLines={3}>{this.props.data.description}</Text>
-          <br></br>
-          <Card.Text className="card-date" style={{float: "left"}}>{this.props.data.date}</Card.Text>
-          <Badge
-              style={{float: "right"}}
-              variant={this.props.data.section}>
-            {this.props.data.section.toUpperCase()}
-          </Badge>
-        </Card.Body>
-      </Card>
+          <Row
+              className="mx-auto card-row"
+              onClick={this.handleClickDetail}>
+              <Col className="my-auto align-items-center" md={3} sm={12}>
+                  <img className='image-border'
+                      src={this.props.data.image}/>
+              </Col>
+              <Col className='card-row-body' md={9} sm={12}>
+                <Card.Body >
+                    <CardHeader
+                        data={this.props.data}
+                        handleClickShare={this.handleClickShare}
+                    />
+                    <Text
+                        style={{
+                          textAlign: 'justify',
+                          textJustify: 'inter-word',
+                          lineHeight: '24px',
+                          textDecoration: 'none',
+                          fontSize: '16px',
+                          textOverflow: 'ellipsis'
+                        }}
+                        numberOfLines={3}>
+                        {this.props.data.description}
+                    </Text>
+                    <br></br>
+                    <Card.Text
+                        className="card-date"
+                        style={{float: "left"}}>
+                        {this.props.data.date}
+                    </Card.Text>
+                    <Badge
+                        style={{float: "right"}}
+                        variant={this.props.data.section}>
+                      {this.props.data.section.toUpperCase()}
+                    </Badge>
+                </Card.Body>
+              </Col>
+          </Row>
         </Col>
     );
   }

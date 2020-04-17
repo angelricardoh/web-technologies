@@ -9,9 +9,7 @@
 }
 
 .card-grid-container {
-    /*display: table;*/
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 15px 40px;
-    margin-top: -25px;
+    align-items: start;
+    float: left;
 }

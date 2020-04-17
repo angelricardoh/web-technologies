@@ -52,10 +52,8 @@ function CardGridComponent(props) {
         <div>
             {title}
             {noresults}
-            <Container fluid>
-                <Row md={4} sm={1}
-                    // style={{justifyContent:'space-around'}}
-                >
+            <Container className="card-grid-container" fluid>
+                <Row md={4} sm={1}>
                 {cards}
                 </Row>
             </Container>

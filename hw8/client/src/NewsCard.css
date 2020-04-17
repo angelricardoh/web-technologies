@@ -1,16 +1,7 @@
 .card {
-    display: inline-block;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-    width: 100%;
-    overflow: visible;
-}
-
-.card-row-title-container {
-    display: inline;
-}
-
-.card-row-title {
-    float: top;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 5px;
+    border: solid #EAE9EA 1px;
 }
 
 .card-title {

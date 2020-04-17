@@ -5,18 +5,11 @@ import CardGridContainer from "./CardGridContainer";
 import DetailCardContainer from './DetailCardContainer'
 
 class AppComponent extends Component {
-
-    // componentDidUpdate(prevProps) {
-    //     if (prevProps.page !== this.props.page) {
-    //         this.props.history.push(this.props.page)
-    //     }
-    // }
-
     render() {
         return (
                 <Switch>
                     <Route exact
-                           path="/"
+                           path="/home"
                            component={() => <CardGridContainer key='home' page='home' source={this.props.source} />}
                     />
                     <Route exact

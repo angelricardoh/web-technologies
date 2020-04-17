@@ -4,18 +4,17 @@ button {
 }
 
 .card-compact {
-    float: left;
     padding: 20px;
     margin: 5px;
 }
 
-.card-compact > img {
-    height: 20%;
+.card-compact > body {
+    max-lines: 3;
     width: 100%;
-    display: block;
+    border: solid green 1px;
 }
 
-.card-compact > .image-container {
+.card-compact > .image-border {
     margin: auto;
     border-radius: 5px;
     border: solid 10px;
@@ -23,6 +22,6 @@ button {
     border-color: #DBDDDF;
     display: block;
     width: 100%;
-    height: 100%;
+    height: 20vh;
     margin-bottom: 10px;
 }

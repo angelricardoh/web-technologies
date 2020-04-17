@@ -8,11 +8,8 @@ import { FaBookmark, FaRegBookmark } from "react-icons/fa"
 import SwitchSource from "./SwitchSource";
 import { isGuardianChecked } from "./Constants";
 import './Header.css'
-import { Link } from "react-router-dom";
 import { withRouter } from 'react-router-dom'
 import { section } from './Constants'
-import { Container, Row, Col } from 'react-bootstrap';
-import Switch from "react-switch";
 import { NavLink as RouterNavLink } from 'react-router-dom';
 
 let bookmarkButtonSize = "20px";
@@ -156,13 +153,48 @@ class Header extends Component {
                         aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className='mr-auto nav-section' defaultActiveKey='0'>
-                            <
-                            <Nav.Link as={RouterNavLink} to="/home" onClick={this.handleSectionChange}>Home</Nav.Link>
-                            <Nav.Link as={RouterNavLink} to="/world" onClick={this.handleSectionChange}>World</Nav.Link>
-                            <Nav.Link as={RouterNavLink} to="/politics" onClick={this.handleSectionChange}>Politics</Nav.Link>
-                            <Nav.Link as={RouterNavLink}  to="/business" onClick={this.handleSectionChange}>Business</Nav.Link>
-                            <Nav.Link as={RouterNavLink}  to="/technology" onClick={this.handleSectionChange}>Technology</Nav.Link>
-                            <Nav.Link as={RouterNavLink}  to="/sports" onClick={this.handleSectionChange}>Sports</Nav.Link>
+                            <Nav.Link
+                                eventKey='0'
+                                as={RouterNavLink}
+                                to="/home"
+                                onClick={this.handleSectionChange}>
+                                Home
+                            </Nav.Link>
+                            <Nav.Link
+                                eventKey='1'
+                                as={RouterNavLink}
+                                to="/world"
+                                onClick={this.handleSectionChange}>
+                                World
+                            </Nav.Link>
+                            <Nav.Link
+                                eventKey='2'
+                                as={RouterNavLink}
+                                to="/politics"
+                                onClick={this.handleSectionChange}>
+                                Politics
+                            </Nav.Link>
+                            <Nav.Link
+                                eventKey='3'
+                                as={RouterNavLink}
+                                to="/business"
+                                onClick={this.handleSectionChange}>
+                                Business
+                            </Nav.Link>
+                            <Nav.Link
+                                eventKey='4'
+                                as={RouterNavLink}
+                                to="/technology"
+                                onClick={this.handleSectionChange}>
+                                Technology
+                            </Nav.Link>
+                            <Nav.Link
+                                eventKey='5'
+                                as={RouterNavLink}
+                                to="/sports"
+                                onClick={this.handleSectionChange}>
+                                Sports
+                            </Nav.Link>
                         </Nav>
                         {bookmarkTabButton}
                         <Navbar.Brand style={{display:displaySwitchValue}}>NYTimes</Navbar.Brand>
@@ -170,7 +202,6 @@ class Header extends Component {
                                       handleChange={this.handleSwitchChange}
                                       checked={this.state.checked}/>
                         <Navbar.Brand style={{display:displaySwitchValue}}>Guardian</Navbar.Brand>
-
                     </Navbar.Collapse>
                 </Navbar>
             </header>

@@ -6,8 +6,8 @@ import NewsCard from './NewsCard'
 import {Redirect} from "react-router-dom";
 import './CompactCardComponents.css'
 import CardHeader from "./CardHeader";
-import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Row from "react-bootstrap/Row";
 
 export default class CompactCardComponent extends NewsCard {
     render() {
@@ -26,28 +26,39 @@ export default class CompactCardComponent extends NewsCard {
         }
 
         return (
-            <Col>
-                <Card onClick={this.handleClickDetail}
-                      className='card-compact'
-                      variant='compact'>
+            <Col className="mx-auto my-3">
+                <Row
+                    className="card card-compact"
+                    onClick={this.handleClickDetail}>
                     <CardHeader
                         data={this.props.data}
                         handleClickShare={this.handleClickShare}
                         handleRemoveBookmark={this.handleRemoveBookmark}
                     />
-                    <div className='image-container'>
-                        <Card.Img variant="primary"
-                                  src={this.props.data.image}/>
-                    </div>
-                    <Card.Text style={{float: "left"}}>{this.props.data.date}</Card.Text>
-
-                    <Badge style={{float: "right"}}
-                           variant={this.props.data.section}>
-                        {this.props.data.section.toUpperCase()}
-                        {/*<div style={{height:'1px', width: '10px' }}/>*/}
-                    </Badge>
-                    {sourceBadge}
-                </Card>
+                    <Row>
+                        <img
+                            className='image-border'
+                            src={this.props.data.image}/>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <Card.Text
+                                style={{float: "left"}}>
+                                {this.props.data.date}
+                            </Card.Text>
+                        </Col>
+                        <Col>
+                            <Badge
+                                style={{float: "right"}}
+                                variant={this.props.data.section}>
+                                {this.props.data.section.toUpperCase()}
+                            </Badge>
+                        </Col>
+                        <Col>
+                            {sourceBadge}
+                        </Col>
+                    </Row>
+                </Row>
             </Col>
         );
     }

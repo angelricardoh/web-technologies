@@ -1,7 +1,7 @@
-span > text{
-    color: white;
-    padding: 1em;
-}
+/*span > text{*/
+/*    color: white;*/
+/*    padding: 1em;*/
+/*}*/
 
 .navbar,
 .navbar-default {
@@ -19,7 +19,4 @@ span > text{
     .nav-section {
         margin-left: -10px;
     }
-}
-.nav-section {
-    /*margin-left: -10px;*/
 }

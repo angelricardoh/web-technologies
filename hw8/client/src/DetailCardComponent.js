@@ -62,31 +62,30 @@ export default class DetailCardComponent extends Component {
                   <FacebookShareButton
                       url={this.props.detail.shareUrl}
                       quote={"#" + sharePhrase}
-                      data-tip="Facebook"
-                  >
+                      data-tip="Facebook">
                     <FacebookIcon size={socialNetworksButtonSize} round={true}/>
                   </FacebookShareButton>
-                  <ReactTooltip/>
+                  <ReactTooltip effect='solid'/>
 
                   <TwitterShareButton
                       url={this.props.detail.shareUrl}
                       hashtags={[sharePhrase]}
-                      data-tip="Twitter"
-                  >
+                      data-tip="Twitter">
                     <TwitterIcon size={socialNetworksButtonSize} round={true}/>
                   </TwitterShareButton>
-                  <ReactTooltip/>
+                  <ReactTooltip effect='solid'/>
 
                   <EmailShareButton
                       url={this.props.detail.shareUrl}
                       subject={"#" + sharePhrase}
-                      data-tip="Email"
-                  >
+                      data-tip="Email">
                     <EmailIcon size={socialNetworksButtonSize} round={true}/>
                   </EmailShareButton>
-                  <ReactTooltip/>
+                  <ReactTooltip effect='solid'/>
+
                   {bookmarkButton}
-                  <ReactTooltip/>
+                  <ReactTooltip effect='solid'/>
+
                 </div>
 
               <img className="detail-card-image"

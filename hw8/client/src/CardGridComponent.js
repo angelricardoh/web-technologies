@@ -28,7 +28,6 @@ function CardGridComponent(props) {
         let card = null
         let articleData = article
         articleData.page = props.data.page
-        // articleData.source = props.data.source
 
         if (props.data.page === 'search' || props.data.page === 'favorites') {
             card = <CompactCardComponent

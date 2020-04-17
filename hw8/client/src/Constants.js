@@ -8,13 +8,6 @@ export const bingAutosuggestKey = 'dbc7ff5a53734d91bcaf23ecdb50c086'
 // export const commentsboxioProjectID = '5734738228674560-proj'
 // export const bingAutosuggestKey = "f4964c95567e4d4887e0c11be9e227b6"
 
-export const sections = [
-  "world",
-  "politics",
-  "business",
-  "technology",
-  "sports",
-];
 export const sharePhrase = "CSCI_571_NewsApp";
 
 export const source = function() {
@@ -35,9 +28,29 @@ export const section = function(location) {
 
   if (pathname.includes('search')) {
     return 'search'
-  }  else if (pathname.includes( 'favorites')) {
+  } else if (pathname.includes( 'favorites')) {
     return 'favorites'
+  } else if (pathname.includes ('detail')) {
+    return 'detail'
   } else {
     return 'sections'
+  }
+}
+
+export const initialKey = function(location) {
+  const pathname = location.pathname
+
+  if (pathname.endsWith('world')) {
+    return '1'
+  } else if (pathname.endsWith('politics')) {
+    return '2'
+  } else if (pathname.endsWith('business')) {
+    return '3'
+  }  else if (pathname.endsWith('technology')) {
+    return '4'
+  } else if (pathname.endsWith('sports')) {
+    return '5'
+  } else {
+    return '0'
   }
 }

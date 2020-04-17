@@ -61,7 +61,6 @@ div > img {
 }
 /*@media only screen and (max-width: 600px) {*/
 
-
 @media only screen and (max-width: 600px) {
 
     .detail-date-actions {
@@ -75,4 +74,11 @@ div > img {
         -o-transform: scale(0.8, 0.8); /* Opera */
         -moz-transform: scale(0.8, 0.8); /* Firefox */
     }
+}
+
+.tool-tip {
+    padding: 5px !important;
+    margin-left: 10px !important;
+    border-right-width: 6px !important;
+    border-left-width: 6px !important;
 }

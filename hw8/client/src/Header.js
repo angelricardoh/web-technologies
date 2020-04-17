@@ -36,11 +36,13 @@ class Header extends Component {
             if (!location.pathname.includes('search')) {
                 this.setState({selectValue: null})
             }
+
             if (location.pathname.includes('detail')) {
                 this.setState({section: 'detail'})
             }
-            console.log("current section")
-            console.log(this.state.section)
+
+            // console.log("current section")
+            // console.log(this.state.section)
         });
     }
 
@@ -113,16 +115,14 @@ class Header extends Component {
             bookmarkTabButton = <FaBookmark
                 onClick={this.handleBookmarkClick}
                 size={bookmarkButtonSize}
-                style={{ marginRight: "16px" }}
-                data-tip="Bookmark"
-            />
+                style={{ marginRight: "32px" }}
+                data-tip="Bookmark"/>
         } else {
             bookmarkTabButton = <FaRegBookmark
                 onClick={this.handleBookmarkClick}
                 size={bookmarkButtonSize}
-                style={{ marginRight: "16px" }}
-                data-tip="Bookmark"
-            />
+                style={{ marginRight: "32px" }}
+                data-tip="Bookmark"/>
         }
 
         let displaySwitchValue = 'null'
@@ -152,7 +152,7 @@ class Header extends Component {
                     <Navbar.Toggle
                         aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className='mr-auto nav-section' defaultActiveKey='0'>
+                        <Nav className='mr-auto nav-section'>
                             <Nav.Link
                                 eventKey='0'
                                 as={RouterNavLink}

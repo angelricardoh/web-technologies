@@ -11,8 +11,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Zoom } from 'react-toastify';
 
-let bookmarkButtonSize = "24px";
-let socialNetworksButtonSize = "24px";
+let bookmarkButtonSize = "28px";
+let socialNetworksButtonSize = "28px";
 
 export default class DetailCardComponent extends Component {
   constructor(props) {
@@ -65,7 +65,6 @@ export default class DetailCardComponent extends Component {
                       data-tip="Facebook">
                     <FacebookIcon size={socialNetworksButtonSize} round={true}/>
                   </FacebookShareButton>
-                  <ReactTooltip effect='solid'/>
 
                   <TwitterShareButton
                       url={this.props.detail.shareUrl}
@@ -73,7 +72,6 @@ export default class DetailCardComponent extends Component {
                       data-tip="Twitter">
                     <TwitterIcon size={socialNetworksButtonSize} round={true}/>
                   </TwitterShareButton>
-                  <ReactTooltip effect='solid'/>
 
                   <EmailShareButton
                       url={this.props.detail.shareUrl}
@@ -81,10 +79,9 @@ export default class DetailCardComponent extends Component {
                       data-tip="Email">
                     <EmailIcon size={socialNetworksButtonSize} round={true}/>
                   </EmailShareButton>
-                  <ReactTooltip effect='solid'/>
 
                   {bookmarkButton}
-                  <ReactTooltip effect='solid'/>
+                  <ReactTooltip className='tool-tip' effect='solid'/>
 
                 </div>
 

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Switch, withRouter } from "react-router-dom";
+import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 import "./App.css";
 import CardGridContainer from "./CardGridContainer";
 import DetailCardContainer from './DetailCardContainer'
@@ -74,6 +74,7 @@ class AppComponent extends Component {
                                );
                            }}
                     />
+                    <Redirect from="/" to="/home" />
                 </Switch>
         );
     }

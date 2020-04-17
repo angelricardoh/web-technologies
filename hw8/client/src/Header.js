@@ -11,6 +11,9 @@ import './Header.css'
 import { Link } from "react-router-dom";
 import { withRouter } from 'react-router-dom'
 import { section } from './Constants'
+import { Container, Row, Col } from 'react-bootstrap';
+import Switch from "react-switch";
+
 
 let bookmarkButtonSize = "20px";
 
@@ -123,32 +126,52 @@ class Header extends Component {
                 data-tip="Bookmark"
             />
         }
+
+        let displaySwitchValue = 'null'
+        if (this.state.section === 'search' || this.state.section === 'favorites' || this.state.section === 'detail') {
+            displaySwitchValue = 'none'
+        } else {
+            displaySwitchValue = 'flex'
+        }
+
         return (
+
             <header>
-                <Navbar variant="dark">
+                <Navbar variant="dark" expand="lg">
                     <AsyncSelect
                             ref={ref => this.ref = ref}
                             value={this.state.selectValue}
                             placeholder='Enter keyword ..'
-                            width='200px'
                             className='search-select'
+                            width='200px'
+                            // md={8}
+                            // lg={10}
+                            // className='col-xs-2 col-lg-10'
                             cacheOptions
                             onInputChange={this.handleSearchChange}
                             loadOptions={this.getAutosuggestionResults}
-                            onChange={(option) => this.handleItemSelectChange(option)}
-                    />
-                    <Nav className="mr-auto" defaultActiveKey='/'>
-                        <Nav.Link as={Link} to='/' onClick={this.handleSectionChange}>Home</Nav.Link>
-                        <Nav.Link as={Link} to="/world" onClick={this.handleSectionChange}>World</Nav.Link>
-                        <Nav.Link as={Link} to="/politics" onClick={this.handleSectionChange}>Politics</Nav.Link>
-                        <Nav.Link as={Link} to="/business" onClick={this.handleSectionChange}>Business</Nav.Link>
-                        <Nav.Link as={Link} to="/technology" onClick={this.handleSectionChange}>Technology</Nav.Link>
-                        <Nav.Link as={Link} to="/sports" onClick={this.handleSectionChange}>Sports</Nav.Link>
-                    </Nav>
-                    {bookmarkTabButton}
-                    <SwitchSource section={this.state.section}
-                                  handleChange={this.handleSwitchChange}
-                                  checked={this.state.checked}/>
+                            onChange={(option) => this.handleItemSelectChange(option)}/>
+                    <Navbar.Toggle
+                        classsName={'col-xs-2 col-lg-2'}
+                        aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="mr-auto" defaultActiveKey='/'>
+                            <Nav.Link as={Link} to='/' onClick={this.handleSectionChange}>Home</Nav.Link>
+                            <Nav.Link as={Link} to="/world" onClick={this.handleSectionChange}>World</Nav.Link>
+                            <Nav.Link as={Link} to="/politics" onClick={this.handleSectionChange}>Politics</Nav.Link>
+                            <Nav.Link as={Link} to="/business" onClick={this.handleSectionChange}>Business</Nav.Link>
+                            <Nav.Link as={Link} to="/technology" onClick={this.handleSectionChange}>Technology</Nav.Link>
+                            <Nav.Link as={Link} to="/sports" onClick={this.handleSectionChange}>Sports</Nav.Link>
+                        </Nav>
+
+                        {bookmarkTabButton}
+                        <Navbar.Brand style={{display:displaySwitchValue}}>NYTimes</Navbar.Brand>
+                        <SwitchSource section={this.state.section}
+                                      handleChange={this.handleSwitchChange}
+                                      checked={this.state.checked}/>
+                        <Navbar.Brand style={{display:displaySwitchValue}}>Guardian</Navbar.Brand>
+
+                    </Navbar.Collapse>
                 </Navbar>
             </header>
         )

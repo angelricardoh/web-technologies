@@ -11,7 +11,6 @@ export default function SwitchSource(props) {
     }
     return (
         <div style={{display:displaySwitchValue}}>
-            <span>NYTimes</span>
             <Switch className='switch-source'
                     onChange={props.handleChange}
                     checked={props.checked}
@@ -19,7 +18,6 @@ export default function SwitchSource(props) {
                     checkedIcon={false}
                     onColor='#0199FB'
             />
-            <span>Guardian</span>
         </div>
     )
 }

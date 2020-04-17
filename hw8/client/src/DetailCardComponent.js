@@ -11,8 +11,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Zoom } from 'react-toastify';
 
-let bookmarkButtonSize = "32px";
-let socialNetworksButtonSize = "32px";
+let bookmarkButtonSize = "24px";
+let socialNetworksButtonSize = "24px";
 
 export default class DetailCardComponent extends Component {
   constructor(props) {
@@ -38,18 +38,16 @@ export default class DetailCardComponent extends Component {
     let bookmarkButton = null
     if (this.state.bookmarked) {
       bookmarkButton = <FaBookmark
+          className="detail-bookmark-button"
           onClick={this.handleBookmarkClick}
           size={bookmarkButtonSize}
-          style={{ marginLeft: "80px",
-            color:'#DB0030' }}
           data-tip="Bookmark"
       />
     } else {
       bookmarkButton = <FaRegBookmark
+          className="detail-bookmark-button"
           onClick={this.handleBookmarkClick}
           size={bookmarkButtonSize}
-          style={{ marginLeft: "80px",
-            color:'#DB0030' }}
           data-tip="Bookmark"
       />
     }
@@ -57,43 +55,40 @@ export default class DetailCardComponent extends Component {
     return (
         <div className='card-detail-container'>
           <Card className='card-detail'>
-            <Card.Body variant="primary" style={{textAlign: "left"}}>
+            <Card.Body className="card-body" variant="primary" style={{textAlign: "left"}}>
               <h3 style={{fontStyle: 'italic'}}>{this.props.detail.title}</h3>
-              <h5 style={{display: 'inline', marginLeft: "32px"}}>{this.props.detail.date}</h5>
-              <div style={{
-                float: "right",
-                paddingBottom: '16px',
-                display: 'inline'
-              }}>
-                <FacebookShareButton
-                    url={this.props.detail.shareUrl}
-                    quote={"#" + sharePhrase}
-                    data-tip="Facebook"
-                >
-                  <FacebookIcon size={socialNetworksButtonSize} round={true}/>
-                </FacebookShareButton>
-                <ReactTooltip/>
+                <p className="card-detail-date">{this.props.detail.date}</p>
+                <div className="detail-action-space">
+                  <FacebookShareButton
+                      url={this.props.detail.shareUrl}
+                      quote={"#" + sharePhrase}
+                      data-tip="Facebook"
+                  >
+                    <FacebookIcon size={socialNetworksButtonSize} round={true}/>
+                  </FacebookShareButton>
+                  <ReactTooltip/>
 
-                <TwitterShareButton
-                    url={this.props.detail.shareUrl}
-                    hashtags={[sharePhrase]}
-                    data-tip="Twitter"
-                >
-                  <TwitterIcon size={socialNetworksButtonSize} round={true}/>
-                </TwitterShareButton>
-                <ReactTooltip/>
+                  <TwitterShareButton
+                      url={this.props.detail.shareUrl}
+                      hashtags={[sharePhrase]}
+                      data-tip="Twitter"
+                  >
+                    <TwitterIcon size={socialNetworksButtonSize} round={true}/>
+                  </TwitterShareButton>
+                  <ReactTooltip/>
 
-                <EmailShareButton
-                    url={this.props.detail.shareUrl}
-                    subject={"#" + sharePhrase}
-                    data-tip="Email"
-                >
-                  <EmailIcon size={socialNetworksButtonSize} round={true}/>
-                </EmailShareButton>
-                <ReactTooltip/>
-                {bookmarkButton}
-                <ReactTooltip/>
-              </div>
+                  <EmailShareButton
+                      url={this.props.detail.shareUrl}
+                      subject={"#" + sharePhrase}
+                      data-tip="Email"
+                  >
+                    <EmailIcon size={socialNetworksButtonSize} round={true}/>
+                  </EmailShareButton>
+                  <ReactTooltip/>
+                  {bookmarkButton}
+                  <ReactTooltip/>
+                </div>
+
               <img className="detail-card-image"
                    alt="detail"
                    src={this.props.detail.image}/>

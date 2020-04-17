@@ -21,3 +21,57 @@ div > img {
     width: 100%;
     border-radius: 5px;
 }
+
+.card-detail-date {
+    display: inline;
+    float: left;
+    font-style: italic;
+    margin-left: 16px;
+}
+
+.detail-date-actions {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.detail-action-space {
+    float: right;
+    padding-bottom: 16px;
+}
+
+.detail-bookmark-button {
+    margin-left: 16px;
+    color: #DB0030;
+}
+
+@media only screen and (min-width: 600px) {
+    .card-detail-date {
+        display: inline;
+        margin-left: 32px;
+        font-style: italic;
+    }
+
+    .detail-bookmark-button {
+        margin-left: 80px;
+        color: #DB0030;
+    }
+}
+/*@media only screen and (max-width: 600px) {*/
+
+
+@media only screen and (max-width: 600px) {
+
+    .detail-date-actions {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        justify-content: space-between;
+        transform: scale(0.8, 0.8);
+        -ms-transform: scale(0.8, 0.8); /* IE 9 */
+        -webkit-transform: scale(0.8, 0.8); /* Safari and Chrome */
+        -o-transform: scale(0.8, 0.8); /* Opera */
+        -moz-transform: scale(0.8, 0.8); /* Firefox */
+    }
+}

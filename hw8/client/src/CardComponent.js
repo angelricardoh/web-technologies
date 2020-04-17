@@ -21,7 +21,9 @@ export default class CardComponent extends NewsCard {
               className="mx-auto card-row"
               onClick={this.handleClickDetail}>
               <Col className="my-auto align-items-center" md={3} sm={12}>
-                  <img className='image-border'
+                  <img
+                      className='image-border'
+                      alt='news'
                       src={this.props.data.image}/>
               </Col>
               <Col className='card-row-body px-0' md={9} sm={12}>

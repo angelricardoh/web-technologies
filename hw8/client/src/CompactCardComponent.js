@@ -27,33 +27,36 @@ export default class CompactCardComponent extends NewsCard {
         return (
             <Col className="mx-0 my-3">
                 <Row
-                    className="card card-compact mx-0"
+                    className="card card-compact m-auto p-3"
                     onClick={this.handleClickDetail}>
                     <CardHeader
+                        // className="px-1"
                         data={this.props.data}
                         handleClickShare={this.handleClickShare}
                         handleRemoveBookmark={this.handleRemoveBookmark}
                     />
-                    <Row>
+                    <Row
+                        className="px-1">
                         <img
+                            alt="news"
                             className='image-border card-compact-image-border mx-auto'
                             src={this.props.data.image}/>
                     </Row>
-                        <div className="footer-container">
-                            <Card.Text
-                                className="mt-auto"
-                                style={{float: "left"}}>
-                                {this.props.data.date}
-                            </Card.Text>
-                            <div className="badgeCol mt-auto">
-                                <Badge
-                                    className='mx-1'
-                                    variant={this.props.data.section}>
-                                    {this.props.data.section.toUpperCase()}
-                                </Badge>
-                                {sourceBadge}
-                            </div>
+                    <Row className="footer-container mx-auto">
+                        <Card.Text
+                            className="mt-auto"
+                            style={{float: "left"}}>
+                            {this.props.data.date}
+                        </Card.Text>
+                        <div className="badgeCol mt-auto">
+                            <Badge
+                                className='mx-1'
+                                variant={this.props.data.section}>
+                                {this.props.data.section.toUpperCase()}
+                            </Badge>
+                            {sourceBadge}
                         </div>
+                    </Row>
                 </Row>
             </Col>
         );

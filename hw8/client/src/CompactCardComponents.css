@@ -3,10 +3,6 @@ button {
     background-color: white;
 }
 
-.card-compact {
-    padding: 20px;
-    margin: 5px;
-}
 
 .card-compact > body {
     max-lines: 3;
@@ -29,11 +25,26 @@ button {
 }
 
 .footer-container {
-    display: inline;
+    display: inline-block;
     vertical-align: middle;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    /*padding-right: -10px;*/
+    /*padding-left: -10px;*/
+}
 
+.badgeCol > .badge {
+    font-size: 11px;
 }
 
 .badgeCol {
     float: right;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.footer-container > p {
+    font-style: italic;
+    /*font-size: 12px;*/
 }

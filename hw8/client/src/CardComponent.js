@@ -24,7 +24,7 @@ export default class CardComponent extends NewsCard {
                   <img className='image-border'
                       src={this.props.data.image}/>
               </Col>
-              <Col className='card-row-body' md={9} sm={12}>
+              <Col className='card-row-body px-0' md={9} sm={12}>
                 <Card.Body >
                     <CardHeader
                         data={this.props.data}

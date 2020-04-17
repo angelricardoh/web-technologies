@@ -14,9 +14,3 @@
     color: black;
     text-align: left;
 }
-
-@media only screen and (max-width: 600px) {
-    .nav-section {
-        margin-left: -10px;
-    }
-}

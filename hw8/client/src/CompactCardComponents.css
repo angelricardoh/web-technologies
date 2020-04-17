@@ -14,14 +14,26 @@ button {
     border: solid green 1px;
 }
 
-.card-compact > .image-border {
-    margin: auto;
-    border-radius: 5px;
-    border: solid 10px;
-    border-width: 1px;
-    border-color: #DBDDDF;
-    display: block;
-    width: 100%;
+.card-compact-image-border {
+    width: 90%;
     height: 20vh;
     margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    .card-compact-image-border {
+        width: 90%;
+        height: 30vh;
+        margin-bottom: 10px;
+    }
+}
+
+.footer-container {
+    display: inline;
+    vertical-align: middle;
+
+}
+
+.badgeCol {
+    float: right;
 }

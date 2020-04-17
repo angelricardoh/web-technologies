@@ -13,7 +13,7 @@ import { withRouter } from 'react-router-dom'
 import { section } from './Constants'
 import { Container, Row, Col } from 'react-bootstrap';
 import Switch from "react-switch";
-
+import { NavLink as RouterNavLink } from 'react-router-dom';
 
 let bookmarkButtonSize = "20px";
 
@@ -113,10 +113,11 @@ class Header extends Component {
     render() {
         let bookmarkTabButton = null
         if (this.state.section === 'favorites') {
-            bookmarkTabButton = <FaBookmark onClick={this.handleBookmarkClick}
-                        size={bookmarkButtonSize}
-                        style={{ marginRight: "16px" }}
-                        data-tip="Bookmark"
+            bookmarkTabButton = <FaBookmark
+                onClick={this.handleBookmarkClick}
+                size={bookmarkButtonSize}
+                style={{ marginRight: "16px" }}
+                data-tip="Bookmark"
             />
         } else {
             bookmarkTabButton = <FaRegBookmark
@@ -137,33 +138,32 @@ class Header extends Component {
         return (
 
             <header>
-                <Navbar variant="dark" expand="lg">
+                <Navbar
+                    collapseOnSelect
+                    bg="dark"
+                    variant="dark"
+                    expand="lg">
                     <AsyncSelect
                             ref={ref => this.ref = ref}
                             value={this.state.selectValue}
                             placeholder='Enter keyword ..'
                             className='search-select'
-                            width='200px'
-                            // md={8}
-                            // lg={10}
-                            // className='col-xs-2 col-lg-10'
                             cacheOptions
                             onInputChange={this.handleSearchChange}
                             loadOptions={this.getAutosuggestionResults}
                             onChange={(option) => this.handleItemSelectChange(option)}/>
                     <Navbar.Toggle
-                        classsName={'col-xs-2 col-lg-2'}
                         aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="mr-auto" defaultActiveKey='/'>
-                            <Nav.Link as={Link} to='/' onClick={this.handleSectionChange}>Home</Nav.Link>
-                            <Nav.Link as={Link} to="/world" onClick={this.handleSectionChange}>World</Nav.Link>
-                            <Nav.Link as={Link} to="/politics" onClick={this.handleSectionChange}>Politics</Nav.Link>
-                            <Nav.Link as={Link} to="/business" onClick={this.handleSectionChange}>Business</Nav.Link>
-                            <Nav.Link as={Link} to="/technology" onClick={this.handleSectionChange}>Technology</Nav.Link>
-                            <Nav.Link as={Link} to="/sports" onClick={this.handleSectionChange}>Sports</Nav.Link>
+                        <Nav className='mr-auto nav-section' defaultActiveKey='0'>
+                            <
+                            <Nav.Link as={RouterNavLink} to="/home" onClick={this.handleSectionChange}>Home</Nav.Link>
+                            <Nav.Link as={RouterNavLink} to="/world" onClick={this.handleSectionChange}>World</Nav.Link>
+                            <Nav.Link as={RouterNavLink} to="/politics" onClick={this.handleSectionChange}>Politics</Nav.Link>
+                            <Nav.Link as={RouterNavLink}  to="/business" onClick={this.handleSectionChange}>Business</Nav.Link>
+                            <Nav.Link as={RouterNavLink}  to="/technology" onClick={this.handleSectionChange}>Technology</Nav.Link>
+                            <Nav.Link as={RouterNavLink}  to="/sports" onClick={this.handleSectionChange}>Sports</Nav.Link>
                         </Nav>
-
                         {bookmarkTabButton}
                         <Navbar.Brand style={{display:displaySwitchValue}}>NYTimes</Navbar.Brand>
                         <SwitchSource section={this.state.section}

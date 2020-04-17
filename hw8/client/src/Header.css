@@ -15,32 +15,11 @@ span > text{
     text-align: left;
 }
 
-.navbar-nav > .active > a {
-    color: white;
-    background-color: chartreuse;
+@media only screen and (max-width: 600px) {
+    .nav-section {
+        margin-left: -10px;
+    }
 }
-.nav-link > a:hover {
-    color: red;
-}
-
-.navbar-default .navbar-nav > .active > a,
-.navbar-default .navbar-nav > .active > a:hover,
-.navbar-default .navbar-nav > .active > a:focus {
-    color: red; /* <—– change your color here*/
-}
-
-.selected {
-    color: white;
-}
-
-.active {
-    color: red;
-    text-decoration: none;
-}
-
-a {
-    color: #FFF;
-}
-a:hover {
-    color: #00F
+.nav-section {
+    /*margin-left: -10px;*/
 }

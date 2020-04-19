@@ -27,6 +27,7 @@ export default class DetailCardComponent extends Component {
   handleBookmarkClick() {
     if (this.state.bookmarked) {
       removeBookmark(this.props.detail)
+      toast('Removing - ' + this.props.detail.title)
     } else {
       addBookmark(this.props.detail)
       toast('Saving ' + this.props.detail.title)

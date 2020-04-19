@@ -40,9 +40,6 @@ class Header extends Component {
             if (location.pathname.includes('detail')) {
                 this.setState({section: 'detail'})
             }
-
-            // console.log("current section")
-            // console.log(this.state.section)
         });
     }
 
@@ -113,12 +110,14 @@ class Header extends Component {
         let bookmarkTabButton = null
         if (this.state.section === 'favorites') {
             bookmarkTabButton = <FaBookmark
+                eventKey='6'
                 onClick={this.handleBookmarkClick}
                 size={bookmarkButtonSize}
                 style={{ marginRight: "32px" }}
                 data-tip="Bookmark"/>
         } else {
             bookmarkTabButton = <FaRegBookmark
+                eventKey='6'
                 onClick={this.handleBookmarkClick}
                 size={bookmarkButtonSize}
                 style={{ marginRight: "32px" }}
@@ -152,7 +151,7 @@ class Header extends Component {
                     <Navbar.Toggle
                         aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className='mr-auto nav-section'>
+                        <Nav className='mr-auto nav-section' activeKey='6'>
                             <Nav.Link
                                 eventKey='0'
                                 as={RouterNavLink}

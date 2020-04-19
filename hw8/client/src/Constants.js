@@ -36,21 +36,3 @@ export const section = function(location) {
     return 'sections'
   }
 }
-
-export const initialKey = function(location) {
-  const pathname = location.pathname
-
-  if (pathname.endsWith('world')) {
-    return '1'
-  } else if (pathname.endsWith('politics')) {
-    return '2'
-  } else if (pathname.endsWith('business')) {
-    return '3'
-  }  else if (pathname.endsWith('technology')) {
-    return '4'
-  } else if (pathname.endsWith('sports')) {
-    return '5'
-  } else {
-    return '0'
-  }
-}

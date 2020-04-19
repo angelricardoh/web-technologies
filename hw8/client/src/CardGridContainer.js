@@ -6,6 +6,7 @@ import { host } from "./Constants";
 import { listBookmarks } from "./BookmarkManager";
 import Loader from './Loader'
 import {removeBookmark} from "./BookmarkManager";
+import {toast, ToastContainer, Zoom} from "react-toastify";
 
 export default class CardGridContainer extends Component {
   constructor(props) {
@@ -68,7 +69,8 @@ export default class CardGridContainer extends Component {
   }
 
   handleRemoveBookmark(articleId) {
-    removeBookmark(articleId)
+    let removedArticle = removeBookmark(articleId)
+    toast('Removing - ' + removedArticle.title)
     let bookmarks = listBookmarks()
     this.setState({articles: bookmarks})
   }
@@ -115,6 +117,11 @@ export default class CardGridContainer extends Component {
       <div>
         {content}
         {modal}
+        <ToastContainer autoClose={3000}
+                        transition={Zoom}
+                        position={toast.POSITION.TOP_CENTER}
+                        hideProgressBar={true}
+                        bodyClassName='light-toast'/>
       </div>
     );
   }

@@ -25,7 +25,7 @@ export default class CompactCardComponent extends NewsCard {
         }
 
         return (
-            <Col className="mx-0 my-3">
+            <Col sm={1} className="mx-0 my-3">
                 <Row
                     className="card card-compact m-auto p-3"
                     onClick={this.handleClickDetail}>

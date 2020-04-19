@@ -22,6 +22,10 @@ export function listBookmarks() {
 }
 
 export function addBookmark(article) {
+    if (isBookmarked(article)) {
+        return
+    }
+
     let bookmarks = localStorage.getObject('bookmarks')
     if (typeof bookmarks === 'undefined' || bookmarks == null) {
         bookmarks = []
@@ -38,11 +42,13 @@ export function removeBookmark(articleId) {
     }
 
     let indexBookmark = -1
+    let bookmark = null
     // eslint-disable-next-line no-unused-vars
     for (const index in bookmarks) {
         let currentBookmark = bookmarks[index]
         if (currentBookmark.id === articleId) {
             indexBookmark = index
+            bookmark = currentBookmark
             break
         }
     }
@@ -50,6 +56,7 @@ export function removeBookmark(articleId) {
         bookmarks.splice(indexBookmark, 1);
     }
     localStorage.setObject('bookmarks', bookmarks)
+    return bookmark
 }
 
 export function isBookmarked(article) {

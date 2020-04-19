@@ -12,15 +12,13 @@ button {
 
 .card-compact-image-border {
     width: 90%;
-    height: 20vh;
+    height: 90%;
     margin-bottom: 10px;
 }
 
 @media only screen and (max-width: 600px) {
     .card-compact-image-border {
-        width: 90%;
-        height: 30vh;
-        margin-bottom: 10px;
+        height: 90%;
     }
 }
 
@@ -44,5 +42,4 @@ button {
 
 .footer-container > p {
     font-style: italic;
-    /*font-size: 12px;*/
 }

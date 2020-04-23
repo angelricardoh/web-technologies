@@ -62,7 +62,7 @@ export default class DetailCardComponent extends Component {
                 <div className="detail-action-space">
                   <FacebookShareButton
                       url={this.props.detail.shareUrl}
-                      quote={"#" + sharePhrase}
+                      hashtag={"#" + sharePhrase}
                       data-tip="Facebook">
                     <FacebookIcon size={socialNetworksButtonSize} round={true}/>
                   </FacebookShareButton>

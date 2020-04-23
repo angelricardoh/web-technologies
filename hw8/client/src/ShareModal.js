@@ -9,6 +9,8 @@ import {
   EmailIcon
 } from "react-share";
 import { sharePhrase } from "./Constants";
+import ReactTooltip from "react-tooltip";
+
 let socialNetworksButtonSize = "40px";
 
 export default function ShareModal(props) {
@@ -38,15 +40,28 @@ export default function ShareModal(props) {
                 justifyContent: "space-around"
               }}
           >
-            <FacebookShareButton url={props.shareUrl} hashtag={"#" + sharePhrase}>
-              <FacebookIcon size={socialNetworksButtonSize} round={true}/>
+            <FacebookShareButton
+                url={props.shareUrl}
+                hashtag={"#" + sharePhrase}
+                data-tip="Facebook">
+              <FacebookIcon
+                  size={socialNetworksButtonSize}
+                  round={true}/>
             </FacebookShareButton>
-            <TwitterShareButton url={props.shareUrl} hashtags={[sharePhrase]}>
-              <TwitterIcon size={socialNetworksButtonSize} round={true}/>
+            <TwitterShareButton
+                url={props.shareUrl}
+                hashtags={[sharePhrase]}
+                data-tip="Twitter">
+              <TwitterIcon size={socialNetworksButtonSize}
+                           round={true}/>
             </TwitterShareButton>
-            <EmailShareButton url={props.shareUrl} subject={"#" + sharePhrase}>
+            <EmailShareButton
+                url={props.shareUrl}
+                subject={"#" + sharePhrase}
+                data-tip="Email">
               <EmailIcon size={socialNetworksButtonSize} round={true}/>
             </EmailShareButton>
+            <ReactTooltip className='tool-tip' effect='solid'/>
           </div>
         </Modal.Body>
       </Modal>

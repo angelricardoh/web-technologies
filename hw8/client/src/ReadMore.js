@@ -11,6 +11,7 @@ class ReadMore extends Component {
       expanded: false,
       truncated: false
     };
+    this.myRef = React.createRef();
 
     this.handleTruncate = this.handleTruncate.bind(this);
     this.toggleLines = this.toggleLines.bind(this);
@@ -26,10 +27,16 @@ class ReadMore extends Component {
 
   toggleLines(event) {
     event.preventDefault();
-
+    this.scroll(this.myRef)
     this.setState({
       expanded: !this.state.expanded
     });
+    setTimeout(() => {this.scroll(this.myRef)}, 0);
+  }
+
+  scroll(ref) {
+    // ref.current.scrollIntoView(false);
+    ref.current.scrollIntoView({behavior: 'smooth', block: "start", inline: "nearest"})
   }
 
   render() {
@@ -38,14 +45,15 @@ class ReadMore extends Component {
     const { expanded, truncated } = this.state;
 
     return (
-      <div>
+      <div ref={this.myRef}>
         <Truncate
           lines={!expanded && lines}
           ellipsis={
             <span>
               ...{" "}
               <br/><br/>
-              <MdExpandMore size="32px"
+              <MdExpandMore
+                            size="32px"
                             style={{ float:'right'}}
                             href="#"
                             onClick={this.toggleLines}/>

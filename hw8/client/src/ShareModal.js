@@ -10,14 +10,25 @@ import {
 } from "react-share";
 import { sharePhrase } from "./Constants";
 import ReactTooltip from "react-tooltip";
+import { useMediaQuery } from 'react-responsive'
 
 let socialNetworksButtonSize = "40px";
 
 export default function ShareModal(props) {
+  const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 })
 
   let sourceHeader = null
   if (props.isFavorite) {
     sourceHeader = <h2>{props.source.toUpperCase()}</h2>
+  }
+  let title = null
+  let shareLabel = null
+  if (isTabletOrMobile) {
+      title = <h5>{props.title}</h5>
+      shareLabel = <h5 style={{textAlign: "center"}}>Share via</h5>
+  } else {
+      title = <h3>{props.title}</h3>
+      shareLabel = <h4 style={{textAlign: "center"}}>Share via</h4>
   }
 
   return (
@@ -28,11 +39,11 @@ export default function ShareModal(props) {
         <Modal.Header closeButton>
           <div style={{display: "inline-block"}}>
             {sourceHeader}
-            <h3>{props.title}</h3>
+            {title}
           </div>
         </Modal.Header>
         <Modal.Body>
-          <h4 style={{textAlign: "center"}}>Share via</h4>
+          {shareLabel}
           <br></br>
           <div
               style={{

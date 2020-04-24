@@ -17,6 +17,9 @@ function getGuardianArticles(req) {
     let section = req.query.section;
     let url = null
     if (section !== "home") {
+      if (section === 'sports') {
+        section = 'sport';
+      }
       url =  "https://content.guardianapis.com/" + section + "?api-key=" + GUARDIAN_API_KEY + "&show-blocks=all"
     } else {
       url = "https://content.guardianapis.com/search?api-key=" + GUARDIAN_API_KEY +
@@ -331,6 +334,9 @@ function getGuardianArticlesData(response) {
 
     let blocks = currentResult.blocks;
     let main = blocks.main;
+    if (typeof main === 'undefined'){
+      continue
+    }
     let elements = main.elements;
     let image = "";
     if (typeof elements === "undefined" || elements[0].type !== "image") {
@@ -347,6 +353,9 @@ function getGuardianArticlesData(response) {
     }
 
     let section = currentResult.sectionId;
+    if (section === 'sport') {
+      section = 'sports'
+    }
 
     let dateString = currentResult.webPublicationDate;
     let date = formatShortDate(new Date(dateString));

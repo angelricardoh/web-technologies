@@ -105,7 +105,7 @@ export default class CardGridContainer extends Component {
                     show={this.state.share.show}
                     title={currentArticle.title}
                     shareUrl={currentArticle.shareUrl}
-                    source={this.props.source}
+                    source={currentArticle.source}
                     handleCloseModalShare={this.handleCloseModalShare}
                 />
             );

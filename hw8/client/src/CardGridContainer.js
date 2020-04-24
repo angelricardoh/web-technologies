@@ -7,6 +7,8 @@ import { listBookmarks } from "./BookmarkManager";
 import Loader from './Loader'
 import {removeBookmark} from "./BookmarkManager";
 import {toast, ToastContainer, Zoom} from "react-toastify";
+import ReactTooltip from "react-tooltip";
+
 
 export default class CardGridContainer extends Component {
   constructor(props) {
@@ -122,6 +124,7 @@ export default class CardGridContainer extends Component {
                         position={toast.POSITION.TOP_CENTER}
                         hideProgressBar={true}
                         bodyClassName='light-toast'/>
+        <ReactTooltip className='tool-tip' effect='solid'/>
       </div>
     );
   }

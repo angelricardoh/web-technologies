@@ -13,5 +13,5 @@ target 'csci-hw9' do
   pod 'Charts'
   pod 'XLPagerTabStrip'
   pod 'Alamofire-SwiftyJSON', '~> 3.0.0'
-
+  pod 'SDWebImage', '~> 4.0'
 end

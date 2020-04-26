@@ -10,7 +10,10 @@ import UIKit
 
 class NewsTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var timeAgoLabel: UILabel!
+    @IBOutlet weak var sectionLabel: UILabel!
+    @IBOutlet weak var bookmarkButton: UIButton!
+    @IBOutlet weak var articleImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

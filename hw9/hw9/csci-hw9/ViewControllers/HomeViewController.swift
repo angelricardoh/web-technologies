@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -42,7 +43,24 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let customCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? NewsTableViewCell
         
         customCell?.titleLabel.text = articles[indexPath.row].title
-        customCell?.descriptionLabel.text = articles[indexPath.row].description
+        customCell?.timeAgoLabel.text = articles[indexPath.row].date
+        customCell?.sectionLabel.text = articles[indexPath.row].section
+        guard let imageUrl = URL(string: articles[indexPath.row].image) else {
+            let alertController = UIAlertController(title: "Image download Error", message:
+                "Error downloading image with url: " + articles[indexPath.row].image, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+            return customCell!
+        }
+        customCell?.articleImageView?.sd_setImage(with: imageUrl, completed: nil)
+//        customCell?.articleImageView?.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "the_guardian_icon.png"))
+
+//        if let data = try? Data(contentsOf: url) {
+//            if let image = UIImage(data: data) {
+//                DispatchQueue.main.async {
+//                    customCell?.imageView?.image = image
+//                }
+//            }
+//        }
         
         return customCell!
     }

@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D1EC75B24552F9E00CC3D49 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1EC75A24552F9E00CC3D49 /* NewsTableViewCell.swift */; };
+		3D1EC79F2455F2A700CC3D49 /* NewsArticleWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1EC79E2455F2A700CC3D49 /* NewsArticleWorker.swift */; };
+		3D1EC7A22455F32100CC3D49 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1EC7A12455F32100CC3D49 /* NetworkManager.swift */; };
+		3D1EC7A42455F34600CC3D49 /* NetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1EC7A32455F34600CC3D49 /* NetworkSession.swift */; };
+		3D1EC7A82455F9F400CC3D49 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1EC7A72455F9F400CC3D49 /* Article.swift */; };
 		3DE72094244CD65E00A87148 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE72093244CD65E00A87148 /* AppDelegate.swift */; };
 		3DE72096244CD65E00A87148 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE72095244CD65E00A87148 /* SceneDelegate.swift */; };
 		3DE72098244CD65E00A87148 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE72097244CD65E00A87148 /* HomeViewController.swift */; };
@@ -41,6 +46,11 @@
 /* Begin PBXFileReference section */
 		1C09819FCE2C514BEBE475B0 /* Pods_csci_hw9.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_csci_hw9.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		34A8B04E0ACEA67DC1677918 /* Pods-csci-hw9.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-csci-hw9.debug.xcconfig"; path = "Target Support Files/Pods-csci-hw9/Pods-csci-hw9.debug.xcconfig"; sourceTree = "<group>"; };
+		3D1EC75A24552F9E00CC3D49 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
+		3D1EC79E2455F2A700CC3D49 /* NewsArticleWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsArticleWorker.swift; sourceTree = "<group>"; };
+		3D1EC7A12455F32100CC3D49 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		3D1EC7A32455F34600CC3D49 /* NetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSession.swift; sourceTree = "<group>"; };
+		3D1EC7A72455F9F400CC3D49 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		3DE72090244CD65E00A87148 /* csci-hw9.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "csci-hw9.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DE72093244CD65E00A87148 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3DE72095244CD65E00A87148 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -87,6 +97,50 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D1EC7A02455F31200CC3D49 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				3D1EC7A12455F32100CC3D49 /* NetworkManager.swift */,
+				3D1EC7A32455F34600CC3D49 /* NetworkSession.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		3D1EC7A52455F38900CC3D49 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				3D1EC7A72455F9F400CC3D49 /* Article.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		3D1EC7A62455F39800CC3D49 /* Workers */ = {
+			isa = PBXGroup;
+			children = (
+				3D1EC79E2455F2A700CC3D49 /* NewsArticleWorker.swift */,
+			);
+			path = Workers;
+			sourceTree = "<group>";
+		};
+		3D1EC7A92456139900CC3D49 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3D1EC75A24552F9E00CC3D49 /* NewsTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3D1EC7AA245613A200CC3D49 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				3DE72097244CD65E00A87148 /* HomeViewController.swift */,
+				3DE72099244CD65E00A87148 /* HeadlinesViewController.swift */,
+				3DE720C5244CEFE300A87148 /* TrendingViewController.swift */,
+				3DE720C7244CEFF500A87148 /* BookmarksViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		3DE72087244CD65E00A87148 = {
 			isa = PBXGroup;
 			children = (
@@ -114,10 +168,11 @@
 			children = (
 				3DE72093244CD65E00A87148 /* AppDelegate.swift */,
 				3DE72095244CD65E00A87148 /* SceneDelegate.swift */,
-				3DE72097244CD65E00A87148 /* HomeViewController.swift */,
-				3DE72099244CD65E00A87148 /* HeadlinesViewController.swift */,
-				3DE720C5244CEFE300A87148 /* TrendingViewController.swift */,
-				3DE720C7244CEFF500A87148 /* BookmarksViewController.swift */,
+				3D1EC7AA245613A200CC3D49 /* ViewControllers */,
+				3D1EC7A92456139900CC3D49 /* Views */,
+				3D1EC7A62455F39800CC3D49 /* Workers */,
+				3D1EC7A52455F38900CC3D49 /* Entities */,
+				3D1EC7A02455F31200CC3D49 /* Core */,
 				3DE7209B244CD65E00A87148 /* Main.storyboard */,
 				3DE7209E244CD65F00A87148 /* Assets.xcassets */,
 				3DE720A0244CD65F00A87148 /* LaunchScreen.storyboard */,
@@ -336,10 +391,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D1EC7A82455F9F400CC3D49 /* Article.swift in Sources */,
+				3D1EC7A22455F32100CC3D49 /* NetworkManager.swift in Sources */,
+				3D1EC7A42455F34600CC3D49 /* NetworkSession.swift in Sources */,
 				3DE720C8244CEFF500A87148 /* BookmarksViewController.swift in Sources */,
 				3DE7209A244CD65E00A87148 /* HeadlinesViewController.swift in Sources */,
 				3DE72098244CD65E00A87148 /* HomeViewController.swift in Sources */,
+				3D1EC75B24552F9E00CC3D49 /* NewsTableViewCell.swift in Sources */,
 				3DE720C6244CEFE300A87148 /* TrendingViewController.swift in Sources */,
+				3D1EC79F2455F2A700CC3D49 /* NewsArticleWorker.swift in Sources */,
 				3DE72094244CD65E00A87148 /* AppDelegate.swift in Sources */,
 				3DE72096244CD65E00A87148 /* SceneDelegate.swift in Sources */,
 			);

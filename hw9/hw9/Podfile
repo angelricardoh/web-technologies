@@ -12,6 +12,6 @@ target 'csci-hw9' do
   pod 'SwiftSpinner'
   pod 'Charts'
   pod 'XLPagerTabStrip'
-  # pod 'Alamofire-SwiftyJSON', '~> 3.0.0'
+  pod 'Alamofire-SwiftyJSON', '~> 3.0.0'
 
 end

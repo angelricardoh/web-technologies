@@ -12,27 +12,6 @@ protocol NewsHomeWorkerInterface {
     func fetchNewsHomeInformation(articlesCompletion: @escaping ArticleResultHandler)
 }
 
-protocol JSONParsingError: LocalizedError {
-    var title: String? { get }
-    var code: Int { get }
-}
-
-struct JSONParseError: JSONParsingError {
-
-    var title: String?
-    var code: Int
-    var errorDescription: String? { return _description }
-    var failureReason: String? { return _description }
-
-    private var _description: String
-
-    init(title: String?, description: String, code: Int) {
-        self.title = title ?? "Error"
-        self._description = description
-        self.code = code
-    }
-}
-
 public enum ArticleResult {
     case success(articles: [Article])
     case failure(error: Error)
@@ -48,7 +27,7 @@ struct NewsHomeWorker: NewsHomeWorkerInterface {
     
     func fetchNewsHomeInformation(articlesCompletion: @escaping ArticleResultHandler) {
         let manager = NetworkManager()
-        manager.loadData(from: Constants.fetchNewsHomeURL, completionHandler: {(completion) in
+        manager.loadInternalData(from: Constants.fetchNewsHomeURL, completionHandler: {(completion) in
             switch completion {
             case .success(let data):
                 var articles: [Article] = []

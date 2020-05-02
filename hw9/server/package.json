@@ -1,0 +1,16 @@
+{
+  "name": "hw9",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "body-parser": "latest",
+    "node-fetch": "2.6.0",
+    "cors": "2.8.5",
+    "path": "0.12.7"
+  }
+}

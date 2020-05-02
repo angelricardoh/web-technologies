@@ -11,6 +11,10 @@ import UIKit
 class WeatherView: UIView {
     
     @IBOutlet var contentView: UIView!
+    @IBOutlet weak var cityLabel: UILabel!
+    @IBOutlet weak var stateLabel: UILabel!
+    @IBOutlet weak var tempLabel: UILabel!
+    @IBOutlet weak var summaryLabel: UILabel!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,7 +36,7 @@ class WeatherView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 10, bottom: 2, right: 10))
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5))
         contentView.layer.cornerRadius = 10
         contentView.layer.borderWidth = 1
         contentView.layer.masksToBounds = true

@@ -13,9 +13,11 @@ import CoreLocation
 class HomeViewController: UITableViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var scrollView: UIScrollView!
+    let weatherView = WeatherView(frame: CGRect(x: 0, y: 0, width: 414, height: 120))
     
     var articles: [Article] = []
     let worker: NewsHomeWorker = NewsHomeWorker()
+    let weatherWorker: WeatherHomeWorker = WeatherHomeWorker()
     let searchController = UISearchController(searchResultsController: nil)
     
     func locationManager(_ manager: CLLocationManager,  didUpdateLocations locations: [CLLocation]) {
@@ -34,7 +36,21 @@ class HomeViewController: UITableViewController, CLLocationManagerDelegate {
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = true
         
-        self.tableView.tableHeaderView = WeatherView(frame: CGRect(x: 0, y: 0, width: 414, height: 120))
+        self.tableView.tableHeaderView = weatherView
+        
+        weatherWorker.fetchWeatherHomeInformation(weatherCompletion: {(completion) in
+            switch completion {
+            case .success(let weather):
+                self.weatherView.tempLabel.text = "\(weather.temp) ºC"
+                self.weatherView.summaryLabel.text = weather.summary
+                print("sucess")
+            case .failure(let error):
+                let alertController = UIAlertController(title: "Network Error", message:
+                    error.localizedDescription, preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+                self.present(alertController, animated: true, completion: nil)
+            }
+        })
         
         worker.fetchNewsHomeInformation(articlesCompletion: {(completion) in
             switch completion {

@@ -9,7 +9,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WeatherView" customModule="csci_hw9" customModuleProvider="target">
             <connections>
+                <outlet property="cityLabel" destination="FD3-oV-JaH" id="8X2-B5-bUp"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="2r9-HU-vAU"/>
+                <outlet property="stateLabel" destination="0GP-Ng-jJ4" id="vTN-pB-Oh0"/>
+                <outlet property="summaryLabel" destination="Nsc-KW-nVy" id="cYN-DH-mj1"/>
+                <outlet property="tempLabel" destination="BIU-HL-2Vc" id="fmh-9v-Z95"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

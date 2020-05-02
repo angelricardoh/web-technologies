@@ -32,7 +32,9 @@ class HomeViewController: UITableViewController, CLLocationManagerDelegate {
         navigationController?.navigationBar.prefersLargeTitles = true
         refreshControl = UIRefreshControl()
         navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false
+        navigationItem.hidesSearchBarWhenScrolling = true
+        
+        self.tableView.tableHeaderView = WeatherView(frame: CGRect(x: 0, y: 0, width: 414, height: 120))
         
         worker.fetchNewsHomeInformation(articlesCompletion: {(completion) in
             switch completion {

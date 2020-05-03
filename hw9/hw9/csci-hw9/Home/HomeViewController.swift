@@ -36,6 +36,7 @@ class HomeViewController: UITableViewController, CLLocationManagerDelegate {
 
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = true
+        searchController.searchResultsUpdater = self
         
         self.tableView.tableHeaderView = weatherView
         
@@ -115,3 +116,40 @@ class HomeViewController: UITableViewController, CLLocationManagerDelegate {
     }
 }
 
+    extension HomeViewController: UISearchResultsUpdating {
+      func updateSearchResults(for searchController: UISearchController) {
+        print("updateSearchResults(for searchController: UISearchController)")
+
+        let searchBar = searchController.searchBar
+        if let searchText = searchBar.text, !searchText.isEmpty {
+            print(searchText)
+            let autosuggestWorker = BingAutosuggestWorker()
+            autosuggestWorker.fetchAutoSuggestInformation(inputValue: searchText, autosuggestCompletion: {(completion) in
+            switch completion {
+            case .success(let suggestions):
+                print(suggestions)
+            case .failure(let error):
+                            let alertController = UIAlertController(title: "Network Error", message:
+                                error.localizedDescription, preferredStyle: .alert)
+                            alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+                            self.present(alertController, animated: true, completion: nil)
+                }
+            })
+        }
+        
+//        let category = Candy.Category(rawValue:
+//          searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex])
+//        filterContentForSearchText(searchBar.text!, category: category)
+      }
+    }
+
+    extension HomeViewController: UISearchBarDelegate {
+      func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        print("searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope")
+        print(searchBar.scopeButtonTitles![selectedScope])
+        print(searchBar.text!)
+//        let category = Candy.Category(rawValue:
+//          searchBar.scopeButtonTitles![selectedScope])
+//        filterContentForSearchText(searchBar.text!, category: category)
+      }
+    }

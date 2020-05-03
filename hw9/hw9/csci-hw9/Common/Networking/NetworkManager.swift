@@ -38,6 +38,8 @@ extension ApiResultCode {
     }
 }
 
+public typealias HTTPHeaders = [String: String]
+
 class NetworkManager {
     private let session: NetworkSession
     
@@ -45,16 +47,9 @@ class NetworkManager {
         self.session = session
     }
     
-    struct Constants {
-        static let BASE_URL = "http://localhost"
-//            static let BASE_URL = "http://ec2-18-219-47-202.us-east-2.compute.amazonaws.com"
-            static let DEFAULT_PORT = "8080"
-        
-    }
-    
     func loadInternalData(from url: String,
                   completionHandler: @escaping (NetworkResult) -> Void) {
-        guard let url = URL(string: Constants.BASE_URL + ":" + Constants.DEFAULT_PORT + "/" + url) else {
+        guard let url = URL(string: AppConstants.BASE_URL + ":" + AppConstants.DEFAULT_PORT + "/" + url) else {
             completionHandler(.failure(NetworkRequestError.urlBuilt))
             return
         }
@@ -62,12 +57,13 @@ class NetworkManager {
     }
     
     func loadData(from url: URL,
+                  headers: HTTPHeaders? = nil,
                   completionHandler: @escaping (NetworkResult) -> Void) {
         Alamofire.request(
             url,
             method: HTTPMethod.get,
             encoding: JSONEncoding.default,
-            headers: nil).responseSwiftyJSON { dataResponse in
+            headers: headers).responseSwiftyJSON { dataResponse in
                 guard dataResponse.response != nil else {
                     completionHandler(.failure(NetworkRequestError.unknown(dataResponse.data)))
                     return

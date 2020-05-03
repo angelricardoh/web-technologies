@@ -120,13 +120,6 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		3D1EC7A52455F38900CC3D49 /* Entities */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Entities;
-			sourceTree = "<group>";
-		};
 		3D1EC7A62455F39800CC3D49 /* Workers */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,7 +169,6 @@
 				3DFA67B9245D27F800803B24 /* Home */,
 				3D1EC7AA245613A200CC3D49 /* ViewControllers */,
 				3D1EC7A62455F39800CC3D49 /* Workers */,
-				3D1EC7A52455F38900CC3D49 /* Entities */,
 				3D1EC7A02455F31200CC3D49 /* Common */,
 				3DE7209B244CD65E00A87148 /* Main.storyboard */,
 				3DE7209E244CD65F00A87148 /* Assets.xcassets */,

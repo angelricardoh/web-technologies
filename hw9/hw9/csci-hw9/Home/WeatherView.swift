@@ -16,6 +16,8 @@ class WeatherView: UIView {
     @IBOutlet weak var tempLabel: UILabel!
     @IBOutlet weak var summaryLabel: UILabel!
     
+    @IBOutlet weak var backgroundImageView: UIImageView!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -28,7 +30,9 @@ class WeatherView: UIView {
     
     private func commonInit() {
         Bundle.main.loadNibNamed("WeatherView", owner: self, options: nil)
+        
         addSubview(contentView)
+
         contentView.frame = self.bounds
         contentView.autoresizingMask = [.flexibleHeight, . flexibleWidth]
     }
@@ -36,7 +40,7 @@ class WeatherView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5))
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 2, left: 5, bottom: 2, right: 5))
         contentView.layer.cornerRadius = 10
         contentView.layer.borderWidth = 1
         contentView.layer.masksToBounds = true

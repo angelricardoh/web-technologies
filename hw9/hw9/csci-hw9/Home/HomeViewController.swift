@@ -43,8 +43,9 @@ class HomeViewController: UITableViewController, CLLocationManagerDelegate {
             case .success(let weather):
                 self.weatherView.tempLabel.text = "\(weather.temp) ºC"
                 self.weatherView.summaryLabel.text = weather.summary
-                print("sucess")
-            case .failure(let error):
+                print(weather.image)
+                self.weatherView.backgroundImageView?.image = UIImage(named: weather.image + ".jpg")
+                case .failure(let error):
                 let alertController = UIAlertController(title: "Network Error", message:
                     error.localizedDescription, preferredStyle: .alert)
                 alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
@@ -77,13 +78,14 @@ class HomeViewController: UITableViewController, CLLocationManagerDelegate {
         
         customCell?.titleLabel.text = articles[indexPath.row].title
         customCell?.timeAgoLabel.text = articles[indexPath.row].date
-        customCell?.sectionLabel.text = articles[indexPath.row].section
+        customCell?.sectionLabel.text = "| " + articles[indexPath.row].section
         guard let imageUrl = URL(string: articles[indexPath.row].image) else {
             let alertController = UIAlertController(title: "Image download Error", message:
                 "Error downloading image with url: " + articles[indexPath.row].image, preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
             return customCell!
         }
+//        customCell?.articleImageView?.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "default_guardian"))
         customCell?.articleImageView?.sd_setImage(with: imageUrl, completed: nil)
         
         return customCell!

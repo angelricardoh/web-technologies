@@ -9,6 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WeatherView" customModule="csci_hw9" customModuleProvider="target">
             <connections>
+                <outlet property="backgroundImageView" destination="xBs-cx-6Zw" id="Tde-uK-5bO"/>
                 <outlet property="cityLabel" destination="FD3-oV-JaH" id="8X2-B5-bUp"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="2r9-HU-vAU"/>
                 <outlet property="stateLabel" destination="0GP-Ng-jJ4" id="vTN-pB-Oh0"/>
@@ -21,7 +22,7 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cloudy_weather" translatesAutoresizingMaskIntoConstraints="NO" id="xBs-cx-6Zw">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sunny_weather" translatesAutoresizingMaskIntoConstraints="NO" id="xBs-cx-6Zw">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
@@ -71,6 +72,6 @@
         </view>
     </objects>
     <resources>
-        <image name="cloudy_weather" width="852" height="480"/>
+        <image name="sunny_weather" width="1024" height="519"/>
     </resources>
 </document>

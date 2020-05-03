@@ -55,23 +55,11 @@ function getArticleDetail(req) {
 function getSearchResults(req) {
   return new Promise(resolve => {
     let search = req.query.search;
-    let source = req.query.source;
-    if (source !== 'guardian' && source !== 'nytimes') {
-      throw Error('bad request')
-    }
-    let url = null
-    if (source === "guardian") {
-      url = "https://content.guardianapis.com/search?q=" +
+    let url = "https://content.guardianapis.com/search?q=" +
           search +
           "&api-key=" +
           GUARDIAN_API_KEY +
           "&show-blocks=all"
-    } else  {
-      url =
-          'https://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + search +
-          '&api-key=' + NY_TIMES_API_KEY;
-
-    }
 
     console.log("GET: " + url)
 
@@ -171,18 +159,10 @@ application.get("/article_detail", async function(req, res) {
 // GET response for search
 application.get('/search', async function(req, res) {
   try {
-    let source = req.query.source;
-    if (typeof source === 'undefined' || source === null || source.length == 0) {
-      throw Error('Bad request: Incorrect source value')
-    }
     let articles = []
     let wrappedResponse = await getSearchResults(req)
     let response = wrappedResponse.response
-    if (source === 'guardian') {
-      articles = getGuardianArticlesData(response)
-    } else if (source === 'nytimes') {
-      articles = getNYTimesArticlesData(response)
-    }
+    articles = getGuardianArticlesData(response)
 
     let articles_json = {
       articles
@@ -200,12 +180,11 @@ application.get("/home_mobile_news", async function(req, res) {
   try {
     let wrappedResponse = await getGuardianMobileHomeArticles(req);
     let response = wrappedResponse.response;
-    let articles = getGuardianMobileHomeArticlesData(response)
+    let articles = getGuardianMobileArticlesData(response)
 
     let articles_json = {
       articles
     };
-
     res.status(200).send(articles_json);
   } catch (error) {
     console.log("Error while retrieving news from homepage API: " + error);
@@ -281,7 +260,7 @@ function getGuardianArticlesData(response) {
   return articles
 }
 
-function getGuardianMobileHomeArticlesData(response) {
+function getGuardianMobileArticlesData(response) {
   let articles = [];
 
   for (let index in response.results) {

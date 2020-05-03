@@ -31,7 +31,6 @@ class HomeViewController: UITableViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.navigationBar.prefersLargeTitles = true
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(refreshNewsHomeData), for: .valueChanged)
 
@@ -40,22 +39,28 @@ class HomeViewController: UITableViewController, CLLocationManagerDelegate {
         
         self.tableView.tableHeaderView = weatherView
         
-        weatherWorker.fetchWeatherHomeInformation(weatherCompletion: {(completion) in
-            switch completion {
-            case .success(let weather):
-                self.weatherView.tempLabel.text = "\(weather.temp) ºC"
-                self.weatherView.summaryLabel.text = weather.summary
-                print(weather.image)
-                self.weatherView.backgroundImageView?.image = UIImage(named: weather.image + ".jpg")
-                case .failure(let error):
-                let alertController = UIAlertController(title: "Network Error", message:
-                    error.localizedDescription, preferredStyle: .alert)
-                alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
-                self.present(alertController, animated: true, completion: nil)
-            }
-        })
+        // TODO: Uncomment this section for production
+//        weatherWorker.fetchWeatherHomeInformation(weatherCompletion: {(completion) in
+//            switch completion {
+//            case .success(let weather):
+//                self.weatherView.tempLabel.text = "\(weather.temp) ºC"
+//                self.weatherView.summaryLabel.text = weather.summary
+//                print(weather.image)
+//                self.weatherView.backgroundImageView?.image = UIImage(named: weather.image + ".jpg")
+//                case .failure(let error):
+//                let alertController = UIAlertController(title: "Network Error", message:
+//                    error.localizedDescription, preferredStyle: .alert)
+//                alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+//                self.present(alertController, animated: true, completion: nil)
+//            }
+//        })
         
         refreshNewsHomeData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true);
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     @objc func refreshNewsHomeData() {

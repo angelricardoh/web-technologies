@@ -15,7 +15,6 @@ protocol JSONable {
 
 public struct Article: JSONable {
     var id: String
-    var index: Int
     var title: String
     var image: String
     var section: String
@@ -25,9 +24,11 @@ public struct Article: JSONable {
     
     init?(parameter: JSON) {
         id = parameter["id"].stringValue
-        index = parameter["index"].intValue
         title = parameter["title"].stringValue
         image = parameter["image"].stringValue
+        if image == "https://assets.guim.co.uk/images/eada8aa27c12fe2d5afa3a89d3fbae0d/fallback-logo.png" {
+            image = ""
+        }
         section = parameter["section"].stringValue
         date = parameter["date"].stringValue
         description = parameter["description"].stringValue

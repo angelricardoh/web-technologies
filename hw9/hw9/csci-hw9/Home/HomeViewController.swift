@@ -33,6 +33,8 @@ class HomeViewController: UITableViewController, CLLocationManagerDelegate {
         
         navigationController?.navigationBar.prefersLargeTitles = true
         refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: #selector(refreshNewsHomeData), for: .valueChanged)
+
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = true
         
@@ -53,16 +55,22 @@ class HomeViewController: UITableViewController, CLLocationManagerDelegate {
             }
         })
         
+        refreshNewsHomeData()
+    }
+    
+    @objc func refreshNewsHomeData() {
         worker.fetchNewsHomeInformation(articlesCompletion: {(completion) in
             switch completion {
             case .success(let articles):
                 self.articles = articles
                 self.tableView.reloadData()
+                self.refreshControl?.endRefreshing()
             case .failure(let error):
                 let alertController = UIAlertController(title: "Network Error", message:
                     error.localizedDescription, preferredStyle: .alert)
                 alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
                 self.present(alertController, animated: true, completion: nil)
+                self.refreshControl?.endRefreshing()
             }
         })
     }

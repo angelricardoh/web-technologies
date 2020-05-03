@@ -22,7 +22,7 @@ public typealias ArticleResultHandler = (_ result: ArticleResult) -> Void
 struct NewsHomeWorker: NewsHomeWorkerInterface {
     
     private struct Constants {
-        static let fetchNewsHomeURL = "guardian_news?section=home"
+        static let fetchNewsHomeURL = "home_mobile_news"
     }
     
     func fetchNewsHomeInformation(articlesCompletion: @escaping ArticleResultHandler) {

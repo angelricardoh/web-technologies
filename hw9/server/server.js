@@ -41,6 +41,27 @@ function getGuardianArticles(req) {
   });
 }
 
+function getGuardianMobileHomeArticles(req) {
+  return new Promise(resolve => {
+    let section = req.query.section;
+    let url = "https://content.guardianapis.com/search?orderby=newest&show-" + 
+      "fields=starRating,headline,thumbnail,short-url&api-key=" + GUARDIAN_API_KEY
+
+    console.log("GET: " + url)
+
+    fetch(url)
+        .then(response => response.json())
+        .then(
+            data => {
+              resolve(data);
+            },
+            error => {
+              throw error;
+            }
+        );
+  });
+}
+
 function getNYTimesArticles(req) {
   return new Promise(resolve => {
     let section = req.query.section;
@@ -324,6 +345,26 @@ application.get('/search', async function(req, res) {
   }
 });
 
+// GET response for The Guardian news
+application.get("/home_mobile_news", async function(req, res) {
+  try {
+    let wrappedResponse = await getGuardianMobileHomeArticles(req);
+    let response = wrappedResponse.response;
+    let articles = getGuardianMobileHomeArticlesData(response)
+
+    let articles_json = {
+      articles
+    };
+
+    res.status(200).send(articles_json);
+  } catch (error) {
+    console.log("Error while retrieving news from homepage API: " + error);
+    res
+      .status(500)
+      .send("Error while retrieving news from homepage API: " + error);
+  }
+});
+
 function getGuardianArticlesData(response) {
   let articles = [];
 
@@ -384,6 +425,44 @@ function getGuardianArticlesData(response) {
       date: date,
       description: description,
       shareUrl: shareUrl
+    };
+    articles.push(article);
+  }
+  return articles
+}
+
+function getGuardianMobileHomeArticlesData(response) {
+  let articles = [];
+
+  for (let index in response.results) {
+    let currentResult = response.results[index];
+    let title = currentResult.webTitle;
+    let id = currentResult.id;
+
+    let section = currentResult.sectionName;
+    // if (section === 'sport') {
+    //   section = 'sports'
+    // }
+
+    let image = currentResult.fields.thumbnail;
+
+    let dateString = currentResult.webPublicationDate;
+    let date = timeSince(new Date(dateString));
+
+    if (typeof id === 'undefined' || id === null || id.length == 0 ||
+        typeof title === 'undefined' || title === null || title.length == 0 ||
+        typeof image === 'undefined' || image === null || image.length == 0 ||
+        typeof section === 'undefined' || section === null || section.length == 0 ||
+        typeof date === 'undefined' || date === null || date.length == 0) {
+      continue
+    }
+
+    let article = {
+      id: id,
+      title: title,
+      image: image,
+      section: section,
+      date: date,
     };
     articles.push(article);
   }
@@ -465,6 +544,21 @@ function formatShortDate(date, detail = false) {
     dateSeparator +
     day.toString()
   );
+}
+
+function timeSince(date) {
+  var seconds = Math.floor((new Date() - date) / 1000);
+  var interval = Math.floor(seconds / 31536000);
+
+  interval = Math.floor(seconds / 3600);
+  if (interval > 1) {
+    return interval + "h ago";
+  }
+  interval = Math.floor(seconds / 60);
+  if (interval > 1) {
+    return interval + "m ago";
+  }
+  return Math.floor(seconds) + "s ago";
 }
 
 application.listen(port);

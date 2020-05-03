@@ -9,7 +9,7 @@
 import Foundation
 
 protocol SearchWorkerInterface {
-    func fetchSearch(searchCompletion: @escaping SearchResultHandler)
+    func fetchSearch(query:String, searchCompletion: @escaping SearchResultHandler)
 }
 
 public enum SearchResult {
@@ -22,12 +22,17 @@ public typealias SearchResultHandler = (_ result: SearchResult) -> Void
 struct SearchWorker: SearchWorkerInterface {
     
     private struct Constants {
-        static let fetchSearchURL = "search?search"
+        static let fetchSearchURL = "search?search="
     }
     
-    func fetchSearch(searchCompletion: @escaping SearchResultHandler) {
+    func fetchSearch(query:String, searchCompletion: @escaping SearchResultHandler) {
         let manager = NetworkManager()
-        manager.loadInternalData(from: Constants.fetchSearchURL, completionHandler: {(completion) in
+        guard let encodedQuery = query.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed) else {
+            searchCompletion(.failure(error: NetworkRequestError.api(5, ApiResultCode.malformedRequest, "Error while encoding query for search")))
+            return
+        }
+        let searchUrl = Constants.fetchSearchURL + encodedQuery
+        manager.loadInternalData(from: searchUrl, completionHandler: {(completion) in
             switch completion {
             case .success(let data):
                 var articles: [Article] = []

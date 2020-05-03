@@ -26,6 +26,7 @@ enum ApiResultCode {
     case freeTierExpired
     case invalidAppId
     case recordNotFound   // just an example
+    case malformedRequest
     case unknown(String)
 }
 

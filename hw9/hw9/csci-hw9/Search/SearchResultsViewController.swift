@@ -8,9 +8,10 @@
 
 import UIKit
 
-class SearchResultsViewController: UITableViewController {
+class SearchResultsViewController: ArticleTableViewController {
     
     var search: String!
+    let searchWorker: SearchWorker = SearchWorker()
     
     class func searchResultsViewControllerForSearch(_ search: String) -> UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -26,53 +27,30 @@ class SearchResultsViewController: UITableViewController {
     }
     
     override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    let BarButtonItemAppearance = UIBarButtonItem.appearance()
-    BarButtonItemAppearance.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: .normal)
-    navigationController?.navigationBar.prefersLargeTitles = true
+        super.viewDidLoad()
         
-    print(search)
-    
-//    guard let articleId = self.articleId else {
-//        let alertController = UIAlertController(title: "Logical Error", message:
-//            "Error passing articleId", preferredStyle: .alert)
-//        alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
-//        self.present(alertController, animated: true, completion: nil)
-//        return
-//    }
-//
-//    articleDetailWorker.fetchArticleDetailInformation(articleId: articleId, articleCompletion:
-//        {(completion) in
-//        switch completion {
-//        case .success(let article):
-//            if let imageUrl = URL(string: article.image) {
-//                self.articleImageView?.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "default_guardian"))
-//            }
-//            self.title = article.title
-//            self.titleLabel.text = article.title
-//            self.sectionLabel.text = article.section
-//            self.descriptionLabel.text = article.description
-//            self.articleShareUrl = article.shareUrl
-//
-//            let dateFormatter = DateFormatter()
-//            dateFormatter.locale = Locale(identifier: "en")
-//            if let date = dateFormatter.date(from: article.date){
-//                print(dateFormatter.string(from: date))
-//            } else {
-//                print("There was an error decoding the string")
-//            }
-//
-//            self.dateLabel.text = article.date
-//            self.descriptionLabel.text = article.description
-//
-//            print(article)
-//        case .failure(let error):
-//        let alertController = UIAlertController(title: "Network Error", message:
-//            error.localizedDescription, preferredStyle: .alert)
-//        alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
-//        self.present(alertController, animated: true, completion: nil)
-//        }
-//    })
+        let BarButtonItemAppearance = UIBarButtonItem.appearance()
+        BarButtonItemAppearance.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: .normal)
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
+        title = "Search Results"
+        
+        let nib = UINib(nibName: "NewsTableViewCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: "newsCell")
+        
+        searchWorker.fetchSearch(query: search, searchCompletion: {(completion) in
+            switch completion {
+            case .success(let articles):
+                self.articles = articles
+                self.tableView.reloadData()
+                self.refreshControl?.endRefreshing()
+            case .failure(let error):
+                let alertController = UIAlertController(title: "Network Error", message:
+                    error.localizedDescription, preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+                self.present(alertController, animated: true, completion: nil)
+                self.refreshControl?.endRefreshing()
+            }
+        })
     }
 }

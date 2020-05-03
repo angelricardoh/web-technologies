@@ -20,6 +20,19 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     
+    class func detailViewControllerWithArticleId(_ id: String) -> UIViewController {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+        let viewController =
+            storyboard.instantiateViewController(withIdentifier: "DetailViewController")
+        
+        if let detailViewController = viewController as? DetailViewController {
+            detailViewController.articleId = id
+        }
+        
+        return viewController
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

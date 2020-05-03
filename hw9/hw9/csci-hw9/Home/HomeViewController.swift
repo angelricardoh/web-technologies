@@ -10,15 +10,13 @@ import UIKit
 import SDWebImage
 import CoreLocation
 
-class HomeViewController: UITableViewController, CLLocationManagerDelegate {
+class HomeViewController: ArticleTableViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var scrollView: UIScrollView!
     let weatherView = WeatherView(frame: CGRect(x: 0, y: 0, width: 414, height: 120))
     
-    var articles: [Article] = []
     let worker: NewsHomeWorker = NewsHomeWorker()
     let weatherWorker: WeatherHomeWorker = WeatherHomeWorker()
-    private var resultsTableController: ResultsTableViewController!
     
     func locationManager(_ manager: CLLocationManager,  didUpdateLocations locations: [CLLocation]) {
         let lastLocation = locations.last!
@@ -37,9 +35,9 @@ class HomeViewController: UITableViewController, CLLocationManagerDelegate {
         resultsTableController =
         self.storyboard?.instantiateViewController(withIdentifier: "ResultsTableController") as? ResultsTableViewController
         // This view controller is interested in table view row selections.
-        resultsTableController.tableView.delegate = self
+        resultsTableController?.tableView.delegate = self
 
-        let searchController = UISearchController(searchResultsController: resultsTableController)
+        let searchController = UISearchController(searchResultsController: self.resultsTableController)
         navigationItem.searchController = searchController
         searchController.searchResultsUpdater = self
         
@@ -74,74 +72,23 @@ class HomeViewController: UITableViewController, CLLocationManagerDelegate {
     
     @objc func refreshNewsHomeData() {
         worker.fetchNewsHomeInformation(articlesCompletion: {(completion) in
+            self.refreshControl?.endRefreshing()
             switch completion {
             case .success(let articles):
                 self.articles = articles
                 self.tableView.reloadData()
-                self.refreshControl?.endRefreshing()
             case .failure(let error):
                 let alertController = UIAlertController(title: "Network Error", message:
                     error.localizedDescription, preferredStyle: .alert)
                 alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
                 self.present(alertController, animated: true, completion: nil)
-                self.refreshControl?.endRefreshing()
             }
         })
     }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // show all rows depending on how many videos we receive
-        return articles.count
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // customize and show data based on array
-        let customCell = tableView.dequeueReusableCell(withIdentifier: "newsCell", for: indexPath) as? NewsTableViewCell
-        
-        customCell?.titleLabel.text = articles[indexPath.row].title
-        customCell?.timeAgoLabel.text = articles[indexPath.row].date
-        customCell?.sectionLabel.text = "| " + articles[indexPath.row].section
-        guard let imageUrl = URL(string: articles[indexPath.row].image) else {
-            let alertController = UIAlertController(title: "Image download Error", message:
-                "Error downloading image with url: " + articles[indexPath.row].image, preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
-            return customCell!
-        }
-//        customCell?.articleImageView?.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "default_guardian"))
-        customCell?.articleImageView?.sd_setImage(with: imageUrl, completed: nil)
-        
-        return customCell!
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let detailViewController = segue.destination as? DetailViewController {
-            guard let indexPath = self.tableView.indexPathForSelectedRow else {
-                return
-            }
-            let articleSelected = articles[indexPath.row]
-            detailViewController.articleId = articleSelected.id
-        }
-    }
 }
 
-extension HomeViewController {
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        if tableView === resultsTableController.tableView {
-            // Check to see which table view cell was selected.
-            let query = resultsTableController.suggestions[indexPath.row]
-            
-            // Set up the detail view controller to push.
-            let searchResultsViewController = SearchResultsViewController.searchResultsViewControllerForSearch(query)
-            navigationController?.pushViewController(searchResultsViewController, animated: true)
-
-            tableView.deselectRow(at: indexPath, animated: false)
-        }
-    }
-}
-
-    extension HomeViewController: UISearchResultsUpdating {
-      func updateSearchResults(for searchController: UISearchController) {
+extension HomeViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
         print("updateSearchResults(for searchController: UISearchController)")
         
         let searchBar = searchController.searchBar
@@ -151,28 +98,13 @@ extension HomeViewController {
             autosuggestWorker.fetchAutoSuggestInformation(inputValue: searchText, autosuggestCompletion: {(completion) in
                 switch completion {
                 case .success(let suggestions):
-                    self.resultsTableController.suggestions = suggestions
-                    self.resultsTableController.tableView.reloadData()
+                    self.resultsTableController?.suggestions = suggestions
+                    self.resultsTableController?.tableView.reloadData()
                     print(suggestions)
                 case .failure(let error):
                     print("Network Error: " + error.localizedDescription)
                 }
             })
         }
-        
-//        let category = Candy.Category(rawValue:
-//          searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex])
-//        filterContentForSearchText(searchBar.text!, category: category)
-      }
     }
-
-    extension HomeViewController: UISearchBarDelegate {
-      func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        print("searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope")
-        print(searchBar.scopeButtonTitles![selectedScope])
-        print(searchBar.text!)
-//        let category = Candy.Category(rawValue:
-//          searchBar.scopeButtonTitles![selectedScope])
-//        filterContentForSearchText(searchBar.text!, category: category)
-      }
-    }
+}

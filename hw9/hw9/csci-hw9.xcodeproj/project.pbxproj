@@ -24,6 +24,7 @@
 		3D730ADA245F6E9F0099E66C /* SearchWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D730AD9245F6E9E0099E66C /* SearchWorker.swift */; };
 		3D730ADD245F71900099E66C /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D730ADC245F71900099E66C /* SearchResultsViewController.swift */; };
 		3D730ADF2460CCDD0099E66C /* NewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D730ADE2460CCDD0099E66C /* NewsTableViewCell.xib */; };
+		3D9FFECC245F89E900D713DD /* ArticleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9FFECB245F89E900D713DD /* ArticleTableViewController.swift */; };
 		3DE72094244CD65E00A87148 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE72093244CD65E00A87148 /* AppDelegate.swift */; };
 		3DE72096244CD65E00A87148 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE72095244CD65E00A87148 /* SceneDelegate.swift */; };
 		3DE72098244CD65E00A87148 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE72097244CD65E00A87148 /* HomeViewController.swift */; };
@@ -78,6 +79,7 @@
 		3D730AD9245F6E9E0099E66C /* SearchWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWorker.swift; sourceTree = "<group>"; };
 		3D730ADC245F71900099E66C /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		3D730ADE2460CCDD0099E66C /* NewsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsTableViewCell.xib; sourceTree = "<group>"; };
+		3D9FFECB245F89E900D713DD /* ArticleTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleTableViewController.swift; sourceTree = "<group>"; };
 		3DE72090244CD65E00A87148 /* csci-hw9.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "csci-hw9.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DE72093244CD65E00A87148 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3DE72095244CD65E00A87148 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				3D730AD1245F40210099E66C /* ResultsTableViewController.swift */,
+				3D9FFECB245F89E900D713DD /* ArticleTableViewController.swift */,
 				3D730AD3245F40BC0099E66C /* AutosuggestionTableCell.xib */,
 				3DFA67BB245D281F00803B24 /* Networking */,
 				3DFA67BA245D281800803B24 /* Views */,
@@ -459,6 +462,7 @@
 				3D730ACE245E811D0099E66C /* DetailViewController.swift in Sources */,
 				3D1EC7A82455F9F400CC3D49 /* Article.swift in Sources */,
 				3DFA67BD245D288D00803B24 /* WeatherWorker.swift in Sources */,
+				3D9FFECC245F89E900D713DD /* ArticleTableViewController.swift in Sources */,
 				3D730AD8245F4C310099E66C /* AppConstants.swift in Sources */,
 				3D1EC7A22455F32100CC3D49 /* NetworkManager.swift in Sources */,
 				3D1EC7A42455F34600CC3D49 /* NetworkSession.swift in Sources */,

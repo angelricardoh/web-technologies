@@ -18,7 +18,7 @@ class HomeViewController: UITableViewController, CLLocationManagerDelegate {
     var articles: [Article] = []
     let worker: NewsHomeWorker = NewsHomeWorker()
     let weatherWorker: WeatherHomeWorker = WeatherHomeWorker()
-    private var resultsController: ResultsTableController!
+    private var resultsTableController: ResultsTableViewController!
     
     func locationManager(_ manager: CLLocationManager,  didUpdateLocations locations: [CLLocation]) {
         let lastLocation = locations.last!
@@ -34,12 +34,13 @@ class HomeViewController: UITableViewController, CLLocationManagerDelegate {
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(refreshNewsHomeData), for: .valueChanged)
         
-        resultsController =
-        self.storyboard?.instantiateViewController(withIdentifier: "ResultsTableController") as? ResultsTableController
+        resultsTableController =
+        self.storyboard?.instantiateViewController(withIdentifier: "ResultsTableController") as? ResultsTableViewController
+        // This view controller is interested in table view row selections.
+        resultsTableController.tableView.delegate = self
 
-        let searchController = UISearchController(searchResultsController: resultsController)
+        let searchController = UISearchController(searchResultsController: resultsTableController)
         navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = true
         searchController.searchResultsUpdater = self
         
         self.tableView.tableHeaderView = weatherView
@@ -66,6 +67,7 @@ class HomeViewController: UITableViewController, CLLocationManagerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true);
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.hidesSearchBarWhenScrolling = true
     }
     
     @objc func refreshNewsHomeData() {
@@ -120,19 +122,35 @@ class HomeViewController: UITableViewController, CLLocationManagerDelegate {
     }
 }
 
+extension HomeViewController {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if tableView === resultsTableController.tableView {
+            // Check to see which table view cell was selected.
+            let query = resultsTableController.suggestions[indexPath.row]
+            
+            // Set up the detail view controller to push.
+            let searchResultsViewController = SearchResultsViewController.searchResultsViewControllerForSearch(query)
+            navigationController?.pushViewController(searchResultsViewController, animated: true)
+
+            tableView.deselectRow(at: indexPath, animated: false)
+        }
+    }
+}
+
     extension HomeViewController: UISearchResultsUpdating {
       func updateSearchResults(for searchController: UISearchController) {
         print("updateSearchResults(for searchController: UISearchController)")
         
         let searchBar = searchController.searchBar
-        if let searchText = searchBar.text, !searchText.isEmpty {
+        if let searchText = searchBar.text, !searchText.isEmpty && searchText.count > 3 {
             print(searchText)
             let autosuggestWorker = BingAutosuggestWorker()
             autosuggestWorker.fetchAutoSuggestInformation(inputValue: searchText, autosuggestCompletion: {(completion) in
                 switch completion {
                 case .success(let suggestions):
-                    self.resultsController.suggestions = suggestions
-                    self.resultsController.tableView.reloadData()
+                    self.resultsTableController.suggestions = suggestions
+                    self.resultsTableController.tableView.reloadData()
                     print(suggestions)
                 case .failure(let error):
                     print("Network Error: " + error.localizedDescription)

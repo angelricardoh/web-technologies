@@ -39,7 +39,12 @@ struct BingAutosuggestWorker: AutosuggestWorkerInterface {
                 guard let suggestionGroups = data["suggestionGroups"].array,
                     let firstSuggestionGroup = suggestionGroups.first?.dictionary,
                     let suggestions = firstSuggestionGroup["searchSuggestions"] else {
-                        let error = JSONParseError(title: "JSON Parsing Error", description: "Error while parsing: " + data.stringValue, code: 0)
+                        let error: Error
+                        if let errorJson = data["error"].dictionary, let errorMessage = errorJson["message"]?.stringValue {
+                            error = NetworkRequestError.api(4, ApiResultCode.freeTierExpired, errorMessage)
+                        } else {
+                            error = JSONParseError(title: "JSON Parsing Error", description: "Error while parsing: " + data.stringValue, code: 0)
+                        }
                     autosuggestCompletion(.failure(error: error))
                     return
                 }

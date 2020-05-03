@@ -23,6 +23,7 @@ enum NetworkRequestError: Error {
 }
 
 enum ApiResultCode {
+    case freeTierExpired
     case invalidAppId
     case recordNotFound   // just an example
     case unknown(String)

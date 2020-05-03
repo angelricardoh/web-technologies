@@ -18,7 +18,7 @@ class HomeViewController: UITableViewController, CLLocationManagerDelegate {
     var articles: [Article] = []
     let worker: NewsHomeWorker = NewsHomeWorker()
     let weatherWorker: WeatherHomeWorker = WeatherHomeWorker()
-    let searchController = UISearchController(searchResultsController: nil)
+    private var resultsController: ResultsTableController!
     
     func locationManager(_ manager: CLLocationManager,  didUpdateLocations locations: [CLLocation]) {
         let lastLocation = locations.last!
@@ -33,7 +33,11 @@ class HomeViewController: UITableViewController, CLLocationManagerDelegate {
         
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(refreshNewsHomeData), for: .valueChanged)
+        
+        resultsController =
+        self.storyboard?.instantiateViewController(withIdentifier: "ResultsTableController") as? ResultsTableController
 
+        let searchController = UISearchController(searchResultsController: resultsController)
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = true
         searchController.searchResultsUpdater = self
@@ -119,20 +123,19 @@ class HomeViewController: UITableViewController, CLLocationManagerDelegate {
     extension HomeViewController: UISearchResultsUpdating {
       func updateSearchResults(for searchController: UISearchController) {
         print("updateSearchResults(for searchController: UISearchController)")
-
+        
         let searchBar = searchController.searchBar
         if let searchText = searchBar.text, !searchText.isEmpty {
             print(searchText)
             let autosuggestWorker = BingAutosuggestWorker()
             autosuggestWorker.fetchAutoSuggestInformation(inputValue: searchText, autosuggestCompletion: {(completion) in
-            switch completion {
-            case .success(let suggestions):
-                print(suggestions)
-            case .failure(let error):
-                            let alertController = UIAlertController(title: "Network Error", message:
-                                error.localizedDescription, preferredStyle: .alert)
-                            alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
-                            self.present(alertController, animated: true, completion: nil)
+                switch completion {
+                case .success(let suggestions):
+                    self.resultsController.suggestions = suggestions
+                    self.resultsController.tableView.reloadData()
+                    print(suggestions)
+                case .failure(let error):
+                    print("Network Error: " + error.localizedDescription)
                 }
             })
         }

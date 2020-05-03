@@ -98,5 +98,15 @@ class HomeViewController: UITableViewController, CLLocationManagerDelegate {
         
         return customCell!
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let detailViewController = segue.destination as? DetailViewController {
+            guard let indexPath = self.tableView.indexPathForSelectedRow else {
+                return
+            }
+            let articleSelected = articles[indexPath.row]
+            detailViewController.articleId = articleSelected.id
+        }
+    }
 }
 

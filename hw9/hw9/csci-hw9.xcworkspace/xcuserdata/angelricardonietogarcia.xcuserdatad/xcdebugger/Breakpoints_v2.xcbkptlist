@@ -23,22 +23,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "0D88FACD-24E3-4DB2-9B56-4F8D4853F8D2"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "csci-hw9/Common/Networking/NetworkManager.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "loadInternalData(from:completionHandler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "6EB50F8C-3DFA-4BB0-AF40-C1F678336D5A"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -55,32 +39,48 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E510D1A6-50BE-4FDA-BA60-EC32446E654D"
+            uuid = "EFF13856-4122-4C3D-8674-B7B1FEAFDE3B"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "csci-hw9/Common/Networking/NetworkManager.swift"
+            filePath = "csci-hw9/Common/Workers/NewsArticleWorker.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "loadData(from:headers:completionHandler:)"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "fetchNewsInformation(urlString:articlesCompletion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D630ACDC-5D6B-442C-9742-8378FC3966D1"
+            uuid = "F8135E48-F72A-4F29-97D3-08DF1CA6413E"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "csci-hw9/Common/Networking/NetworkManager.swift"
+            filePath = "csci-hw9/Common/Workers/NewsArticleWorker.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
-            landmarkName = "loadData(from:headers:completionHandler:)"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "fetchNewsInformation(urlString:articlesCompletion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1DD6DBAB-B913-41AE-B3AD-A1905C6EEC0E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "csci-hw9/Common/Workers/NewsArticleWorker.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "fetchNewsSectionInformation(section:articlesCompletion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

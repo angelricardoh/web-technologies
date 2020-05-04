@@ -10,10 +10,12 @@ import XLPagerTabStrip
 
 class SectionTableViewController: ArticleTableViewController, IndicatorInfoProvider {
     
-    var sectionInfo = IndicatorInfo(title: "View")
+    var indicatorInfo = IndicatorInfo(title: "View")
+    var section:String? = nil
+    let worker: NewsWorker = NewsWorker()
     
     init(sectionInfo: IndicatorInfo) {
-        self.sectionInfo = sectionInfo
+        self.indicatorInfo = sectionInfo
         super.init(style: .plain)
     }
     
@@ -22,10 +24,35 @@ class SectionTableViewController: ArticleTableViewController, IndicatorInfoProvi
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         // Something
+        let nib = UINib(nibName: "NewsTableViewCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: "newsCell")
+        
+        guard self.section != nil else {
+            let alertController = UIAlertController(title: "Logical Error", message:
+                "View Controller has to have a section loaded", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+            self.present(alertController, animated: true, completion: nil)
+            return
+        }
+        
+        worker.fetchNewsSectionInformation(section: self.section!, articlesCompletion: {(completion) in
+            self.refreshControl?.endRefreshing()
+            switch completion {
+            case .success(let articles):
+                self.articles = articles
+                self.tableView.reloadData()
+            case .failure(let error):
+                let alertController = UIAlertController(title: "Network Error", message:
+                    error.localizedDescription, preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+                self.present(alertController, animated: true, completion: nil)
+            }
+        })
     }
     
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
-        return sectionInfo
+        return indicatorInfo
     }
 }

@@ -38,14 +38,25 @@ class HeadlinesViewController: ButtonBarPagerTabStripViewController {
     }
     
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
-        let child_1 = SectionTableViewController(sectionInfo: "WORLD")
-        let child_2 = SectionTableViewController(sectionInfo: "BUSINESS")
-        let child_3 = SectionTableViewController(sectionInfo: "POLITICS")
-        let child_4 = SectionTableViewController(sectionInfo: "SPORTS")
-        let child_5 = SectionTableViewController(sectionInfo: "TECHNOLOGY")
-        let child_6 = SectionTableViewController(sectionInfo: "SCIENCE")
+        let worldViewController = SectionTableViewController(sectionInfo: "WORLD")
+        worldViewController.section = "world"
+        let businessViewController = SectionTableViewController(sectionInfo: "BUSINESS")
+        businessViewController.section = "business"
+        let politicsViewController = SectionTableViewController(sectionInfo: "POLITICS")
+        politicsViewController.section = "politics"
+        let sportsViewController = SectionTableViewController(sectionInfo: "SPORTS")
+        sportsViewController.section = "spors"
+        let technologyViewController = SectionTableViewController(sectionInfo: "TECHNOLOGY")
+        technologyViewController.section = "technology"
+        let scienceViewController = SectionTableViewController(sectionInfo: "SCIENCE")
+        scienceViewController.section = "science"
         
-        let childViewControllers = [child_1, child_2, child_3, child_4, child_5, child_6]
+        let childViewControllers = [worldViewController,
+                                    businessViewController,
+                                    politicsViewController,
+                                    sportsViewController,
+                                    technologyViewController,
+                                    scienceViewController]
         
         return childViewControllers
     }

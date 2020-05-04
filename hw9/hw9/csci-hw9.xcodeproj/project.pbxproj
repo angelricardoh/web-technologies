@@ -12,6 +12,9 @@
 		3D1EC7A22455F32100CC3D49 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1EC7A12455F32100CC3D49 /* NetworkManager.swift */; };
 		3D1EC7A42455F34600CC3D49 /* NetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1EC7A32455F34600CC3D49 /* NetworkSession.swift */; };
 		3D1EC7A82455F9F400CC3D49 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1EC7A72455F9F400CC3D49 /* Article.swift */; };
+		3D27A0232460CBFA00E5FEDC /* TrendsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D27A0222460CBFA00E5FEDC /* TrendsWorker.swift */; };
+		3D27A0252460CC4200E5FEDC /* Trend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D27A0242460CC4200E5FEDC /* Trend.swift */; };
+		3D27A0272460CCA500E5FEDC /* JSONable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D27A0262460CCA500E5FEDC /* JSONable.swift */; };
 		3D2A9596245DF16B002DCBA2 /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2A9595245DF16B002DCBA2 /* WeatherView.swift */; };
 		3D2A9598245DF23D002DCBA2 /* WeatherView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D2A9597245DF23D002DCBA2 /* WeatherView.xib */; };
 		3D2A959A245E0349002DCBA2 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2A9599245E0349002DCBA2 /* Weather.swift */; };
@@ -68,6 +71,9 @@
 		3D1EC7A12455F32100CC3D49 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		3D1EC7A32455F34600CC3D49 /* NetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSession.swift; sourceTree = "<group>"; };
 		3D1EC7A72455F9F400CC3D49 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
+		3D27A0222460CBFA00E5FEDC /* TrendsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsWorker.swift; sourceTree = "<group>"; };
+		3D27A0242460CC4200E5FEDC /* Trend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trend.swift; sourceTree = "<group>"; };
+		3D27A0262460CCA500E5FEDC /* JSONable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONable.swift; sourceTree = "<group>"; };
 		3D2A9595245DF16B002DCBA2 /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
 		3D2A9597245DF23D002DCBA2 /* WeatherView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeatherView.xib; sourceTree = "<group>"; };
 		3D2A9599245E0349002DCBA2 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
@@ -149,6 +155,8 @@
 			isa = PBXGroup;
 			children = (
 				3DE720C5244CEFE300A87148 /* TrendingViewController.swift */,
+				3D27A0222460CBFA00E5FEDC /* TrendsWorker.swift */,
+				3D27A0242460CC4200E5FEDC /* Trend.swift */,
 			);
 			path = Trending;
 			sourceTree = "<group>";
@@ -270,6 +278,7 @@
 			isa = PBXGroup;
 			children = (
 				3D1EC7A72455F9F400CC3D49 /* Article.swift */,
+				3D27A0262460CCA500E5FEDC /* JSONable.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -503,6 +512,7 @@
 			files = (
 				3D2A9596245DF16B002DCBA2 /* WeatherView.swift in Sources */,
 				3D730ACE245E811D0099E66C /* DetailViewController.swift in Sources */,
+				3D27A0252460CC4200E5FEDC /* Trend.swift in Sources */,
 				3D1EC7A82455F9F400CC3D49 /* Article.swift in Sources */,
 				3DFA67BD245D288D00803B24 /* WeatherWorker.swift in Sources */,
 				3D9FFECC245F89E900D713DD /* ArticleTableViewController.swift in Sources */,
@@ -510,6 +520,7 @@
 				3D1EC7A22455F32100CC3D49 /* NetworkManager.swift in Sources */,
 				3D1EC7A42455F34600CC3D49 /* NetworkSession.swift in Sources */,
 				3DE720C8244CEFF500A87148 /* BookmarksViewController.swift in Sources */,
+				3D27A0232460CBFA00E5FEDC /* TrendsWorker.swift in Sources */,
 				3D730AD6245F49520099E66C /* BingAutosuggestWorker.swift in Sources */,
 				3DE7209A244CD65E00A87148 /* HeadlinesViewController.swift in Sources */,
 				3DE72098244CD65E00A87148 /* HomeViewController.swift in Sources */,
@@ -518,6 +529,7 @@
 				3DFA67BF245D2B9800803B24 /* JSONParseError.swift in Sources */,
 				3DF885E8245FA6D6005AC002 /* SectionTableViewController.swift in Sources */,
 				3D1EC75B24552F9E00CC3D49 /* NewsTableViewCell.swift in Sources */,
+				3D27A0272460CCA500E5FEDC /* JSONable.swift in Sources */,
 				3DE720C6244CEFE300A87148 /* TrendingViewController.swift in Sources */,
 				3D730AD0245E85530099E66C /* ArticleDetailWorker.swift in Sources */,
 				3D1EC79F2455F2A700CC3D49 /* NewsArticleWorker.swift in Sources */,

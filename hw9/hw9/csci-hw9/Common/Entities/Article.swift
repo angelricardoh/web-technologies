@@ -9,10 +9,6 @@
 import Foundation
 import SwiftyJSON
 
-protocol JSONable {
-    init?(parameter: JSON)
-}
-
 public struct Article: JSONable {
     var id: String
     var title: String

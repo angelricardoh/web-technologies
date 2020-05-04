@@ -12,7 +12,11 @@ class TrendingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
+        let BarButtonItemAppearance = UIBarButtonItem.appearance()
+        BarButtonItemAppearance.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: .normal)
+        navigationController?.navigationBar.prefersLargeTitles = true
+        title = "Headlines"
     }
 
 

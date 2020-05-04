@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftSpinner
 
 class SearchResultsViewController: ArticleTableViewController {
     
@@ -36,6 +37,7 @@ class SearchResultsViewController: ArticleTableViewController {
         tableView.register(nib, forCellReuseIdentifier: "newsCell")
         
         searchWorker.fetchSearch(query: search, searchCompletion: {(completion) in
+            SwiftSpinner.hide()
             switch completion {
             case .success(let articles):
                 self.articles = articles

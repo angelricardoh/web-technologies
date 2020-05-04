@@ -9,6 +9,7 @@
 import UIKit
 import SDWebImage
 import CoreLocation
+import SwiftSpinner
 
 class HomeViewController: ArticleTableViewController, CLLocationManagerDelegate {
         
@@ -43,6 +44,7 @@ class HomeViewController: ArticleTableViewController, CLLocationManagerDelegate 
 
         searchController.searchResultsUpdater = self
 
+        SwiftSpinner.show("Loading Home Page..")
         
         let nib = UINib(nibName: "NewsTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "newsCell")
@@ -78,6 +80,7 @@ class HomeViewController: ArticleTableViewController, CLLocationManagerDelegate 
     @objc func refreshNewsHomeData() {
         print("refreshNewsHomeData")
         worker.fetchNewsHomeInformation(articlesCompletion: {(completion) in
+            SwiftSpinner.hide()
             self.refreshControl?.endRefreshing()
             switch completion {
             case .success(let articles):

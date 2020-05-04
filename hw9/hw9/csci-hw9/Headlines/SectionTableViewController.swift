@@ -7,6 +7,7 @@
 //
 
 import XLPagerTabStrip
+import SwiftSpinner
 
 class SectionTableViewController: ArticleTableViewController, IndicatorInfoProvider {
     
@@ -21,6 +22,12 @@ class SectionTableViewController: ArticleTableViewController, IndicatorInfoProvi
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let title = indicatorInfo.title {
+            SwiftSpinner.show("Loading \(title) Headlines..")
+        }
     }
     
     override func viewDidLoad() {
@@ -38,6 +45,7 @@ class SectionTableViewController: ArticleTableViewController, IndicatorInfoProvi
         }
         
         worker.fetchNewsSectionInformation(section: self.section!, articlesCompletion: {(completion) in
+            SwiftSpinner.hide()
             self.refreshControl?.endRefreshing()
             switch completion {
             case .success(let articles):

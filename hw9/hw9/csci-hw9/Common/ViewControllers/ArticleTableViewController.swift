@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftSpinner
 
 class ArticleTableViewController: UITableViewController {
     
@@ -39,16 +40,18 @@ class ArticleTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if tableView === resultsTableController?.tableView {
-            // Check to see which table view cell was selected.
+            SwiftSpinner.show("Loading Search results..")
+    
             guard let query = resultsTableController?.suggestions[indexPath.row] else {
                 print("resultsTableController suggestions does not exists in this controller")
                 return
             }
             
-            // Set up the detail view controller to push.
             let searchResultsViewController = SearchResultsViewController.searchResultsViewControllerForSearch(query)
             navigationController?.pushViewController(searchResultsViewController, animated: true)
         } else {
+            SwiftSpinner.show("Loading Detailed article..")
+
             let articleSelected = articles[indexPath.row]
             let detailViewController = DetailViewController.detailViewControllerWithArticleId(articleSelected.id)
             

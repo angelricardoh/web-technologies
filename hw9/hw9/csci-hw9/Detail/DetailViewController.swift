@@ -8,6 +8,7 @@
 
 import UIKit
 import SDWebImage
+import SwiftSpinner
 
 class DetailViewController: UIViewController {
     var articleId:String? = nil
@@ -50,6 +51,7 @@ class DetailViewController: UIViewController {
         
         articleDetailWorker.fetchArticleDetailInformation(articleId: articleId, articleCompletion:
             {(completion) in
+            SwiftSpinner.hide()
             switch completion {
             case .success(let article):
                 if let imageUrl = URL(string: article.image) {

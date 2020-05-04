@@ -59,4 +59,26 @@ class ArticleTableViewController: UITableViewController {
         }
         tableView.deselectRow(at: indexPath, animated: false)
     }
+    
+    // Context menu
+    override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        let item = articles[indexPath.row]
+
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
+
+            // Create an action for sharing
+            
+            let share = UIAction(title: "Share with Twitter", image: UIImage(named: "twitter")) { action in
+                print("Sharing \(item)")
+            }
+            
+            let bookmark = UIAction(title: "Bookmark", image: UIImage(systemName: "bookmark")) { action in
+                print("Bookmarked \(item)")
+            }
+
+            // Create other actions...
+
+            return UIMenu(title: "Menu", children: [share, bookmark])
+        }
+    }
 }

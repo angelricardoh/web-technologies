@@ -99,6 +99,7 @@
                             <barButtonItem title="Item" image="bookmark" catalog="system" id="j8I-So-ewE"/>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="articleImageView" destination="maM-Mu-RNH" id="oJq-tD-BDt"/>
                         <outlet property="dateLabel" destination="VpT-35-qfi" id="Jsh-zb-VnV"/>

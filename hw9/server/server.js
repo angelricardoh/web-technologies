@@ -4,6 +4,7 @@ const path = require("path");
 const port = 8080;
 const application = express();
 const cors = require("cors");
+const googleTrends = require('google-trends-api');
 
 const GUARDIAN_API_KEY = "4e22f01e-35ce-4b12-ad57-1a7f8116ee21";
 
@@ -61,9 +62,9 @@ function getArticleDetail(req) {
 
 function getSearchResults(req) {
   return new Promise(resolve => {
-    let search = req.query.search;
+    let query = req.query.q;
     let url = "https://content.guardianapis.com/search?q=" +
-          search +
+          query +
           "&api-key=" +
           GUARDIAN_API_KEY +
           "&show-blocks=all"
@@ -80,6 +81,36 @@ function getSearchResults(req) {
               throw error;
             }
         );
+  });
+}
+
+function getTrendsResults(req) {
+  return new Promise(resolve => {
+    let query = req.query.q;
+
+    googleTrends.interestOverTime({
+      keyword: query,
+      startTime: new Date('2019-06-01')
+    })
+    .then(function(response) {
+      // Handle the results here (response.result has the parsed body).
+      var jsonResponse = JSON.parse(response)
+      let trends = []
+      for (let index in jsonResponse.default.timelineData) {
+        let result = jsonResponse.default.timelineData[index];
+
+        trend = {
+          x: parseInt(index),
+          y: result.value[0]
+        }
+        trends.push(trend)
+      }
+      resolve(trends);
+    })
+    .catch(function(error) {
+        // console.log(error);
+        throw error;
+    });
   });
 }
 
@@ -100,6 +131,7 @@ application.get("/guardian_news", async function(req, res) {
     let articles_json = {
       articles
     };
+
     res.status(200).send(articles_json);
   } catch (error) {
     console.log("Error while retrieving news from guardian news API: " + error);
@@ -201,6 +233,18 @@ application.get('/search', async function(req, res) {
       articles
     };
     res.status(200).send(articles_json);
+
+    return wrappedResponse
+  } catch (error) {
+    console.log('Error while performing search: ' + error)
+  }
+});
+
+// GET response for trends
+application.get("/trends", async function(req, res) {
+  try {
+    let trends = await getTrendsResults(req)
+    res.status(200).send(trends);
 
     return wrappedResponse
   } catch (error) {

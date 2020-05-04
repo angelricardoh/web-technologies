@@ -22,7 +22,7 @@ public typealias SearchResultHandler = (_ result: SearchResult) -> Void
 struct SearchWorker: SearchWorkerInterface {
     
     private struct Constants {
-        static let fetchSearchURL = "search?search="
+        static let fetchSearchURL = "search?q="
     }
     
     func fetchSearch(query:String, searchCompletion: @escaping SearchResultHandler) {

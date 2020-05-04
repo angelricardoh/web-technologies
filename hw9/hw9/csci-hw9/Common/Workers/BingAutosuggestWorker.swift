@@ -31,7 +31,6 @@ struct BingAutosuggestWorker: AutosuggestWorkerInterface {
         let headers: HTTPHeaders = [
             "Ocp-Apim-Subscription-Key": AppConstants.bingAutosuggestKey,
         ]
-
         manager.loadData(from: bingAutosuggestURL!, headers:headers, completionHandler: {(completion) in
             switch completion {
             case .success(let data):

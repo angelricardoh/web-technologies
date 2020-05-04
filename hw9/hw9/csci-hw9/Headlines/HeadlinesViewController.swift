@@ -11,7 +11,7 @@ import XLPagerTabStrip
 
 class HeadlinesViewController: ButtonBarPagerTabStripViewController {
 
-    let purpleInspireColor = UIColor(red:0.13, green:0.03, blue:0.25, alpha:1.0)
+    var resultsTableController: ResultsTableViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,8 +24,7 @@ class HeadlinesViewController: ButtonBarPagerTabStripViewController {
         settings.style.buttonBarItemFont = .boldSystemFont(ofSize: 20)
         settings.style.selectedBarHeight = 2.0
         settings.style.buttonBarMinimumLineSpacing = 0
-        settings.style.buttonBarItemTitleColor = .systemGray
-//        settings.style.buttonBarItemsShouldFillAvailiableWidth = true
+        settings.style.buttonBarItemTitleColor = .systemBlue
         settings.style.buttonBarLeftContentInset = 0
         settings.style.buttonBarRightContentInset = 0
         
@@ -34,7 +33,20 @@ class HeadlinesViewController: ButtonBarPagerTabStripViewController {
             oldCell?.label.textColor = .systemGray
             newCell?.label.textColor = .systemBlue
         }
-        super.viewDidLoad()
+        
+        resultsTableController =
+            self.storyboard?.instantiateViewController(withIdentifier: "ResultsTableController") as? ResultsTableViewController
+            // This view controller is interested in table view row selections.
+            resultsTableController?.tableView.delegate = self
+        
+        let BarButtonItemAppearance = UIBarButtonItem.appearance()
+        BarButtonItemAppearance.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: .normal)
+        navigationController?.navigationBar.prefersLargeTitles = true
+        title = "Headlines"
+        
+        let searchController = UISearchController(searchResultsController: self.resultsTableController)
+        navigationItem.searchController = searchController
+        searchController.searchResultsUpdater = self
     }
     
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
@@ -45,7 +57,7 @@ class HeadlinesViewController: ButtonBarPagerTabStripViewController {
         let politicsViewController = SectionTableViewController(sectionInfo: "POLITICS")
         politicsViewController.section = "politics"
         let sportsViewController = SectionTableViewController(sectionInfo: "SPORTS")
-        sportsViewController.section = "spors"
+        sportsViewController.section = "sport"
         let technologyViewController = SectionTableViewController(sectionInfo: "TECHNOLOGY")
         technologyViewController.section = "technology"
         let scienceViewController = SectionTableViewController(sectionInfo: "SCIENCE")
@@ -59,6 +71,45 @@ class HeadlinesViewController: ButtonBarPagerTabStripViewController {
                                     scienceViewController]
         
         return childViewControllers
+    }
+}
+
+extension HeadlinesViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // Check to see which table view cell was selected.
+        guard let query = resultsTableController?.suggestions[indexPath.row] else {
+            print("resultsTableController suggestions does not exists in this controller")
+            return
+        }
+        
+        // Set up the detail view controller to push.
+        let searchResultsViewController = SearchResultsViewController.searchResultsViewControllerForSearch(query)
+        navigationController?.pushViewController(searchResultsViewController, animated: true)
+
+        tableView.deselectRow(at: indexPath, animated: false)
+    }
+}
+
+extension HeadlinesViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        print("updateSearchResults(for searchController: UISearchController)")
+        
+        let searchBar = searchController.searchBar
+        if let searchText = searchBar.text, !searchText.isEmpty && searchText.count >= 3 {
+            print(searchText)
+            let autosuggestWorker = BingAutosuggestWorker()
+            autosuggestWorker.fetchAutoSuggestInformation(inputValue: searchText, autosuggestCompletion: {(completion) in
+                switch completion {
+                case .success(let suggestions):
+                    self.resultsTableController?.suggestions = suggestions
+                    self.resultsTableController?.tableView.reloadData()
+                    print(suggestions)
+                case .failure(let error):
+                    print("Network Error: " + error.localizedDescription)
+                }
+            })
+        }
     }
 }
 

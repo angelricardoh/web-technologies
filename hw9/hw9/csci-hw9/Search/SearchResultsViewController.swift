@@ -29,10 +29,7 @@ class SearchResultsViewController: ArticleTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let BarButtonItemAppearance = UIBarButtonItem.appearance()
-        BarButtonItemAppearance.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: .normal)
         navigationController?.navigationBar.prefersLargeTitles = true
-        
         title = "Search Results"
         
         let nib = UINib(nibName: "NewsTableViewCell", bundle: nil)

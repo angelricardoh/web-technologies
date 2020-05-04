@@ -11,9 +11,7 @@ import SDWebImage
 import CoreLocation
 
 class HomeViewController: ArticleTableViewController, CLLocationManagerDelegate {
-    
-    let weatherView = WeatherView(frame: CGRect(x: 0, y: 0, width: 414, height: 120))
-    
+        
     let worker: NewsWorker = NewsWorker()
     let weatherWorker: WeatherHomeWorker = WeatherHomeWorker()
     
@@ -28,6 +26,9 @@ class HomeViewController: ArticleTableViewController, CLLocationManagerDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "Home"
+        navigationController?.navigationBar.prefersLargeTitles = true
+                
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(refreshNewsHomeData), for: .valueChanged)
         
@@ -35,14 +36,16 @@ class HomeViewController: ArticleTableViewController, CLLocationManagerDelegate 
         self.storyboard?.instantiateViewController(withIdentifier: "ResultsTableController") as? ResultsTableViewController
         // This view controller is interested in table view row selections.
         resultsTableController?.tableView.delegate = self
-
+        
         let searchController = UISearchController(searchResultsController: self.resultsTableController)
         navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+
         searchController.searchResultsUpdater = self
+
         
         let nib = UINib(nibName: "NewsTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "newsCell")
-        self.tableView.tableHeaderView = weatherView
         
         // TODO: Uncomment this section for production
 //        weatherWorker.fetchWeatherHomeInformation(weatherCompletion: {(completion) in
@@ -63,13 +66,17 @@ class HomeViewController: ArticleTableViewController, CLLocationManagerDelegate 
         refreshNewsHomeData()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true);
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.hidesSearchBarWhenScrolling = true
+    override func tableView(_ tableView: UITableView,
+                                 viewForHeaderInSection section: Int) -> UIView? {
+        if tableView !== resultsTableController?.tableView {
+            let weatherView = WeatherView(frame: CGRect(x: 0, y: 0, width: 414, height: 120))
+            return weatherView
+        }
+        return nil
     }
     
     @objc func refreshNewsHomeData() {
+        print("refreshNewsHomeData")
         worker.fetchNewsHomeInformation(articlesCompletion: {(completion) in
             self.refreshControl?.endRefreshing()
             switch completion {

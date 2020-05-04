@@ -48,8 +48,6 @@ class ArticleTableViewController: UITableViewController {
             // Set up the detail view controller to push.
             let searchResultsViewController = SearchResultsViewController.searchResultsViewControllerForSearch(query)
             navigationController?.pushViewController(searchResultsViewController, animated: true)
-
-            tableView.deselectRow(at: indexPath, animated: false)
         } else {
             let articleSelected = articles[indexPath.row]
             let detailViewController = DetailViewController.detailViewControllerWithArticleId(articleSelected.id)

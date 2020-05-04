@@ -12,10 +12,9 @@ import CoreLocation
 
 class HomeViewController: ArticleTableViewController, CLLocationManagerDelegate {
     
-    @IBOutlet weak var scrollView: UIScrollView!
     let weatherView = WeatherView(frame: CGRect(x: 0, y: 0, width: 414, height: 120))
     
-    let worker: NewsHomeWorker = NewsHomeWorker()
+    let worker: NewsWorker = NewsWorker()
     let weatherWorker: WeatherHomeWorker = WeatherHomeWorker()
     
     func locationManager(_ manager: CLLocationManager,  didUpdateLocations locations: [CLLocation]) {
@@ -92,7 +91,7 @@ extension HomeViewController: UISearchResultsUpdating {
         print("updateSearchResults(for searchController: UISearchController)")
         
         let searchBar = searchController.searchBar
-        if let searchText = searchBar.text, !searchText.isEmpty && searchText.count > 3 {
+        if let searchText = searchBar.text, !searchText.isEmpty && searchText.count >= 3 {
             print(searchText)
             let autosuggestWorker = BingAutosuggestWorker()
             autosuggestWorker.fetchAutoSuggestInformation(inputValue: searchText, autosuggestCompletion: {(completion) in

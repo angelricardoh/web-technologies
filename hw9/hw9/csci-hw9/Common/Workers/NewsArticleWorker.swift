@@ -8,8 +8,9 @@
 
 import Foundation
 
-protocol NewsHomeWorkerInterface {
+protocol NewsWorkerInterface {
     func fetchNewsHomeInformation(articlesCompletion: @escaping ArticleResultHandler)
+    func fetchNewsSectionInformation(section: String, articlesCompletion: @escaping ArticleResultHandler)
 }
 
 public enum ArticleResult {
@@ -19,15 +20,23 @@ public enum ArticleResult {
 
 public typealias ArticleResultHandler = (_ result: ArticleResult) -> Void
 
-struct NewsHomeWorker: NewsHomeWorkerInterface {
+struct NewsWorker: NewsWorkerInterface {
     
     private struct Constants {
-        static let fetchNewsHomeURL = "home_mobile_news"
+        static let fetchNewsHomeURL = "guardian_news"
     }
     
     func fetchNewsHomeInformation(articlesCompletion: @escaping ArticleResultHandler) {
+        fetchNewsInformation(urlString: Constants.fetchNewsHomeURL, articlesCompletion: articlesCompletion)
+    }
+    
+    func fetchNewsSectionInformation(section: String, articlesCompletion: @escaping ArticleResultHandler) {
+        fetchNewsInformation(urlString: Constants.fetchNewsHomeURL + "?section=" + section, articlesCompletion: articlesCompletion)
+    }
+    
+    private func fetchNewsInformation(urlString: String, articlesCompletion: @escaping ArticleResultHandler) {
         let manager = NetworkManager()
-        manager.loadInternalData(from: Constants.fetchNewsHomeURL, completionHandler: {(completion) in
+        manager.loadInternalData(from: urlString, completionHandler: {(completion) in
             switch completion {
             case .success(let data):
                 var articles: [Article] = []

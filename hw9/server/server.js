@@ -11,13 +11,20 @@ application.use(cors());
 application.use(express.static(__dirname));
 application.use(express.static(path.join(__dirname, "public")));
 
-function getGuardianMobileHomeArticles(req) {
+function getGuardianArticles(req) {
   return new Promise(resolve => {
     let section = req.query.section;
-    let url = "https://content.guardianapis.com/search?orderby=newest&show-" + 
+   
+    console.log(section)
+    let url = null
+    if (section == 'undefined' || section == null) {
+      url = "https://content.guardianapis.com/search?orderby=newest&show-" + 
       "fields=starRating,headline,thumbnail,short-url&api-key=" + GUARDIAN_API_KEY
+    } else {
+      url = "https://content.guardianapis.com/" + section + "?api-key=" + GUARDIAN_API_KEY + "&show-blocks=all"
+    }
 
-    console.log("GET: " + url)
+    console.log(url)
 
     fetch(url)
         .then(response => response.json())
@@ -75,6 +82,32 @@ function getSearchResults(req) {
         );
   });
 }
+
+// GET response for The Guardian news
+application.get("/guardian_news", async function(req, res) {
+  try {
+    let wrappedResponse = await getGuardianArticles(req);
+    let response = wrappedResponse.response;
+    let section = req.query.section;
+
+    let articles = null
+    if (section == 'undefined' || section == null) {
+      articles = getGuardianFieldsData(response)
+    } else {
+      articles = getGuardianBlocksData(response)
+    }
+
+    let articles_json = {
+      articles
+    };
+    res.status(200).send(articles_json);
+  } catch (error) {
+    console.log("Error while retrieving news from guardian news API: " + error);
+    res
+      .status(500)
+      .send("Error while retrieving news from guardian news API: " + error);
+  }
+});
 
 // GET response for The Guardian news
 application.get("/article_detail", async function(req, res) {
@@ -162,7 +195,7 @@ application.get('/search', async function(req, res) {
     let articles = []
     let wrappedResponse = await getSearchResults(req)
     let response = wrappedResponse.response
-    articles = getGuardianArticlesData(response)
+    articles = getGuardianBlocksData(response)
 
     let articles_json = {
       articles
@@ -175,26 +208,7 @@ application.get('/search', async function(req, res) {
   }
 });
 
-// GET response for The Guardian news
-application.get("/home_mobile_news", async function(req, res) {
-  try {
-    let wrappedResponse = await getGuardianMobileHomeArticles(req);
-    let response = wrappedResponse.response;
-    let articles = getGuardianMobileArticlesData(response)
-
-    let articles_json = {
-      articles
-    };
-    res.status(200).send(articles_json);
-  } catch (error) {
-    console.log("Error while retrieving news from homepage API: " + error);
-    res
-      .status(500)
-      .send("Error while retrieving news from homepage API: " + error);
-  }
-});
-
-function getGuardianArticlesData(response) {
+function getGuardianBlocksData(response) {
   let articles = [];
 
   for (let index in response.results) {
@@ -260,7 +274,7 @@ function getGuardianArticlesData(response) {
   return articles
 }
 
-function getGuardianMobileArticlesData(response) {
+function getGuardianFieldsData(response) {
   let articles = [];
 
   for (let index in response.results) {

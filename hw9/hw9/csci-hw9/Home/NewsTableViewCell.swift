@@ -15,6 +15,10 @@ class NewsTableViewCell: UITableViewCell {
     @IBOutlet weak var bookmarkButton: UIButton!
     @IBOutlet weak var articleImageView: UIImageView!
     
+    override func prepareForReuse() {
+      super.prepareForReuse()
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
 

@@ -43,6 +43,8 @@ class HomeViewController: UITableViewController, CLLocationManagerDelegate {
         navigationItem.searchController = searchController
         searchController.searchResultsUpdater = self
         
+        let nib = UINib(nibName: "NewsTableViewCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: "newsCell")
         self.tableView.tableHeaderView = weatherView
         
         // TODO: Uncomment this section for production
@@ -94,7 +96,7 @@ class HomeViewController: UITableViewController, CLLocationManagerDelegate {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // customize and show data based on array
-        let customCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? NewsTableViewCell
+        let customCell = tableView.dequeueReusableCell(withIdentifier: "newsCell", for: indexPath) as? NewsTableViewCell
         
         customCell?.titleLabel.text = articles[indexPath.row].title
         customCell?.timeAgoLabel.text = articles[indexPath.row].date

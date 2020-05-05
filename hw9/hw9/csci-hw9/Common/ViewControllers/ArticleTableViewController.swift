@@ -32,7 +32,14 @@ class ArticleTableViewController: UITableViewController {
         customCell?.titleLabel.text = articles[indexPath.row].title
         customCell?.timeAgoLabel.text = articles[indexPath.row].date
         customCell?.sectionLabel.text = "| " + articles[indexPath.row].section
-//        customCell?.bookmarkButton.addTarget(self, action: <#T##Selector#>, for: <#T##UIControl.Event#>)
+        
+        if BookmarkManager.isBookmark(article: articles[indexPath.row]) {
+            customCell?.bookmarkButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+        } else {
+            customCell?.bookmarkButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
+        }
+        customCell?.bookmarkButton.tag = indexPath.row
+        customCell?.bookmarkButton.addTarget(self, action: #selector(bookmarkTapped(_:)), for: .touchUpInside)
         
         guard let imageUrl = URL(string: articles[indexPath.row].image) else {
             let alertController = UIAlertController(title: "Image download Error", message:
@@ -43,6 +50,22 @@ class ArticleTableViewController: UITableViewController {
         customCell?.articleImageView?.sd_setImage(with: imageUrl, completed: nil)
         
         return customCell!
+    }
+    
+    @objc func bookmarkTapped(_ sender: UIButton) {
+        let currentArticle = articles[sender.tag]
+        
+        if BookmarkManager.isBookmark(article: currentArticle) {
+            BookmarkManager.removeBookmark(article: currentArticle)
+            // TODO: Implement toast
+        } else {
+            BookmarkManager.addBookmark(article: currentArticle)
+            // TODO: Implement toast
+        }
+        self.tableView.beginUpdates()
+        self.tableView.reloadRows(at: [IndexPath(row: sender.tag, section: 0)], with: .none)
+        self.tableView.endUpdates()
+
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -73,8 +96,6 @@ class ArticleTableViewController: UITableViewController {
         let item = articles[indexPath.row]
 
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
-
-            // Create an action for sharing
             
             let share = UIAction(title: "Share with Twitter", image: UIImage(named: "twitter")) { action in
                 print("Sharing \(item)")
@@ -83,8 +104,6 @@ class ArticleTableViewController: UITableViewController {
             let bookmark = UIAction(title: "Bookmark", image: UIImage(systemName: "bookmark")) { action in
                 print("Bookmarked \(item)")
             }
-
-            // Create other actions...
 
             return UIMenu(title: "Menu", children: [share, bookmark])
         }

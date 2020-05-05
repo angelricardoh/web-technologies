@@ -36,6 +36,7 @@ class BookmarkManager {
         var bookmarks = getAllObjects
         if let indexToRemove = bookmarks.firstIndex(where: {$0 == article}) {
             bookmarks.remove(at: indexToRemove)
+            saveAllObjects(allObjects: bookmarks)
         } else {
             let alertController = UIAlertController(title: "Logical Error", message:
                 "Impossible to remove bookmark", preferredStyle: .alert)

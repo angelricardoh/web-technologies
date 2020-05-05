@@ -49,6 +49,8 @@ class HomeViewController: ArticleTableViewController, CLLocationManagerDelegate 
         let nib = UINib(nibName: "NewsTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "newsCell")
         
+        tableView.tableHeaderView = WeatherView(frame: CGRect(x: 0, y: 0, width: 414, height: 120))
+                
         // TODO: Uncomment this section for production
 //        weatherWorker.fetchWeatherHomeInformation(weatherCompletion: {(completion) in
 //            switch completion {
@@ -66,15 +68,6 @@ class HomeViewController: ArticleTableViewController, CLLocationManagerDelegate 
 //        })
         
         refreshNewsHomeData()
-    }
-    
-    override func tableView(_ tableView: UITableView,
-                                 viewForHeaderInSection section: Int) -> UIView? {
-        if tableView !== resultsTableController?.tableView {
-            let weatherView = WeatherView(frame: CGRect(x: 0, y: 0, width: 414, height: 120))
-            return weatherView
-        }
-        return nil
     }
     
     @objc func refreshNewsHomeData() {

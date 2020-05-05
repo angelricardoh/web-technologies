@@ -39,6 +39,7 @@
 		3DE720B8244CD65F00A87148 /* csci_hw9UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE720B7244CD65F00A87148 /* csci_hw9UITests.swift */; };
 		3DE720C6244CEFE300A87148 /* TrendingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE720C5244CEFE300A87148 /* TrendingViewController.swift */; };
 		3DE720C8244CEFF500A87148 /* BookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE720C7244CEFF500A87148 /* BookmarksViewController.swift */; };
+		3DF5AEE02461089F00154976 /* BookmarkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF5AEDF2461089F00154976 /* BookmarkManager.swift */; };
 		3DF885E8245FA6D6005AC002 /* SectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF885E7245FA6D6005AC002 /* SectionTableViewController.swift */; };
 		3DFA67B8245D24DC00803B24 /* IntrinsicTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA67B7245D24DC00803B24 /* IntrinsicTableView.swift */; };
 		3DFA67BD245D288D00803B24 /* WeatherWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA67BC245D288D00803B24 /* WeatherWorker.swift */; };
@@ -104,6 +105,7 @@
 		3DE720B9244CD65F00A87148 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DE720C5244CEFE300A87148 /* TrendingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingViewController.swift; sourceTree = "<group>"; };
 		3DE720C7244CEFF500A87148 /* BookmarksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewController.swift; sourceTree = "<group>"; };
+		3DF5AEDF2461089F00154976 /* BookmarkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkManager.swift; sourceTree = "<group>"; };
 		3DF885E7245FA6D6005AC002 /* SectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTableViewController.swift; sourceTree = "<group>"; };
 		3DFA67B7245D24DC00803B24 /* IntrinsicTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrinsicTableView.swift; sourceTree = "<group>"; };
 		3DFA67BC245D288D00803B24 /* WeatherWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherWorker.swift; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				3DE720C7244CEFF500A87148 /* BookmarksViewController.swift */,
+				3DF5AEDF2461089F00154976 /* BookmarkManager.swift */,
 			);
 			path = Bookmarks;
 			sourceTree = "<group>";
@@ -536,6 +539,7 @@
 				3D730ADD245F71900099E66C /* SearchResultsViewController.swift in Sources */,
 				3DFA67B8245D24DC00803B24 /* IntrinsicTableView.swift in Sources */,
 				3D730ADA245F6E9F0099E66C /* SearchWorker.swift in Sources */,
+				3DF5AEE02461089F00154976 /* BookmarkManager.swift in Sources */,
 				3DE72094244CD65E00A87148 /* AppDelegate.swift in Sources */,
 				3DE72096244CD65E00A87148 /* SceneDelegate.swift in Sources */,
 			);

@@ -8,12 +8,23 @@
 
 import UIKit
 
-class BookmarksViewController: UIViewController {
+class BookmarksViewController: UICollectionViewController {
 
+    @IBOutlet weak var nobookmarksLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        title = "Bookmarks"
     }
-
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        print(BookmarkManager.getAllObjects)
+        
+        if BookmarkManager.getAllObjects.count == 0 {
+            nobookmarksLabel.isHidden = false
+        }
+    }
 }

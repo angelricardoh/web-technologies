@@ -17,8 +17,6 @@ class TrendingViewController: UIViewController, UITextFieldDelegate, ChartViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let BarButtonItemAppearance = UIBarButtonItem.appearance()
-        BarButtonItemAppearance.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: .normal)
         navigationController?.navigationBar.prefersLargeTitles = true
                 
         chartView.delegate = self

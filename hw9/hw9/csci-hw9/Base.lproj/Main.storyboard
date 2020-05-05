@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -116,7 +117,7 @@
         <scene sceneID="yCM-8w-2UB">
             <objects>
                 <tableViewController id="Q7U-HX-aKm" customClass="HomeViewController" customModule="csci_hw9" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="140" estimatedRowHeight="-1" sectionHeaderHeight="120" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" id="LnP-sM-we0">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="140" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" id="LnP-sM-we0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <connections>
@@ -129,6 +130,23 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dak-YT-PaQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1633" y="-328"/>
+        </scene>
+        <!--Bookmarks-->
+        <scene sceneID="xwJ-QX-QMO">
+            <objects>
+                <navigationController id="5mj-ab-9B9" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Bookmarks" image="bookmark.fill" catalog="system" id="h5p-tr-d52"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="b6C-va-IKZ">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="5CB-bd-qjV" kind="relationship" relationship="rootViewController" id="HIx-na-yIK"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J6Q-5M-JXX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4" y="352"/>
         </scene>
         <!--Headlines-->
         <scene sceneID="qTZ-Fq-fB5">
@@ -229,12 +247,57 @@
                         <segue destination="vAY-t6-O4b" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="Lox-PB-L7v" kind="relationship" relationship="viewControllers" id="sON-c8-4Xe"/>
                         <segue destination="dcL-Fy-fxJ" kind="relationship" relationship="viewControllers" id="24T-kW-M0u"/>
-                        <segue destination="01X-8C-U7t" kind="relationship" relationship="viewControllers" id="L6r-n3-0N6"/>
+                        <segue destination="5mj-ab-9B9" kind="relationship" relationship="viewControllers" id="oMa-Nh-8yI"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-26" y="352"/>
+            <point key="canvasLocation" x="-4" y="-328"/>
+        </scene>
+        <!--Bookmarks-->
+        <scene sceneID="cDm-yB-cxq">
+            <objects>
+                <collectionViewController id="5CB-bd-qjV" customClass="BookmarksViewController" customModule="csci_hw9" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="VLr-qf-Q67">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xft-uE-KO4">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <label key="backgroundView" hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No bookmarks added." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tLe-y3-JTU">
+                            <rect key="frame" x="0.0" y="-88" width="414" height="896"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="8gp-lA-dPE">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Lx2-nl-hqo">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </collectionViewCellContentView>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="5CB-bd-qjV" id="oLb-hS-EuR"/>
+                            <outlet property="delegate" destination="5CB-bd-qjV" id="RZb-qS-IHp"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" title="Bookmarks" id="Azp-9P-wMK"/>
+                    <connections>
+                        <outlet property="nobookmarksLabel" destination="tLe-y3-JTU" id="Js4-9m-1bn"/>
+                    </connections>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AyL-5J-JM6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4" y="1045"/>
         </scene>
         <!--Trending-->
         <scene sceneID="2ka-e1-jB7">
@@ -310,35 +373,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y5b-SK-Vfi" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1632" y="1045"/>
-        </scene>
-        <!--Bookmarks-->
-        <scene sceneID="SQA-EW-fWv">
-            <objects>
-                <viewController id="01X-8C-U7t" customClass="BookmarksViewController" customModule="csci_hw9" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="aRt-xJ-Urs">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Fourth View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="h8j-Tc-JLk">
-                                <rect key="frame" x="142.5" y="433" width="129" height="30"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstAttribute="centerX" secondItem="h8j-Tc-JLk" secondAttribute="centerX" id="W4e-Yq-vVZ"/>
-                            <constraint firstAttribute="centerY" secondItem="h8j-Tc-JLk" secondAttribute="centerY" id="r3q-SB-Bsq"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="rcl-67-q1g"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Bookmarks" image="bookmark.fill" catalog="system" id="ecM-Y8-fGa"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="skD-9g-3vP" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-25" y="1045"/>
+            <point key="canvasLocation" x="1631.8840579710147" y="1044.6428571428571"/>
         </scene>
         <!--Home-->
         <scene sceneID="SnM-tR-3T1">

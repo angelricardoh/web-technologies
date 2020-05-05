@@ -9,7 +9,7 @@
 import Foundation
 import SwiftyJSON
 
-public struct Article: JSONable {
+public struct Article: Codable, Equatable, JSONable {
     var id: String
     var title: String
     var image: String

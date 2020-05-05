@@ -14,6 +14,8 @@ class DetailViewController: UIViewController {
     var articleId:String? = nil
     var articleShareUrl:String? = nil
     let articleDetailWorker: ArticleDetailWorker = ArticleDetailWorker()
+    var article:Article? = nil
+    @IBOutlet weak var navigationBookmarkButton: UIBarButtonItem!
     
     @IBOutlet weak var articleImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -37,10 +39,44 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let BarButtonItemAppearance = UIBarButtonItem.appearance()
-        BarButtonItemAppearance.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: .normal)
         navigationController?.navigationBar.prefersLargeTitles = false
+        fetchArticleDetail()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
+        if let article = self.article, BookmarkManager.isBookmark(article: article) {
+            self.navigationBookmarkButton.image = UIImage(systemName: "bookmark.fill")
+        } else {
+            self.navigationBookmarkButton.image = UIImage(systemName: "bookmark")
+        }
+    }
+    
+    func setupNavigation() {
+    }
+    
+    @IBAction func bookmarkTapped(_ sender: Any) {
+        guard let article = self.article else {
+            let alertController = UIAlertController(title: "Logical Error", message:
+                "Error passing article", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+            self.present(alertController, animated: true, completion: nil)
+            return
+        }
+        
+        if BookmarkManager.isBookmark(article: article) {
+            BookmarkManager.removeBookmark(article: article)
+            self.navigationBookmarkButton.image = UIImage(systemName: "bookmark")
+            // TODO: Implement toast
+        } else {
+            BookmarkManager.addBookmark(article: article)
+            self.navigationBookmarkButton.image = UIImage(systemName: "bookmark.fill")
+            // TODO: Implement toast
+        }
+    }
+    
+    func fetchArticleDetail() {
         guard let articleId = self.articleId else {
             let alertController = UIAlertController(title: "Logical Error", message:
                 "Error passing articleId", preferredStyle: .alert)
@@ -51,40 +87,42 @@ class DetailViewController: UIViewController {
         
         articleDetailWorker.fetchArticleDetailInformation(articleId: articleId, articleCompletion:
             {(completion) in
-            SwiftSpinner.hide()
-            switch completion {
-            case .success(let article):
-                if let imageUrl = URL(string: article.image) {
-                    self.articleImageView?.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "default_guardian"))
+                SwiftSpinner.hide()
+                switch completion {
+                case .success(let article):
+                    self.article = article
+                    if let imageUrl = URL(string: article.image) {
+                        self.articleImageView?.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "default_guardian"))
+                    }
+                    self.title = article.title
+                    self.titleLabel.text = article.title
+                    self.sectionLabel.text = article.section
+                    self.descriptionLabel.text = article.description
+                    self.articleShareUrl = article.shareUrl
+                    
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.locale = Locale(identifier: "en")
+                    if let date = dateFormatter.date(from: article.date){
+                        print(dateFormatter.string(from: date))
+                    } else {
+                        print("There was an error decoding the string")
+                    }
+                    
+                    self.dateLabel.text = article.date
+                    self.descriptionLabel.text = article.description
+                    
+                    if BookmarkManager.isBookmark(article: article) {
+                        self.navigationBookmarkButton.image = UIImage(systemName: "bookmark.fill")
+                    }
+                    
+                    print(article)
+                case .failure(let error):
+                    let alertController = UIAlertController(title: "Network Error", message:
+                        error.localizedDescription, preferredStyle: .alert)
+                    alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+                    self.present(alertController, animated: true, completion: nil)
                 }
-                self.title = article.title
-                self.titleLabel.text = article.title
-                self.sectionLabel.text = article.section
-                self.descriptionLabel.text = article.description
-                self.articleShareUrl = article.shareUrl
-                
-                let dateFormatter = DateFormatter()
-                dateFormatter.locale = Locale(identifier: "en")
-                if let date = dateFormatter.date(from: article.date){
-                    print(dateFormatter.string(from: date))
-                } else {
-                    print("There was an error decoding the string")
-                }
-                
-                self.dateLabel.text = article.date
-                self.descriptionLabel.text = article.description
-                
-                print(article)
-            case .failure(let error):
-            let alertController = UIAlertController(title: "Network Error", message:
-                error.localizedDescription, preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
-            self.present(alertController, animated: true, completion: nil)
-            }
         })
-        
-        print("viewDidLoad")
-        print(articleId)
     }
     
     @IBAction func viewFullArticleTapped(_ sender: Any) {

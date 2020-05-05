@@ -13,11 +13,23 @@ class ArticleTableViewController: UITableViewController {
     
     var articles: [Article] = []
     var resultsTableController: ResultsTableViewController?
+    var lastSelectedIndexPath: IndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // , tableView.cellForRow(at: lastSelectedIndexPath)
+        if let lastSelectedIndexPath = self.lastSelectedIndexPath {
+            self.tableView.beginUpdates()
+            self.tableView.reloadRows(at: [lastSelectedIndexPath], with: .none)
+            self.tableView.endUpdates()
+        }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -65,7 +77,10 @@ class ArticleTableViewController: UITableViewController {
         self.tableView.beginUpdates()
         self.tableView.reloadRows(at: [IndexPath(row: sender.tag, section: 0)], with: .none)
         self.tableView.endUpdates()
-
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("prepare")
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -85,6 +100,7 @@ class ArticleTableViewController: UITableViewController {
 
             let articleSelected = articles[indexPath.row]
             let detailViewController = DetailViewController.detailViewControllerWithArticleId(articleSelected.id)
+            self.lastSelectedIndexPath = indexPath
             
             navigationController?.pushViewController(detailViewController, animated: true)
         }
@@ -102,6 +118,19 @@ class ArticleTableViewController: UITableViewController {
             }
             
             let bookmark = UIAction(title: "Bookmark", image: UIImage(systemName: "bookmark")) { action in
+                let currentArticle = self.articles[indexPath.row]
+                
+                if BookmarkManager.isBookmark(article: currentArticle) {
+                    BookmarkManager.removeBookmark(article: currentArticle)
+                    // TODO: Implement toast
+                } else {
+                    BookmarkManager.addBookmark(article: currentArticle)
+                    // TODO: Implement toast
+                }
+                
+                tableView.beginUpdates()
+                tableView.reloadRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .none)
+                tableView.endUpdates()
                 print("Bookmarked \(item)")
             }
 

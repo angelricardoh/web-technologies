@@ -99,7 +99,6 @@ extension HeadlinesViewController: UISearchResultsUpdating {
                 case .success(let suggestions):
                     self.resultsTableController?.suggestions = suggestions
                     self.resultsTableController?.tableView.reloadData()
-                    print(suggestions)
                 case .failure(let error):
                     print("Network Error: " + error.localizedDescription)
                 }

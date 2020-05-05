@@ -30,4 +30,8 @@ public struct Article: Codable, Equatable, JSONable {
         description = parameter["description"].stringValue
         shareUrl = parameter["shareUrl"].stringValue
     }
+    
+    public static func ==(lhs: Article, rhs: Article) -> Bool {
+        return lhs.id == rhs.id
+    }
 }

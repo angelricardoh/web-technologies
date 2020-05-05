@@ -97,7 +97,11 @@
                     <navigationItem key="navigationItem" id="Khw-fx-JNt">
                         <rightBarButtonItems>
                             <barButtonItem title="Item" image="twitter" id="SkG-oD-sRv"/>
-                            <barButtonItem title="Item" image="bookmark" catalog="system" id="j8I-So-ewE"/>
+                            <barButtonItem title="Item" image="bookmark" catalog="system" id="j8I-So-ewE">
+                                <connections>
+                                    <action selector="bookmarkTapped:" destination="nP2-XZ-H8S" id="gWS-75-MNk"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
@@ -105,6 +109,7 @@
                         <outlet property="articleImageView" destination="maM-Mu-RNH" id="oJq-tD-BDt"/>
                         <outlet property="dateLabel" destination="VpT-35-qfi" id="Jsh-zb-VnV"/>
                         <outlet property="descriptionLabel" destination="rcV-00-dsN" id="AZk-gq-tSx"/>
+                        <outlet property="navigationBookmarkButton" destination="j8I-So-ewE" id="qch-9I-Bnc"/>
                         <outlet property="sectionLabel" destination="QL8-xk-GLn" id="Iwa-jO-d59"/>
                         <outlet property="titleLabel" destination="uu8-wh-2i1" id="5qC-EL-T9G"/>
                     </connections>

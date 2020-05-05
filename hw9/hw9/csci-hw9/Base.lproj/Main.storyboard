@@ -305,6 +305,9 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Trending" image="trending-up" id="boM-AM-lJS"/>
                     <navigationItem key="navigationItem" title="Trending" id="k2X-sx-hI4"/>
+                    <connections>
+                        <outlet property="chartView" destination="HNd-Op-Kf8" id="zRd-9n-w5o"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y5b-SK-Vfi" sceneMemberID="firstResponder"/>
             </objects>

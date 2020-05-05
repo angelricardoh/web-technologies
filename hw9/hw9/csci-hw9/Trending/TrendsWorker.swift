@@ -41,17 +41,6 @@ struct TrendsWorker: trendsWorkerInterface {
                         trends.append(trend)
                     }
                 }
-                print(trends)
- 
-//                var articles: [Article] = []
-//                for article in data["articles"] {
-//                    guard let currentArticle = Article(parameter: article.1) else {
-//                        let error = JSONParseError(title: "JSON Parsing Error", description: "Error while parsing: " + article.1.stringValue, code: 0)
-//                        searchCompletion(.failure(error: error))
-//                        return
-//                    }
-//                    articles.append(currentArticle)
-//                }
                 
                 trendsCompletion(.success(trends: trends))
                 return

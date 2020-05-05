@@ -19,6 +19,9 @@ class ArticleTableViewController: UITableViewController {
         super.viewDidLoad()
         
         navigationController?.navigationBar.prefersLargeTitles = true
+        
+        let nib = UINib(nibName: "NewsTableViewCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: "newsCell")
     }
     
     override func viewWillAppear(_ animated: Bool) {

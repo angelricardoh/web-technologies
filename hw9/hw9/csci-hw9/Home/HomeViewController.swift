@@ -43,9 +43,6 @@ class HomeViewController: ArticleTableViewController, CLLocationManagerDelegate 
 
         SwiftSpinner.show("Loading Home Page..")
         
-        let nib = UINib(nibName: "NewsTableViewCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "newsCell")
-        
         tableView.tableHeaderView = WeatherView(frame: CGRect(x: 0, y: 0, width: 414, height: 120))
                 
         // TODO: Uncomment this section for production

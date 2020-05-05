@@ -30,9 +30,6 @@ class SearchResultsViewController: ArticleTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.navigationBar.prefersLargeTitles = true
-        title = "Search Results"
-        
         let nib = UINib(nibName: "NewsTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "newsCell")
         

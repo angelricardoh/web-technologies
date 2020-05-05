@@ -39,11 +39,6 @@ class HeadlinesViewController: ButtonBarPagerTabStripViewController {
             // This view controller is interested in table view row selections.
             resultsTableController?.tableView.delegate = self
         
-        let BarButtonItemAppearance = UIBarButtonItem.appearance()
-        BarButtonItemAppearance.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: .normal)
-        navigationController?.navigationBar.prefersLargeTitles = true
-        title = "Headlines"
-        
         let searchController = UISearchController(searchResultsController: self.resultsTableController)
         navigationItem.searchController = searchController
         searchController.searchResultsUpdater = self

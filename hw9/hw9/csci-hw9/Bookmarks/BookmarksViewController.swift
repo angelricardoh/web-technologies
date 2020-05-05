@@ -15,7 +15,7 @@ class BookmarksViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Bookmarks"
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     override func viewWillAppear(_ animated: Bool) {

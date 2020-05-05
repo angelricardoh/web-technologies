@@ -26,10 +26,7 @@ class HomeViewController: ArticleTableViewController, CLLocationManagerDelegate 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        title = "Home"
-        navigationController?.navigationBar.prefersLargeTitles = true
-                
+                        
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(refreshNewsHomeData), for: .valueChanged)
         

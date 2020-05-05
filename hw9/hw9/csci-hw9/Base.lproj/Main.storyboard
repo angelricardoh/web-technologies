@@ -113,7 +113,7 @@
             </objects>
             <point key="canvasLocation" x="2494" y="-328"/>
         </scene>
-        <!--Home View Controller-->
+        <!--Home-->
         <scene sceneID="yCM-8w-2UB">
             <objects>
                 <tableViewController id="Q7U-HX-aKm" customClass="HomeViewController" customModule="csci_hw9" customModuleProvider="target" sceneMemberID="viewController">
@@ -125,7 +125,7 @@
                             <outlet property="delegate" destination="Q7U-HX-aKm" id="MkX-Av-xiu"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="ZYf-ok-5kx"/>
+                    <navigationItem key="navigationItem" title="Home" id="ZYf-ok-5kx"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dak-YT-PaQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

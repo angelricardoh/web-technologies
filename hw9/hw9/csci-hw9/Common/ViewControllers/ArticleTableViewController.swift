@@ -13,6 +13,12 @@ class ArticleTableViewController: UITableViewController {
     
     var articles: [Article] = []
     var resultsTableController: ResultsTableViewController?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // show all rows depending on how many videos we receive
@@ -26,6 +32,8 @@ class ArticleTableViewController: UITableViewController {
         customCell?.titleLabel.text = articles[indexPath.row].title
         customCell?.timeAgoLabel.text = articles[indexPath.row].date
         customCell?.sectionLabel.text = "| " + articles[indexPath.row].section
+//        customCell?.bookmarkButton.addTarget(self, action: <#T##Selector#>, for: <#T##UIControl.Event#>)
+        
         guard let imageUrl = URL(string: articles[indexPath.row].image) else {
             let alertController = UIAlertController(title: "Image download Error", message:
                 "Error downloading image with url: " + articles[indexPath.row].image, preferredStyle: .alert)

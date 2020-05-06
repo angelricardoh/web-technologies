@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftSpinner
+import Social
 
 class ArticleTableViewController: UITableViewController {
     
@@ -64,8 +65,6 @@ class ArticleTableViewController: UITableViewController {
             alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
             return customCell!
         }
-//        customCell?.articleImageView?.image = UIImage(named: "default-guardian")
-//        customCell?.articleImageView?.sd_setImage(with: imageUrl, completed: nil)
 
         customCell?.articleImageView?.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "default-guardian"), completed: nil)
         
@@ -117,12 +116,17 @@ class ArticleTableViewController: UITableViewController {
     
     // Context menu
     override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        let item = articles[indexPath.row]
+        let currentArticle = articles[indexPath.row]
 
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
             
-            let share = UIAction(title: "Share with Twitter", image: UIImage(named: "twitter")) { action in
-                print("Sharing \(item)")
+            let share = UIAction(title: "Share with Twitter", image: UIImage(named: "twitter")) { action in                
+                let articleShareUrl = "https://twitter.com/intent/tweet?text=Check+out+this+Article!&url=" + currentArticle.shareUrl + "&hashtags=CSCI_571_NewsApp"
+                if let url = URL(string: articleShareUrl) {
+                   UIApplication.shared.open(url)
+                }
+                
+                print("Sharing \(currentArticle)")
             }
             
             let bookmark = UIAction(title: "Bookmark", image: UIImage(systemName: "bookmark")) { action in
@@ -139,7 +143,7 @@ class ArticleTableViewController: UITableViewController {
                 tableView.beginUpdates()
                 tableView.reloadRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .none)
                 tableView.endUpdates()
-                print("Bookmarked \(item)")
+                print("Bookmarked \(currentArticle)")
             }
 
             return UIMenu(title: "Menu", children: [share, bookmark])

@@ -54,8 +54,6 @@ class BookmarksViewController: UICollectionViewController {
         
         articles.remove(at: sender.tag)
         self.collectionView.reloadData()
-//        let currentCell = self.collectionView.cellForItem(at: IndexPath(row: sender.tag, section: 0))
-//        currentCell?.removeFromSuperview()
     }
 }
 
@@ -89,7 +87,7 @@ extension BookmarksViewController {
             alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
             return customCell!
         }
-        customCell?.articleImageView?.sd_setImage(with: imageUrl, completed: nil)
+          customCell?.articleImageView?.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "default-guardian"), completed: nil)
         
         return customCell!
     }

@@ -96,7 +96,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="Khw-fx-JNt">
                         <rightBarButtonItems>
-                            <barButtonItem title="Item" image="twitter" id="SkG-oD-sRv"/>
+                            <barButtonItem title="Item" image="twitter" id="SkG-oD-sRv">
+                                <connections>
+                                    <action selector="tweetTapped:" destination="nP2-XZ-H8S" id="wC2-d4-JD4"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem title="Item" image="bookmark" catalog="system" id="j8I-So-ewE">
                                 <connections>
                                     <action selector="bookmarkTapped:" destination="nP2-XZ-H8S" id="gWS-75-MNk"/>
@@ -300,14 +304,11 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="bYe-kJ-xUi">
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="bYe-kJ-xUi">
                                             <rect key="frame" x="8" y="254" width="184" height="24"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gtp-og-rt9">
                                                     <rect key="frame" x="0.0" y="0.0" width="32" height="24"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="37.5" id="jmd-I9-H5D"/>
-                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>

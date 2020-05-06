@@ -53,9 +53,6 @@ class DetailViewController: UIViewController {
         }
     }
     
-    func setupNavigation() {
-    }
-    
     @IBAction func bookmarkTapped(_ sender: Any) {
         guard let article = self.article else {
             let alertController = UIAlertController(title: "Logical Error", message:
@@ -74,6 +71,21 @@ class DetailViewController: UIViewController {
             self.navigationBookmarkButton.image = UIImage(systemName: "bookmark.fill")
             // TODO: Implement toast
         }
+    }
+    
+    @IBAction func tweetTapped(_ sender: Any) {
+        guard let article = self.article else {
+            let alertController = UIAlertController(title: "Share Error", message:
+                "Not able to get url info to share article", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+            self.present(alertController, animated: true, completion: nil)
+            return
+        }
+        let articleShareUrl = "https://twitter.com/intent/tweet?text=Check+out+this+Article!&url=" + article.shareUrl + "&hashtags=CSCI_571_NewsApp"
+        if let url = URL(string: articleShareUrl) {
+            UIApplication.shared.open(url)
+        }
+        
     }
     
     func fetchArticleDetail() {
@@ -98,7 +110,6 @@ class DetailViewController: UIViewController {
                     self.titleLabel.text = article.title
                     self.sectionLabel.text = article.section
                     self.descriptionLabel.text = article.description
-                    self.articleShareUrl = article.shareUrl
                     
                     let dateFormatter = DateFormatter()
                     dateFormatter.locale = Locale(identifier: "en")
@@ -115,7 +126,6 @@ class DetailViewController: UIViewController {
                         self.navigationBookmarkButton.image = UIImage(systemName: "bookmark.fill")
                     }
                     
-                    print(article)
                 case .failure(let error):
                     let alertController = UIAlertController(title: "Network Error", message:
                         error.localizedDescription, preferredStyle: .alert)

@@ -308,6 +308,7 @@ function parseGuardianData(response, block) {
       image: image,
       section: section,
       date: date,
+      shareUrl: shareUrl,
       timeSince: timeSinceString
     };
     if (block) {

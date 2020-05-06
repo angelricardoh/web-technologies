@@ -48,9 +48,7 @@ class HomeViewController: ArticleTableViewController {
         SwiftSpinner.show("Loading Home Page..")
         
         tableView.tableHeaderView = weatherView
-                
-        // TODO: Uncomment this section for production
-        
+                        
         refreshNewsHomeData()
     }
     

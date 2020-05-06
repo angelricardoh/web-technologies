@@ -12,7 +12,6 @@ import SwiftSpinner
 
 class DetailViewController: UIViewController {
     var articleId:String? = nil
-    var articleShareUrl:String? = nil
     let articleDetailWorker: ArticleDetailWorker = ArticleDetailWorker()
     var article:Article? = nil
     @IBOutlet weak var navigationBookmarkButton: UIBarButtonItem!
@@ -64,8 +63,7 @@ class DetailViewController: UIViewController {
         
         if BookmarkManager.isBookmark(article: article) {
             BookmarkManager.removeBookmark(article: article)
-            self.navigationBookmarkButton.image = UIImage(systemName: "bookmark")
-        } else {
+            self.navigationBookmarkButton.image = UIImage(systemName: "bookmark")        } else {
             BookmarkManager.addBookmark(article: article)
             self.navigationBookmarkButton.image = UIImage(systemName: "bookmark.fill")
         }
@@ -107,7 +105,38 @@ class DetailViewController: UIViewController {
                     self.title = article.title
                     self.titleLabel.text = article.title
                     self.sectionLabel.text = article.section
-                    self.descriptionLabel.text = article.description
+                    print(article.description)
+                    
+
+                    do {
+                        guard let encodedData = article.description.data(using: String.Encoding.unicode) else {
+                            let alertController = UIAlertController(title: "Logical Error", message:
+                                "Unable to add attribute to String", preferredStyle: .alert)
+                            alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+                            self.present(alertController, animated: true, completion: nil)
+                            
+                            let attributedString = NSAttributedString(string: article.description)
+                            self.descriptionLabel.attributedText = attributedString
+                            
+                            return
+                        }
+                        let attributedString = try NSAttributedString(
+                            data:encodedData,
+                            options: [.documentType: NSAttributedString.DocumentType.html],
+                            documentAttributes: nil)
+                        self.descriptionLabel.attributedText = attributedString
+                        
+                        let systemFont = UIFont.systemFont(ofSize: 16)
+                        self.descriptionLabel.font = systemFont
+                    } catch {
+                        let alertController = UIAlertController(title: "Logical Error", message:
+                            "Unable to add attribute to String", preferredStyle: .alert)
+                        alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+                        self.present(alertController, animated: true, completion: nil)
+                        
+                        let attributedString = NSAttributedString(string: article.description)
+                        self.descriptionLabel.attributedText = attributedString
+                    }
                     
                     let dateFormatter = DateFormatter()
                     dateFormatter.locale = Locale(identifier: "en")
@@ -118,7 +147,6 @@ class DetailViewController: UIViewController {
                     }
                     
                     self.dateLabel.text = article.date
-                    self.descriptionLabel.text = article.description
                     
                     if BookmarkManager.isBookmark(article: article) {
                         self.navigationBookmarkButton.image = UIImage(systemName: "bookmark.fill")
@@ -134,7 +162,7 @@ class DetailViewController: UIViewController {
     }
     
     @IBAction func viewFullArticleTapped(_ sender: Any) {
-        if let articleShareUrl = self.articleShareUrl, let url = URL(string: articleShareUrl) {
+        if let articleShareUrl = self.article?.shareUrl, let url = URL(string: articleShareUrl) {
             UIApplication.shared.open(url)
          } else {
              let alertController = UIAlertController(title: "Network Error", message:

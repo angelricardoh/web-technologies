@@ -177,7 +177,7 @@ application.get("/article_detail", async function(req, res) {
     date = toLocaleFormat(date);
 
     let body = blocks.body[0];
-    let description = body.bodyTextSummary;
+    let description = body.bodyHtml;
 
     let section = content.sectionName
 

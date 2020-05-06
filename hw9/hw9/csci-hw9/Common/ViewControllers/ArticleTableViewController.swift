@@ -47,7 +47,7 @@ class ArticleTableViewController: UITableViewController {
         let customCell = tableView.dequeueReusableCell(withIdentifier: "newsCell", for: indexPath) as? NewsTableViewCell
         
         customCell?.titleLabel.text = articles[indexPath.row].title
-        customCell?.timeAgoLabel.text = articles[indexPath.row].date
+        customCell?.timeAgoLabel.text = articles[indexPath.row].timeSince
         customCell?.sectionLabel.text = "| " + articles[indexPath.row].section
         
         if BookmarkManager.isBookmark(article: articles[indexPath.row]) {

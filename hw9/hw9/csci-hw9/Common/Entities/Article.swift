@@ -15,6 +15,7 @@ public struct Article: Codable, Equatable, JSONable {
     var image: String
     var section: String
     var date: String
+    var timeSince: String
     var description: String
     var shareUrl: String
     
@@ -27,6 +28,7 @@ public struct Article: Codable, Equatable, JSONable {
         }
         section = parameter["section"].stringValue
         date = parameter["date"].stringValue
+        timeSince = parameter["timeSince"].stringValue
         description = parameter["description"].stringValue
         shareUrl = parameter["shareUrl"].stringValue
     }

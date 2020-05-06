@@ -16,7 +16,6 @@ function getGuardianArticles(req) {
   return new Promise(resolve => {
     let section = req.query.section;
    
-    console.log(section)
     let url = null
     if (section == 'undefined' || section == null) {
       url = "https://content.guardianapis.com/search?orderby=newest&show-" + 
@@ -108,7 +107,7 @@ function getTrendsResults(req) {
       resolve(trends);
     })
     .catch(function(error) {
-        // console.log(error);
+        console.log(error);
         throw error;
     });
   });
@@ -123,9 +122,9 @@ application.get("/guardian_news", async function(req, res) {
 
     let articles = null
     if (section == 'undefined' || section == null) {
-      articles = getGuardianFieldsData(response)
+      articles = parseGuardianData(response, false)
     } else {
-      articles = getGuardianBlocksData(response)
+      articles = parseGuardianData(response, true)
     }
 
     let articles_json = {
@@ -174,22 +173,8 @@ application.get("/article_detail", async function(req, res) {
 
     let dateString = content.webPublicationDate;
 
-    Date.prototype.toLocaleFormat = function() {
-
-      let month_names =["Jan","Feb","Mar",
-                        "Apr","May","Jun",
-                        "Jul","Aug","Sep",
-                        "Oct","Nov","Dec"];
-      
-      
-      let day = ("0" + date.getDate()).slice(-2);
-      var month_index = this.getMonth();
-      var year = this.getFullYear();
-      
-      return "" + day + " " + month_names[month_index] + " " + year;
-    }
     let date = new Date(dateString);
-    date = date.toLocaleFormat();
+    date = toLocaleFormat(date);
 
     let body = blocks.body[0];
     let description = body.bodyTextSummary;
@@ -227,7 +212,7 @@ application.get('/search', async function(req, res) {
     let articles = []
     let wrappedResponse = await getSearchResults(req)
     let response = wrappedResponse.response
-    articles = getGuardianBlocksData(response)
+    articles = parseGuardianData(response, block=true)
 
     let articles_json = {
       articles
@@ -252,73 +237,7 @@ application.get("/trends", async function(req, res) {
   }
 });
 
-function getGuardianBlocksData(response) {
-  let articles = [];
-
-  for (let index in response.results) {
-    let currentResult = response.results[index];
-    let title = currentResult.webTitle;
-    let id = currentResult.id;
-
-    let blocks = currentResult.blocks;
-    let main = blocks.main;
-    if (typeof main === 'undefined'){
-      continue
-    }
-    let elements = main.elements;
-    let image = "";
-    if (typeof elements === "undefined" || elements[0].type !== "image") {
-      image =
-          "https://assets.guim.co.uk/images/eada8aa27c12fe2d5afa3a89d3fbae0d/fallback-logo.png";
-    } else {
-      let assets = elements[0].assets;
-      let lastIndexedAsset = assets.length - 1;
-      image = assets[lastIndexedAsset].file;
-      if (typeof image === "undefined" || image == null || image == "") {
-        image =
-            "https://assets.guim.co.uk/images/eada8aa27c12fe2d5afa3a89d3fbae0d/fallback-logo.png";
-      }
-    }
-
-    let section = currentResult.sectionId;
-    if (section === 'sport') {
-      section = 'sports'
-    }
-
-    let dateString = currentResult.webPublicationDate;
-    let date = formatShortDate(new Date(dateString));
-
-    let shareUrl = currentResult.webUrl;
-
-    let body = blocks.body[0];
-    let description = body.bodyTextSummary;
-
-    if (typeof id === 'undefined' || id === null || id.length == 0 ||
-        typeof title === 'undefined' || title === null || title.length == 0 ||
-        typeof image === 'undefined' || image === null || image.length == 0 ||
-        typeof section === 'undefined' || section === null || section.length == 0 ||
-        typeof date === 'undefined' || date === null || date.length == 0 ||
-        typeof description === 'undefined' || description === null || description.length == 0 ||
-        typeof shareUrl === 'undefined' || shareUrl === null || shareUrl.length == 0){
-      continue
-    }
-
-    let article = {
-      id: id,
-      index: index,
-      title: title,
-      image: image,
-      section: section,
-      date: date,
-      description: description,
-      shareUrl: shareUrl
-    };
-    articles.push(article);
-  }
-  return articles
-}
-
-function getGuardianFieldsData(response) {
+function parseGuardianData(response, block) {
   let articles = [];
 
   for (let index in response.results) {
@@ -327,21 +246,60 @@ function getGuardianFieldsData(response) {
     let id = currentResult.id;
 
     let section = currentResult.sectionName;
-    // if (section === 'sport') {
-    //   section = 'sports'
-    // }
-
-    let image = currentResult.fields.thumbnail;
+    if (section === 'sport') {
+      section = 'sports'
+    }
 
     let dateString = currentResult.webPublicationDate;
-    let date = timeSince(new Date(dateString));
+    let date = new Date(dateString)
+    date = toLocaleFormat(date)
+    let timeSinceString = timeSince(new Date(dateString));
+
+    let shareUrl = currentResult.webUrl;
 
     if (typeof id === 'undefined' || id === null || id.length == 0 ||
         typeof title === 'undefined' || title === null || title.length == 0 ||
-        typeof image === 'undefined' || image === null || image.length == 0 ||
         typeof section === 'undefined' || section === null || section.length == 0 ||
-        typeof date === 'undefined' || date === null || date.length == 0) {
+        typeof date === 'undefined' || date === null || date.length == 0 ||
+        typeof shareUrl === 'undefined' || shareUrl === null || shareUrl.length == 0){
       continue
+    }
+
+    let image, description = null;
+    if (block) {
+      let blocks = currentResult.blocks;
+      let main = blocks.main;
+      if (typeof main === 'undefined'){
+        continue
+      }
+      let elements = main.elements;
+      if (typeof elements === "undefined" || elements[0].type !== "image") {
+        image =
+            "https://assets.guim.co.uk/images/eada8aa27c12fe2d5afa3a89d3fbae0d/fallback-logo.png";
+      } else {
+        let assets = elements[0].assets;
+        let lastIndexedAsset = assets.length - 1;
+        image = assets[lastIndexedAsset].file;
+        if (typeof image === "undefined" || image == null || image == "") {
+          image =
+              "https://assets.guim.co.uk/images/eada8aa27c12fe2d5afa3a89d3fbae0d/fallback-logo.png";
+        }
+      }
+
+      let body = blocks.body[0];
+      description = body.bodyTextSummary;
+
+      if (typeof image === 'undefined' || image === null || image.length == 0 ||
+        typeof description === 'undefined' || description === null || description.length == 0) {
+        continue
+      }
+    } else {
+
+      image = currentResult.fields.thumbnail;
+
+      if (typeof image === 'undefined' || image === null || image.length == 0) {
+        continue
+      }
     }
 
     let article = {
@@ -350,10 +308,28 @@ function getGuardianFieldsData(response) {
       image: image,
       section: section,
       date: date,
+      timeSince: timeSinceString
     };
+    if (block) {
+      article.description = description
+    }
+
     articles.push(article);
   }
   return articles
+}
+
+function toLocaleFormat(date) {
+  let month_names =["Jan","Feb","Mar",
+                    "Apr","May","Jun",
+                    "Jul","Aug","Sep",
+                    "Oct","Nov","Dec"];
+  
+  let day = ("0" + date.getDate()).slice(-2);
+  var month_index = date.getMonth();
+  var year = date.getFullYear();
+  
+  return "" + day + " " + month_names[month_index] + " " + year;
 }
 
 function formatShortDate(date, detail = false) {

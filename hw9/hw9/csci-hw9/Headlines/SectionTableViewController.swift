@@ -24,17 +24,15 @@ class SectionTableViewController: ArticleTableViewController, IndicatorInfoProvi
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        if let title = indicatorInfo.title {
-            SwiftSpinner.show("Loading \(title) Headlines..")
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Something
         let nib = UINib(nibName: "NewsTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "newsCell")
+        
+        if let title = indicatorInfo.title {
+            SwiftSpinner.show("Loading \(title) Headlines..")
+        }
         
         guard self.section != nil else {
             let alertController = UIAlertController(title: "Logical Error", message:

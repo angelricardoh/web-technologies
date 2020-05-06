@@ -37,7 +37,6 @@ class HomeViewController: ArticleTableViewController, CLLocationManagerDelegate 
         
         let searchController = UISearchController(searchResultsController: self.resultsTableController)
         navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false
 
         searchController.searchResultsUpdater = self
 

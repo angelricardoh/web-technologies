@@ -282,26 +282,26 @@
                         </label>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="newsCollectionCell" id="8gp-lA-dPE" customClass="NewsCollectionViewCell" customModule="csci_hw9" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="177" height="288"/>
+                                <rect key="frame" x="0.0" y="0.0" width="200" height="288"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Lx2-nl-hqo">
-                                    <rect key="frame" x="0.0" y="0.0" width="177" height="288"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="200" height="288"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="G3J-Nn-fYz">
-                                            <rect key="frame" x="0.0" y="0.0" width="177" height="166"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="200" height="166"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="166" id="bbM-yk-ECy"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FdQ-1e-pbS">
-                                            <rect key="frame" x="8" y="174" width="161" height="72"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FdQ-1e-pbS">
+                                            <rect key="frame" x="8" y="174" width="184" height="72"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="bYe-kJ-xUi">
-                                            <rect key="frame" x="8" y="254" width="161" height="24"/>
+                                            <rect key="frame" x="8" y="254" width="184" height="24"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gtp-og-rt9">
                                                     <rect key="frame" x="0.0" y="0.0" width="37.5" height="24"/>
@@ -313,13 +313,13 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="| Section" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AoY-Qo-cMS">
-                                                    <rect key="frame" x="54.5" y="0.0" width="67.5" height="24"/>
+                                                    <rect key="frame" x="66" y="0.0" width="67.5" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="94r-pV-895">
-                                                    <rect key="frame" x="139" y="0.0" width="22" height="24"/>
+                                                    <rect key="frame" x="162" y="0.0" width="22" height="24"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="22" id="6PT-Zr-L29"/>
                                                         <constraint firstAttribute="height" constant="24" id="art-rJ-97O"/>
@@ -332,6 +332,7 @@
                                             </constraints>
                                         </stackView>
                                     </subviews>
+                                    <color key="backgroundColor" red="0.93725490199999995" green="0.92941176469999998" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="bYe-kJ-xUi" secondAttribute="bottom" constant="10" id="0Yt-gk-Gl7"/>
                                         <constraint firstAttribute="trailing" secondItem="FdQ-1e-pbS" secondAttribute="trailing" constant="8" id="6Bh-0H-ZiH"/>
@@ -345,7 +346,7 @@
                                         <constraint firstAttribute="trailing" secondItem="G3J-Nn-fYz" secondAttribute="trailing" id="v5w-dC-Kil"/>
                                     </constraints>
                                 </collectionViewCellContentView>
-                                <size key="customSize" width="177" height="288"/>
+                                <size key="customSize" width="200" height="288"/>
                                 <connections>
                                     <outlet property="articleImageView" destination="G3J-Nn-fYz" id="XDs-zL-MHq"/>
                                     <outlet property="bookmarkButton" destination="94r-pV-895" id="h0S-Wl-Jsa"/>

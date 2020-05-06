@@ -19,7 +19,8 @@ class ArticleTableViewController: UITableViewController {
         super.viewDidLoad()
         
         navigationController?.navigationBar.prefersLargeTitles = true
-        
+        navigationItem.hidesSearchBarWhenScrolling = false
+                
         let nib = UINib(nibName: "NewsTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "newsCell")
     }
@@ -27,7 +28,8 @@ class ArticleTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // , tableView.cellForRow(at: lastSelectedIndexPath)
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
         if let lastSelectedIndexPath = self.lastSelectedIndexPath {
             self.tableView.beginUpdates()
             self.tableView.reloadRows(at: [lastSelectedIndexPath], with: .none)
@@ -62,7 +64,10 @@ class ArticleTableViewController: UITableViewController {
             alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
             return customCell!
         }
-        customCell?.articleImageView?.sd_setImage(with: imageUrl, completed: nil)
+//        customCell?.articleImageView?.image = UIImage(named: "default-guardian")
+//        customCell?.articleImageView?.sd_setImage(with: imageUrl, completed: nil)
+
+        customCell?.articleImageView?.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "default-guardian"), completed: nil)
         
         return customCell!
     }

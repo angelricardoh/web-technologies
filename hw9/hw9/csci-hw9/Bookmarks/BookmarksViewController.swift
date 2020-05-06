@@ -11,27 +11,28 @@ import SwiftSpinner
 
 class BookmarksViewController: UICollectionViewController {
 
-    private let sectionInsets = UIEdgeInsets(top: 50.0,
-                                             left: 1.0,
-                                             bottom: 50.0,
-                                             right: 1.0)
+    private let sectionInsets = UIEdgeInsets(top: 2.0,
+                                             left: 12.0,
+                                             bottom: 2.0,
+                                             right: 12.0)
     
     @IBOutlet weak var nobookmarksLabel: UILabel!
     var articles: [Article] = []
     var lastSelectedIndexPath: IndexPath?
+    private let itemsPerRow: CGFloat = 2
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationController?.navigationBar.prefersLargeTitles = true
-        
+                
         let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
+//        layout.scrollDirection = .vertical
         collectionView.setCollectionViewLayout(layout, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
         
         print(BookmarkManager.getAllObjects)
         
@@ -51,7 +52,10 @@ class BookmarksViewController: UICollectionViewController {
         BookmarkManager.removeBookmark(article: currentArticle)
         // TODO: Implement toast
         
-        self.collectionView.reloadItems(at: [IndexPath(row: sender.tag, section: 0)])
+        articles.remove(at: sender.tag)
+        self.collectionView.reloadData()
+//        let currentCell = self.collectionView.cellForItem(at: IndexPath(row: sender.tag, section: 0))
+//        currentCell?.removeFromSuperview()
     }
 }
 
@@ -107,19 +111,23 @@ extension BookmarksViewController : UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return CGSize(width: 200, height: 288)
+        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
+        let availableWidth = view.frame.width - paddingSpace
+        let widthPerItem = availableWidth / itemsPerRow
+        
+        return CGSize(width: widthPerItem, height: 288)
     }
     
     func collectionView(_ collectionView: UICollectionView,
                             layout collectionViewLayout: UICollectionViewLayout,
                             minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-            return 1.0
+            return 5.0
         }
 
         func collectionView(_ collectionView: UICollectionView, layout
             collectionViewLayout: UICollectionViewLayout,
                             minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-            return 1.0
+            return sectionInsets.left
         }
     
     func collectionView(_ collectionView: UICollectionView,

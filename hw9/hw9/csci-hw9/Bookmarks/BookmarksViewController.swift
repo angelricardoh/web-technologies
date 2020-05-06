@@ -53,7 +53,6 @@ class BookmarksViewController: UICollectionViewController {
         let currentArticle = articles[sender.tag]
         
         BookmarkManager.removeBookmark(article: currentArticle)
-        // TODO: Implement toast
         
         articles.remove(at: sender.tag)
         self.collectionView.reloadData()

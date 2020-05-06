@@ -9,7 +9,7 @@
 import Foundation
 
 protocol WeatherHomeWorkerInterface {
-    func fetchWeatherHomeInformation(weatherCompletion: @escaping WeatherResultHandler)
+    func fetchWeatherHomeInformation(locality: String, weatherCompletion: @escaping WeatherResultHandler)
 }
 
 public enum WeatherResult {
@@ -21,13 +21,17 @@ public typealias WeatherResultHandler = (_ result: WeatherResult) -> Void
 
 struct WeatherHomeWorker: WeatherHomeWorkerInterface {
     
-    private struct Constants {
-        static let fetchWeatherHomeURLString = "https://api.openweathermap.org/data/2.5/weather?q=Los%20Angeles&units=metric&appid=1ed0a3e755b2479efed8d79834376a46"
+    func weatherHomeURLString(city: String = "Los Angeles") -> String {
+        let encodedCity = city.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed) ?? "Los%20Angeles"
+        return "https://api.openweathermap.org/data/2.5/weather?q=" + encodedCity +
+                "&units=metric&appid=" + AppConstants.openWeatherMapsKey
     }
     
-    func fetchWeatherHomeInformation(weatherCompletion: @escaping WeatherResultHandler) {
+    func fetchWeatherHomeInformation(locality: String, weatherCompletion: @escaping WeatherResultHandler) {
+        print(locality)
         let manager = NetworkManager()
-        let weatherAPIURL = URL(string: Constants.fetchWeatherHomeURLString)
+        let weatherAPIURL = URL(string: weatherHomeURLString(city: locality))
+        print(weatherHomeURLString(city: locality))
         manager.loadData(from: weatherAPIURL!, completionHandler: {(completion) in
             switch completion {
             case .success(let data):

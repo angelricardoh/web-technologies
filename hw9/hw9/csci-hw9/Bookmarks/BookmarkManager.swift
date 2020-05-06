@@ -70,8 +70,6 @@ class BookmarkManager {
             while let presentedViewController = topController.presentedViewController {
                 topController = presentedViewController
             }
-            var customStylePosition = ToastStyle()
-            customStylePosition.verticalPadding = 100
             let customPoint = CGPoint(x: topController.view.bounds.size.width / 2.0, y: (topController.view.bounds.size.height - 125))
             topController.view.makeToast(message, duration: 3.0, point: customPoint, title: nil, image: nil, completion: nil)
         }

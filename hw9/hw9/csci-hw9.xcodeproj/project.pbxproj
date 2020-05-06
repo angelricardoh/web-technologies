@@ -41,6 +41,7 @@
 		3DE720C8244CEFF500A87148 /* BookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE720C7244CEFF500A87148 /* BookmarksViewController.swift */; };
 		3DF5AEE02461089F00154976 /* BookmarkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF5AEDF2461089F00154976 /* BookmarkManager.swift */; };
 		3DF5AEE22461D90C00154976 /* NewsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF5AEE12461D90C00154976 /* NewsCollectionViewCell.swift */; };
+		3DF5AEE72462894000154976 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF5AEE62462894000154976 /* Utils.swift */; };
 		3DF885E8245FA6D6005AC002 /* SectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF885E7245FA6D6005AC002 /* SectionTableViewController.swift */; };
 		3DFA67B8245D24DC00803B24 /* IntrinsicTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA67B7245D24DC00803B24 /* IntrinsicTableView.swift */; };
 		3DFA67BD245D288D00803B24 /* WeatherWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA67BC245D288D00803B24 /* WeatherWorker.swift */; };
@@ -108,6 +109,7 @@
 		3DE720C7244CEFF500A87148 /* BookmarksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewController.swift; sourceTree = "<group>"; };
 		3DF5AEDF2461089F00154976 /* BookmarkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkManager.swift; sourceTree = "<group>"; };
 		3DF5AEE12461D90C00154976 /* NewsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCollectionViewCell.swift; sourceTree = "<group>"; };
+		3DF5AEE62462894000154976 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		3DF885E7245FA6D6005AC002 /* SectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTableViewController.swift; sourceTree = "<group>"; };
 		3DFA67B7245D24DC00803B24 /* IntrinsicTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrinsicTableView.swift; sourceTree = "<group>"; };
 		3DFA67BC245D288D00803B24 /* WeatherWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherWorker.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				3DF885EE245FA86F005AC002 /* Entities */,
 				3D730AD7245F4C310099E66C /* AppConstants.swift */,
 				3DFA67BE245D2B9800803B24 /* JSONParseError.swift */,
+				3DF5AEE62462894000154976 /* Utils.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -537,6 +540,7 @@
 				3D1EC75B24552F9E00CC3D49 /* NewsTableViewCell.swift in Sources */,
 				3DF5AEE22461D90C00154976 /* NewsCollectionViewCell.swift in Sources */,
 				3D27A0272460CCA500E5FEDC /* JSONable.swift in Sources */,
+				3DF5AEE72462894000154976 /* Utils.swift in Sources */,
 				3DE720C6244CEFE300A87148 /* TrendingViewController.swift in Sources */,
 				3D730AD0245E85530099E66C /* ArticleDetailWorker.swift in Sources */,
 				3D1EC79F2455F2A700CC3D49 /* NewsArticleWorker.swift in Sources */,

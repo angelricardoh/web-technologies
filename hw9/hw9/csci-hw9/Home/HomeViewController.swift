@@ -11,21 +11,26 @@ import SDWebImage
 import CoreLocation
 import SwiftSpinner
 
-class HomeViewController: ArticleTableViewController, CLLocationManagerDelegate {
+class HomeViewController: ArticleTableViewController {
         
+    let locationManager = CLLocationManager()
     let worker: NewsWorker = NewsWorker()
     let weatherWorker: WeatherHomeWorker = WeatherHomeWorker()
+    let weatherView = WeatherView(frame: CGRect(x: 0, y: 0, width: 414, height: 120))
     
-    func locationManager(_ manager: CLLocationManager,  didUpdateLocations locations: [CLLocation]) {
-        let lastLocation = locations.last!
-                   
-        print(lastLocation)
-    }
-
     @IBOutlet weak var newsTableView: IntrinsicTableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        // after showing the permission dialog, the program will continue executing the next line before the user has tap 'Allow' or 'Disallow'
+        
+        // if previously user has allowed the location permission, then request location
+        if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways){
+            locationManager.requestLocation()
+        }
                         
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(refreshNewsHomeData), for: .valueChanged)
@@ -42,25 +47,30 @@ class HomeViewController: ArticleTableViewController, CLLocationManagerDelegate 
 
         SwiftSpinner.show("Loading Home Page..")
         
-        tableView.tableHeaderView = WeatherView(frame: CGRect(x: 0, y: 0, width: 414, height: 120))
+        tableView.tableHeaderView = weatherView
                 
         // TODO: Uncomment this section for production
-//        weatherWorker.fetchWeatherHomeInformation(weatherCompletion: {(completion) in
-//            switch completion {
-//            case .success(let weather):
-//                self.weatherView.tempLabel.text = "\(weather.temp) ºC"
-//                self.weatherView.summaryLabel.text = weather.summary
-//                print(weather.image)
-//                self.weatherView.backgroundImageView?.image = UIImage(named: weather.image + ".jpg")
-//                case .failure(let error):
-//                let alertController = UIAlertController(title: "Network Error", message:
-//                    error.localizedDescription, preferredStyle: .alert)
-//                alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
-//                self.present(alertController, animated: true, completion: nil)
-//            }
-//        })
         
         refreshNewsHomeData()
+    }
+    
+    func fetchWeather(for locality: String, state: String) {
+        weatherWorker.fetchWeatherHomeInformation(locality: locality, weatherCompletion: {(completion) in
+            switch completion {
+            case .success(let weather):
+                self.weatherView.tempLabel.text = "\(weather.temp) ºC"
+                self.weatherView.summaryLabel.text = weather.summary
+                self.weatherView.cityLabel.text = locality
+                self.weatherView.stateLabel.text = state
+                print(weather.image)
+                self.weatherView.backgroundImageView?.image = UIImage(named: weather.image + ".jpg")
+                case .failure(let error):
+                let alertController = UIAlertController(title: "Network Error", message:
+                    error.localizedDescription, preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+                self.present(alertController, animated: true, completion: nil)
+            }
+        })
     }
     
     @objc func refreshNewsHomeData() {
@@ -102,4 +112,43 @@ extension HomeViewController: UISearchResultsUpdating {
             })
         }
     }
+}
+
+extension HomeViewController: CLLocationManagerDelegate {
+    // After user tap on 'Allow' or 'Disallow' on the dialog
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+      if(status == .authorizedWhenInUse || status == .authorizedAlways){
+        manager.requestLocation()
+      }
+    }
+    
+    func locationManager(_ manager: CLLocationManager,  didUpdateLocations locations: [CLLocation]) {
+        if let lastLocation = locations.last {
+            let geocoder = CLGeocoder()
+            var locality = "Los Angeles"
+            var state = "California"
+            
+            // Look up the location and pass it to the completion handler
+            geocoder.reverseGeocodeLocation(lastLocation,
+                        completionHandler: { (placemarks, error) in
+                if error == nil {
+                    let firstLocation = placemarks?[0]
+                    locality = firstLocation?.locality ?? "Los Angeles"
+                    let stateCode = firstLocation?.administrativeArea ?? "California"
+                    state = Utils.longStateName(stateCode)
+                    self.fetchWeather(for: locality, state: state)
+                } else {
+                    self.fetchWeather(for: locality, state: state)
+                }
+            })
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        let alertController = UIAlertController(title: "Geolocation Error", message:
+                            error.localizedDescription, preferredStyle: .alert)
+                        alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+                        self.present(alertController, animated: true, completion: nil)
+    }
+
 }

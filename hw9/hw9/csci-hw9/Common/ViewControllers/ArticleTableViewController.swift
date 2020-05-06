@@ -78,10 +78,8 @@ class ArticleTableViewController: UITableViewController {
         
         if BookmarkManager.isBookmark(article: currentArticle) {
             BookmarkManager.removeBookmark(article: currentArticle)
-            // TODO: Implement toast
         } else {
             BookmarkManager.addBookmark(article: currentArticle)
-            // TODO: Implement toast
         }
         self.tableView.beginUpdates()
         self.tableView.reloadRows(at: [IndexPath(row: sender.tag, section: 0)], with: .none)
@@ -136,10 +134,8 @@ class ArticleTableViewController: UITableViewController {
                 
                 if BookmarkManager.isBookmark(article: currentArticle) {
                     BookmarkManager.removeBookmark(article: currentArticle)
-                    // TODO: Implement toast
                 } else {
                     BookmarkManager.addBookmark(article: currentArticle)
-                    // TODO: Implement toast
                 }
                 
                 tableView.beginUpdates()

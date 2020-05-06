@@ -65,11 +65,9 @@ class DetailViewController: UIViewController {
         if BookmarkManager.isBookmark(article: article) {
             BookmarkManager.removeBookmark(article: article)
             self.navigationBookmarkButton.image = UIImage(systemName: "bookmark")
-            // TODO: Implement toast
         } else {
             BookmarkManager.addBookmark(article: article)
             self.navigationBookmarkButton.image = UIImage(systemName: "bookmark.fill")
-            // TODO: Implement toast
         }
     }
     

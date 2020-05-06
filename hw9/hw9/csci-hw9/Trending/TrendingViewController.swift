@@ -19,23 +19,18 @@ class TrendingViewController: UIViewController, UITextFieldDelegate, ChartViewDe
 
         navigationController?.navigationBar.prefersLargeTitles = true
                 
+        self.setupChartUI()
+        self.fetchChartData()
+    }
+    
+    func setupChartUI() {
         chartView.delegate = self
-        
         chartView.chartDescription?.enabled = false
-        chartView.dragEnabled = true
-        chartView.setScaleEnabled(true)
-        chartView.pinchZoomEnabled = true
         
         let leftAxis = chartView.leftAxis
-        leftAxis.removeAllLimitLines()
         leftAxis.axisMaximum = 110
         leftAxis.axisMinimum = -10
-        leftAxis.drawLimitLinesBehindDataEnabled = true
-        
-        chartView.rightAxis.enabled = false
-        chartView.legend.form = .line
-        
-        self.fetchChartData()
+        chartView.rightAxis.enabled = true
     }
     
     func fetchChartData(query: String = "Coronavirus") {
@@ -67,7 +62,6 @@ class TrendingViewController: UIViewController, UITextFieldDelegate, ChartViewDe
         linearSet.drawCircleHoleEnabled = false
         
         let data = LineChartData(dataSet: linearSet)
-        
         chartView.data = data
     }
 

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Toast_Swift
 
 class BookmarkManager {
     static var getAllObjects: [Article] {
@@ -30,6 +31,7 @@ class BookmarkManager {
         var bookmarks = getAllObjects
         bookmarks.append(article)
         saveAllObjects(allObjects: bookmarks)
+        showToast(message: "Article Bookmarked. Check out the Bookmarks tab to view")
     }
     
     static func removeBookmark(article: Article) {
@@ -37,6 +39,7 @@ class BookmarkManager {
         if let indexToRemove = bookmarks.firstIndex(where: {$0 == article}) {
             bookmarks.remove(at: indexToRemove)
             saveAllObjects(allObjects: bookmarks)
+            showToast(message: "Article Removed from Bookmarks")
         } else {
             let alertController = UIAlertController(title: "Logical Error", message:
                 "Impossible to remove bookmark", preferredStyle: .alert)
@@ -58,5 +61,19 @@ class BookmarkManager {
     static func isBookmark(article: Article) -> Bool {
         let bookmarks = getAllObjects
         return bookmarks.contains(article)
+    }
+    
+    static func showToast(message: String) {
+        let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+        
+        if var topController = keyWindow?.rootViewController {
+            while let presentedViewController = topController.presentedViewController {
+                topController = presentedViewController
+            }
+            var customStylePosition = ToastStyle()
+            customStylePosition.verticalPadding = 100
+            let customPoint = CGPoint(x: topController.view.bounds.size.width / 2.0, y: (topController.view.bounds.size.height - 125))
+            topController.view.makeToast(message, duration: 3.0, point: customPoint, title: nil, image: nil, completion: nil)
+        }
     }
 }

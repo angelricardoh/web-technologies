@@ -25,7 +25,6 @@ class BookmarksViewController: UICollectionViewController {
         super.viewDidLoad()
                 
         let layout = UICollectionViewFlowLayout()
-//        layout.scrollDirection = .vertical
         collectionView.setCollectionViewLayout(layout, animated: true)
     }
     
@@ -33,16 +32,20 @@ class BookmarksViewController: UICollectionViewController {
         super.viewWillAppear(animated)
         
         navigationController?.navigationBar.prefersLargeTitles = true
-        
-        print(BookmarkManager.getAllObjects)
-        
+                
         self.articles = BookmarkManager.getAllObjects
-        if articles.count == 0 {
-            nobookmarksLabel.isHidden = false
-        }
         
         if let lastSelectedIndexPath = self.lastSelectedIndexPath {
             self.collectionView.reloadItems(at: [lastSelectedIndexPath])
+            self.lastSelectedIndexPath = nil
+        } else {
+            self.collectionView.reloadData()
+        }
+        
+        if articles.count == 0 {
+            nobookmarksLabel.isHidden = false
+        } else {
+            nobookmarksLabel.isHidden = true
         }
     }
     
@@ -54,6 +57,10 @@ class BookmarksViewController: UICollectionViewController {
         
         articles.remove(at: sender.tag)
         self.collectionView.reloadData()
+        
+        if articles.count == 0 {
+            nobookmarksLabel.isHidden = false
+        }
     }
 }
 

@@ -8,7 +8,6 @@
 
 import UIKit
 import SwiftSpinner
-import Social
 
 class ArticleTableViewController: UITableViewController {
     
@@ -35,6 +34,9 @@ class ArticleTableViewController: UITableViewController {
             self.tableView.beginUpdates()
             self.tableView.reloadRows(at: [lastSelectedIndexPath], with: .none)
             self.tableView.endUpdates()
+            self.lastSelectedIndexPath = nil
+        } else {
+            self.tableView.reloadData()
         }
     }
 
@@ -120,7 +122,7 @@ class ArticleTableViewController: UITableViewController {
 
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
             
-            let share = UIAction(title: "Share with Twitter", image: UIImage(named: "twitter")) { action in                
+            let share = UIAction(title: "Share with Twitter", image: UIImage(named: "twitter")) { action in
                 let articleShareUrl = "https://twitter.com/intent/tweet?text=Check+out+this+Article!&url=" + currentArticle.shareUrl + "&hashtags=CSCI_571_NewsApp"
                 if let url = URL(string: articleShareUrl) {
                    UIApplication.shared.open(url)

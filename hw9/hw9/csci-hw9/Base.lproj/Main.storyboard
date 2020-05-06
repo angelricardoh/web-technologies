@@ -483,27 +483,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="U8i-QA-6lU">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="31"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cep-4h-OJz">
-                                    <rect key="frame" x="18" y="16.5" width="388" height="0.0"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                            <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstItem="cep-4h-OJz" firstAttribute="centerY" secondItem="U8i-QA-6lU" secondAttribute="centerY" constant="1" id="3Bg-Gm-tOl"/>
-                                <constraint firstItem="cep-4h-OJz" firstAttribute="leading" secondItem="U8i-QA-6lU" secondAttribute="leading" constant="18" id="BOg-ZY-0AX"/>
-                                <constraint firstAttribute="trailing" secondItem="cep-4h-OJz" secondAttribute="trailing" constant="8" id="ast-xc-4Jg"/>
-                            </constraints>
-                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellID" id="kIK-iT-YAL">
-                                <rect key="frame" x="0.0" y="59" width="414" height="43.5"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kIK-iT-YAL" id="1sC-6a-D0W">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
@@ -516,9 +498,6 @@
                             <outlet property="delegate" destination="E3E-T8-dMt" id="Xh0-wR-teH"/>
                         </connections>
                     </tableView>
-                    <connections>
-                        <outlet property="resultsLabel" destination="cep-4h-OJz" id="cEf-b8-Avh"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0jK-EM-gAh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

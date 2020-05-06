@@ -20,7 +20,7 @@ class ArticleTableViewController: UITableViewController {
         
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.hidesSearchBarWhenScrolling = false
-                
+                        
         let nib = UINib(nibName: "NewsTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "newsCell")
     }
@@ -102,6 +102,7 @@ class ArticleTableViewController: UITableViewController {
             
             let searchResultsViewController = SearchResultsViewController.searchResultsViewControllerForSearch(query)
             navigationController?.pushViewController(searchResultsViewController, animated: true)
+            resultsTableController?.dismiss(animated: false, completion: nil)
         } else {
             SwiftSpinner.show("Loading Detailed article..")
 
@@ -134,14 +135,13 @@ class ArticleTableViewController: UITableViewController {
                 
                 if BookmarkManager.isBookmark(article: currentArticle) {
                     BookmarkManager.removeBookmark(article: currentArticle)
+                    let currentCell = self.tableView.cellForRow(at: indexPath) as? NewsTableViewCell
+                    currentCell?.bookmarkButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
                 } else {
                     BookmarkManager.addBookmark(article: currentArticle)
+                    let currentCell = self.tableView.cellForRow(at: indexPath) as? NewsTableViewCell
+                    currentCell?.bookmarkButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
                 }
-                
-                tableView.beginUpdates()
-                tableView.reloadRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .none)
-                tableView.endUpdates()
-                print("Bookmarked \(currentArticle)")
             }
 
             return UIMenu(title: "Menu", children: [share, bookmark])

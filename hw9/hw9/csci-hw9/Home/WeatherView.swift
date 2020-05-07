@@ -33,14 +33,13 @@ class WeatherView: UIView {
         
         addSubview(contentView)
 
-        contentView.frame = self.bounds
+        contentView.frame = self.bounds.inset(by: UIEdgeInsets(top: 2, left: 10, bottom: 2, right: 10))
         contentView.autoresizingMask = [.flexibleHeight, . flexibleWidth]
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 2, left: 10, bottom: 2, right: 10))
         contentView.layer.cornerRadius = 10
         contentView.layer.masksToBounds = true
     }

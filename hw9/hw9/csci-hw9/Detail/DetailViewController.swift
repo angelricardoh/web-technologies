@@ -100,10 +100,10 @@ class DetailViewController: UIViewController {
                 switch completion {
                 case .success(let article):
                     self.article = article
-                    if let imageUrl = URL(string: article.image) {
+                    print(article)
+                    let imageUrlString = article.image
+                    if !imageUrlString.isEmpty, let imageUrl = URL(string: article.image) {
                         self.articleImageView?.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "default_guardian"))
-                    } else {
-                        self.articleImageView.image = UIImage(named: "default_guardian")
                     }
                     self.title = article.title
                     self.titleLabel.text = article.title

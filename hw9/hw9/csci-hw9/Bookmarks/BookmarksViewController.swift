@@ -95,13 +95,10 @@ extension BookmarksViewController {
         customCell?.bookmarkButton.tag = indexPath.row
         customCell?.bookmarkButton.addTarget(self, action: #selector(bookmarkTapped(_:)), for: .touchUpInside)
         
-        guard let imageUrl = URL(string: articles[indexPath.row].image) else {
-            let alertController = UIAlertController(title: "Image download Error", message:
-                "Error downloading image with url: " + articles[indexPath.row].image, preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
-            return customCell!
+        let imageUrlString = articles[indexPath.row].image
+        if !imageUrlString.isEmpty, let imageUrl = URL(string: imageUrlString) {
+            customCell?.articleImageView?.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "default_guardian"))
         }
-        customCell?.articleImageView?.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "default-guardian"), completed: nil)
         
         return customCell!
     }

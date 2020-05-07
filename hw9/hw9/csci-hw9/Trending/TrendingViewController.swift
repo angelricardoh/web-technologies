@@ -30,6 +30,9 @@ class TrendingViewController: UIViewController, UITextFieldDelegate, ChartViewDe
         let leftAxis = chartView.leftAxis
         leftAxis.axisMaximum = 110
         leftAxis.axisMinimum = -10
+        let rightAxis = chartView.rightAxis
+        rightAxis.axisMaximum = 110
+        rightAxis.axisMinimum = -10
         chartView.rightAxis.enabled = true
     }
     

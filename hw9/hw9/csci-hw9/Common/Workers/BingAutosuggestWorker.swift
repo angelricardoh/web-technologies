@@ -6,7 +6,7 @@
 //  Copyright © 2020 Angel Ricardo Nieto Garcia. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol AutosuggestWorkerInterface {
     func fetchAutoSuggestInformation(inputValue:String, autosuggestCompletion: @escaping AutosuggestResultHandler)
@@ -31,7 +31,10 @@ struct BingAutosuggestWorker: AutosuggestWorkerInterface {
         let headers: HTTPHeaders = [
             "Ocp-Apim-Subscription-Key": AppConstants.bingAutosuggestKey,
         ]
-        manager.loadData(from: bingAutosuggestURL!, headers:headers, completionHandler: {(completion) in
+        guard let autosuggestURL = bingAutosuggestURL else {
+            return autosuggestCompletion(.failure(error: NetworkRequestError.unknown(nil)))
+        }
+        manager.loadData(from: autosuggestURL, headers:headers, completionHandler: {(completion) in
             switch completion {
             case .success(let data):
                 var results:[String] = [String]()

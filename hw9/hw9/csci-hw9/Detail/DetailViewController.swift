@@ -101,6 +101,8 @@ class DetailViewController: UIViewController {
                     self.article = article
                     if let imageUrl = URL(string: article.image) {
                         self.articleImageView?.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "default_guardian"))
+                    } else {
+                        self.articleImageView.image = UIImage(named: "default_guardian")
                     }
                     self.title = article.title
                     self.titleLabel.text = article.title

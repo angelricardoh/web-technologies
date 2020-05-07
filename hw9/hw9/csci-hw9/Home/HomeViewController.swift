@@ -17,11 +17,15 @@ class HomeViewController: ArticleTableViewController {
     let worker: NewsWorker = NewsWorker()
     let weatherWorker: WeatherHomeWorker = WeatherHomeWorker()
     let weatherView = WeatherView(frame: CGRect(x: 0, y: 0, width: 414, height: 120))
+    let customRefreshControl = UIRefreshControl()
     
     @IBOutlet weak var newsTableView: IntrinsicTableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = "Home"
+        navigationController?.navigationBar.prefersLargeTitles = true
         
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
@@ -31,9 +35,11 @@ class HomeViewController: ArticleTableViewController {
         if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways){
             locationManager.requestLocation()
         }
-                        
-        refreshControl = UIRefreshControl()
-        refreshControl?.addTarget(self, action: #selector(refreshNewsHomeData), for: .valueChanged)
+         
+        self.customRefreshControl.addTarget(self, action: #selector(refreshNewsHomeData), for: .valueChanged)
+        self.tableView.insertSubview(self.customRefreshControl, at: 0)
+        
+        tableView.tableHeaderView = weatherView
         
         resultsTableController =
         self.storyboard?.instantiateViewController(withIdentifier: "ResultsTableController") as? ResultsTableViewController
@@ -46,8 +52,6 @@ class HomeViewController: ArticleTableViewController {
         searchController.searchResultsUpdater = self
 
         SwiftSpinner.show("Loading Home Page..")
-        
-        tableView.tableHeaderView = weatherView
                         
         refreshNewsHomeData()
     }
@@ -75,7 +79,7 @@ class HomeViewController: ArticleTableViewController {
         print("refreshNewsHomeData")
         worker.fetchNewsHomeInformation(articlesCompletion: {(completion) in
             SwiftSpinner.hide()
-            self.refreshControl?.endRefreshing()
+            self.customRefreshControl.endRefreshing()
             switch completion {
             case .success(let articles):
                 self.articles = articles

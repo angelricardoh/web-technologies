@@ -51,7 +51,7 @@ class NetworkManager {
     
     func loadInternalData(from url: String,
                   completionHandler: @escaping (NetworkResult) -> Void) {
-        guard let url = URL(string: AppConstants.BASE_URL + ":" + AppConstants.DEFAULT_PORT + "/" + url) else {
+        guard let url = URL(string: AppConstants.BASE_URL + "/" + url) else {
             completionHandler(.failure(NetworkRequestError.urlBuilt))
             return
         }
@@ -66,11 +66,11 @@ class NetworkManager {
             method: HTTPMethod.get,
             encoding: JSONEncoding.default,
             headers: headers).responseSwiftyJSON { dataResponse in
-                guard dataResponse.response != nil else {
+                guard dataResponse.response != nil, let value = dataResponse.result.value else {
                     completionHandler(.failure(NetworkRequestError.unknown(dataResponse.data)))
                     return
                 }
-                completionHandler(NetworkResult.success(dataResponse.result.value!))
+                completionHandler(NetworkResult.success(value))
         }
     }
 }

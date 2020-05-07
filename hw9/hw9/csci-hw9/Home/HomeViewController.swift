@@ -18,6 +18,11 @@ class HomeViewController: ArticleTableViewController {
     let weatherWorker: WeatherHomeWorker = WeatherHomeWorker()
     let weatherView = WeatherView(frame: CGRect(x: 0, y: 0, width: 414, height: 120))
     let customRefreshControl = UIRefreshControl()
+    // Default
+    var locality = "Los Angeles"
+    var state = "California"
+    var responseWeatherWorker = false
+    var responseArticlesWorker = false
     
     @IBOutlet weak var newsTableView: IntrinsicTableView!
     
@@ -36,7 +41,7 @@ class HomeViewController: ArticleTableViewController {
             locationManager.requestLocation()
         }
          
-        self.customRefreshControl.addTarget(self, action: #selector(refreshNewsHomeData), for: .valueChanged)
+        self.customRefreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         self.tableView.insertSubview(self.customRefreshControl, at: 0)
         
         tableView.tableHeaderView = weatherView
@@ -53,11 +58,20 @@ class HomeViewController: ArticleTableViewController {
 
         SwiftSpinner.show("Loading Home Page..")
                         
-        refreshNewsHomeData()
+        fetchNewsHome()
+    }
+    
+    @objc func refresh() {
+        fetchWeather(for: self.locality, state: self.state)
+        fetchNewsHome()
     }
     
     func fetchWeather(for locality: String, state: String) {
         weatherWorker.fetchWeatherHomeInformation(locality: locality, weatherCompletion: {(completion) in
+            self.responseWeatherWorker = true
+             if self.responseArticlesWorker && self.responseWeatherWorker {
+                 SwiftSpinner.hide()
+             }
             switch completion {
             case .success(let weather):
                 self.weatherView.tempLabel.text = "\(weather.temp) ºC"
@@ -75,10 +89,13 @@ class HomeViewController: ArticleTableViewController {
         })
     }
     
-    @objc func refreshNewsHomeData() {
+    func fetchNewsHome() {
         print("refreshNewsHomeData")
         worker.fetchNewsHomeInformation(articlesCompletion: {(completion) in
-            SwiftSpinner.hide()
+            self.responseArticlesWorker = true
+            if self.responseArticlesWorker && self.responseWeatherWorker {
+                SwiftSpinner.hide()
+            }
             self.customRefreshControl.endRefreshing()
             switch completion {
             case .success(let articles):
@@ -127,20 +144,18 @@ extension HomeViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager,  didUpdateLocations locations: [CLLocation]) {
         if let lastLocation = locations.last {
             let geocoder = CLGeocoder()
-            var locality = "Los Angeles"
-            var state = "California"
             
             // Look up the location and pass it to the completion handler
             geocoder.reverseGeocodeLocation(lastLocation,
                         completionHandler: { (placemarks, error) in
                 if error == nil {
                     let firstLocation = placemarks?[0]
-                    locality = firstLocation?.locality ?? "Los Angeles"
+                    self.locality = firstLocation?.locality ?? "Los Angeles"
                     let stateCode = firstLocation?.administrativeArea ?? "California"
-                    state = Utils.longStateName(stateCode)
-                    self.fetchWeather(for: locality, state: state)
+                    self.state = Utils.longStateName(stateCode)
+                    self.fetchWeather(for: self.locality, state: self.state)
                 } else {
-                    self.fetchWeather(for: locality, state: state)
+                    self.fetchWeather(for: self.locality, state: self.state)
                 }
             })
         }

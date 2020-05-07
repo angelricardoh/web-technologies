@@ -18,9 +18,11 @@ class HeadlinesViewController: ButtonBarPagerTabStripViewController {
         settings.style.buttonBarBackgroundColor = .white
         settings.style.buttonBarItemBackgroundColor = .white
         settings.style.selectedBarBackgroundColor = .systemBlue
-        settings.style.buttonBarItemFont = .boldSystemFont(ofSize: 18)
+        settings.style.buttonBarItemFont = .boldSystemFont(ofSize: 16)
         settings.style.selectedBarHeight = 3.0
         settings.style.buttonBarItemTitleColor = .systemBlue
+        settings.style.buttonBarMinimumLineSpacing = 1.0
+        settings.style.buttonBarMinimumInteritemSpacing = 1.0
         
         super.viewDidLoad()
                 

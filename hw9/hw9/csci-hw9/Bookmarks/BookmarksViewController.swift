@@ -23,6 +23,8 @@ class BookmarksViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
                 
         let layout = UICollectionViewFlowLayout()
         collectionView.setCollectionViewLayout(layout, animated: true)
@@ -30,9 +32,7 @@ class BookmarksViewController: UICollectionViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        navigationController?.navigationBar.prefersLargeTitles = true
-                
+                        
         self.articles = BookmarkManager.getAllObjects
         
         if let lastSelectedIndexPath = self.lastSelectedIndexPath {
@@ -47,6 +47,7 @@ class BookmarksViewController: UICollectionViewController {
         } else {
             nobookmarksLabel.isHidden = true
         }
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     @objc func bookmarkTapped(_ sender: UIButton) {
@@ -63,6 +64,7 @@ class BookmarksViewController: UICollectionViewController {
         
         if articles.count == 0 {
             nobookmarksLabel.isHidden = false
+            navigationController?.navigationBar.prefersLargeTitles = true
         }
     }
 }

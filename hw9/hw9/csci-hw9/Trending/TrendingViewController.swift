@@ -61,7 +61,7 @@ class TrendingViewController: UIViewController, UITextFieldDelegate, ChartViewDe
         linearSet.setColor(.systemBlue)
         linearSet.setCircleColor(.systemBlue)
         linearSet.lineWidth = 1
-        linearSet.circleRadius = 3
+        linearSet.circleRadius = 5
         linearSet.drawCircleHoleEnabled = false
         
         let data = LineChartData(dataSet: linearSet)

@@ -24,5 +24,6 @@ class NewsCollectionViewCell: UICollectionViewCell {
 
         contentView.layer.cornerRadius = 10
         contentView.layer.borderWidth = 1
+        contentView.layer.borderColor = UIColor.gray.cgColor
     }
 }

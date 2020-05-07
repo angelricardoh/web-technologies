@@ -23,7 +23,7 @@ class HeadlinesViewController: ButtonBarPagerTabStripViewController {
         settings.style.buttonBarItemTitleColor = .systemBlue
         
         super.viewDidLoad()
-        
+                
         changeCurrentIndexProgressive = {(oldCell: ButtonBarViewCell?, newCell: ButtonBarViewCell?, progressPercentage: CGFloat, changeCurrentIndex: Bool, animated: Bool) -> Void in
             guard changeCurrentIndex == true else { return }
             oldCell?.label.textColor = .systemGray
@@ -38,6 +38,14 @@ class HeadlinesViewController: ButtonBarPagerTabStripViewController {
         let searchController = UISearchController(searchResultsController: self.resultsTableController)
         navigationItem.searchController = searchController
         searchController.searchResultsUpdater = self
+        
+        navigationItem.hidesSearchBarWhenScrolling = false
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+           super.viewWillAppear(animated)
+           
+           navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
@@ -77,7 +85,8 @@ extension HeadlinesViewController: UITableViewDelegate {
         // Set up the detail view controller to push.
         let searchResultsViewController = SearchResultsViewController.searchResultsViewControllerForSearch(query)
         navigationController?.pushViewController(searchResultsViewController, animated: true)
-
+        resultsTableController?.dismiss(animated: false, completion: nil)
+        
         tableView.deselectRow(at: indexPath, animated: false)
     }
 }

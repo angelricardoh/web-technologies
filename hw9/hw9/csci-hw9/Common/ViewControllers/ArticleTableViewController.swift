@@ -19,8 +19,7 @@ class ArticleTableViewController: UITableViewController {
         super.viewDidLoad()
         
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.hidesSearchBarWhenScrolling = false
-                        
+                                
         let nib = UINib(nibName: "NewsTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "newsCell")
     }
@@ -84,10 +83,6 @@ class ArticleTableViewController: UITableViewController {
         self.tableView.beginUpdates()
         self.tableView.reloadRows(at: [IndexPath(row: sender.tag, section: 0)], with: .none)
         self.tableView.endUpdates()
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("prepare")
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

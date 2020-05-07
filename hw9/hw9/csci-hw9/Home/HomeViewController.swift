@@ -10,6 +10,7 @@ import UIKit
 import SDWebImage
 import CoreLocation
 import SwiftSpinner
+import SwiftyJSON
 
 class HomeViewController: ArticleTableViewController {
         
@@ -23,15 +24,13 @@ class HomeViewController: ArticleTableViewController {
     var state = "California"
     var responseWeatherWorker = false
     var responseArticlesWorker = false
+//    var searchController:UISearchController
     
     @IBOutlet weak var newsTableView: IntrinsicTableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        title = "Home"
-        navigationController?.navigationBar.prefersLargeTitles = true
-        
+                
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         // after showing the permission dialog, the program will continue executing the next line before the user has tap 'Allow' or 'Disallow'
@@ -44,7 +43,7 @@ class HomeViewController: ArticleTableViewController {
         self.customRefreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         self.tableView.insertSubview(self.customRefreshControl, at: 0)
         
-        tableView.tableHeaderView = weatherView
+//        tableView.tableHeaderView = weatherView
         
         resultsTableController =
         self.storyboard?.instantiateViewController(withIdentifier: "ResultsTableController") as? ResultsTableViewController
@@ -53,12 +52,32 @@ class HomeViewController: ArticleTableViewController {
         
         let searchController = UISearchController(searchResultsController: self.resultsTableController)
         navigationItem.searchController = searchController
+        searchController.isActive = true
 
         searchController.searchResultsUpdater = self
 
         SwiftSpinner.show("Loading Home Page..")
                         
         fetchNewsHome()
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row == 0 {
+            let tableCell = UITableViewCell()
+            tableCell.isUserInteractionEnabled = false
+            tableCell.addSubview(weatherView)
+            return tableCell
+        } else {
+            return super.tableView(tableView, cellForRowAt: indexPath)
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        if indexPath.row == 0 {
+            return nil
+        } else {
+            return super.tableView(tableView, contextMenuConfigurationForRowAt: indexPath, point: point)
+        }
     }
     
     @objc func refresh() {
@@ -98,8 +117,15 @@ class HomeViewController: ArticleTableViewController {
             }
             self.customRefreshControl.endRefreshing()
             switch completion {
-            case .success(let articles):
+            case .success(var articles):
+                // Dummy article for weatherView
+                print(articles)
+                if let dummyArticle = Article(parameter: JSON()) {
+                    articles.insert(dummyArticle, at: 0)
+                }
+                print(articles)
                 self.articles = articles
+          
                 self.tableView.reloadData()
             case .failure(let error):
                 let alertController = UIAlertController(title: "Network Error", message:

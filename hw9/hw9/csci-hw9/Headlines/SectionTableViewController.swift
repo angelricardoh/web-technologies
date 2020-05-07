@@ -14,6 +14,7 @@ class SectionTableViewController: ArticleTableViewController, IndicatorInfoProvi
     var indicatorInfo = IndicatorInfo(title: "View")
     var section:String? = nil
     let worker: NewsWorker = NewsWorker()
+    let customRefreshControl = UIRefreshControl()
     
     init(sectionInfo: IndicatorInfo) {
         self.indicatorInfo = sectionInfo
@@ -42,8 +43,16 @@ class SectionTableViewController: ArticleTableViewController, IndicatorInfoProvi
             return
         }
         
+        self.customRefreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        self.tableView.insertSubview(self.customRefreshControl, at: 0)
+        
+        self.refresh()
+    }
+    
+    @objc func refresh() {
         worker.fetchNewsSectionInformation(section: self.section!, articlesCompletion: {(completion) in
             SwiftSpinner.hide()
+            self.customRefreshControl.endRefreshing()
             self.refreshControl?.endRefreshing()
             switch completion {
             case .success(let articles):

@@ -40,7 +40,7 @@ class WeatherView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 2, left: 5, bottom: 2, right: 5))
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 2, left: 10, bottom: 2, right: 10))
         contentView.layer.cornerRadius = 10
         contentView.layer.borderWidth = 1
         contentView.layer.masksToBounds = true

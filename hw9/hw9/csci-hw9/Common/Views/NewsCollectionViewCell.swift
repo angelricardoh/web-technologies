@@ -16,13 +16,12 @@ class NewsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var articleImageView: UIImageView!
     
     override func prepareForReuse() {
-      super.prepareForReuse()
+        super.prepareForReuse()
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
 
-//        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 2, left: 5, bottom: 2, right: 5))
         contentView.layer.cornerRadius = 10
         contentView.layer.borderWidth = 1
     }

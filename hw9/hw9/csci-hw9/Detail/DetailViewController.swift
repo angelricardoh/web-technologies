@@ -63,7 +63,8 @@ class DetailViewController: UIViewController {
         
         if BookmarkManager.isBookmark(article: article) {
             BookmarkManager.removeBookmark(article: article)
-            self.navigationBookmarkButton.image = UIImage(systemName: "bookmark")        } else {
+            self.navigationBookmarkButton.image = UIImage(systemName: "bookmark")
+        } else {
             BookmarkManager.addBookmark(article: article)
             self.navigationBookmarkButton.image = UIImage(systemName: "bookmark.fill")
         }
@@ -109,7 +110,7 @@ class DetailViewController: UIViewController {
                     self.sectionLabel.text = article.section
                     print(article.description)
                     
-
+                    
                     do {
                         guard let encodedData = article.description.data(using: String.Encoding.unicode) else {
                             let alertController = UIAlertController(title: "Logical Error", message:
@@ -166,11 +167,11 @@ class DetailViewController: UIViewController {
     @IBAction func viewFullArticleTapped(_ sender: Any) {
         if let articleShareUrl = self.article?.shareUrl, let url = URL(string: articleShareUrl) {
             UIApplication.shared.open(url)
-         } else {
-             let alertController = UIAlertController(title: "Network Error", message:
-                            "shareUrl hasn't been loaded", preferredStyle: .alert)
-                        alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
-                        self.present(alertController, animated: true, completion: nil)
-         }
+        } else {
+            let alertController = UIAlertController(title: "Network Error", message:
+                "shareUrl hasn't been loaded", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
 }

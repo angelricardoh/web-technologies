@@ -43,9 +43,9 @@ class HeadlinesViewController: ButtonBarPagerTabStripViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-           super.viewWillAppear(animated)
-           
-           navigationController?.navigationBar.prefersLargeTitles = true
+        super.viewWillAppear(animated)
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
@@ -68,7 +68,6 @@ class HeadlinesViewController: ButtonBarPagerTabStripViewController {
                                     sportsViewController,
                                     technologyViewController,
                                     scienceViewController]
-        
         return childViewControllers
     }
 }

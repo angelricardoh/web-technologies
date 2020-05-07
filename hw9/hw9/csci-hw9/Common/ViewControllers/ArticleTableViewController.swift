@@ -73,6 +73,7 @@ class ArticleTableViewController: UITableViewController {
     }
     
     @objc func bookmarkTapped(_ sender: UIButton) {
+        
         let currentArticle = articles[sender.tag]
         
         if BookmarkManager.isBookmark(article: currentArticle) {
@@ -112,6 +113,7 @@ class ArticleTableViewController: UITableViewController {
     
     // Context menu
     override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        
         let currentArticle = articles[indexPath.row]
 
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
@@ -119,7 +121,7 @@ class ArticleTableViewController: UITableViewController {
             let share = UIAction(title: "Share with Twitter", image: UIImage(named: "twitter")) { action in
                 let articleShareUrl = "https://twitter.com/intent/tweet?text=Check+out+this+Article!&url=" + currentArticle.shareUrl + "&hashtags=CSCI_571_NewsApp"
                 if let url = URL(string: articleShareUrl) {
-                   UIApplication.shared.open(url)
+                    UIApplication.shared.open(url)
                 }
                 
                 print("Sharing \(currentArticle)")
@@ -138,7 +140,7 @@ class ArticleTableViewController: UITableViewController {
                     currentCell?.bookmarkButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
                 }
             }
-
+            
             return UIMenu(title: "Menu", children: [share, bookmark])
         }
     }

@@ -16,7 +16,7 @@ class NewsTableViewCell: UITableViewCell {
     @IBOutlet weak var articleImageView: UIImageView!
     
     override func prepareForReuse() {
-      super.prepareForReuse()
+        super.prepareForReuse()
     }
     
     override func layoutSubviews() {

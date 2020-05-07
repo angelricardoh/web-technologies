@@ -24,7 +24,6 @@ class HomeViewController: ArticleTableViewController {
     var state = "California"
     var responseWeatherWorker = false
     var responseArticlesWorker = false
-//    var searchController:UISearchController
     
     @IBOutlet weak var newsTableView: IntrinsicTableView!
     
@@ -42,9 +41,7 @@ class HomeViewController: ArticleTableViewController {
          
         self.customRefreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         self.tableView.insertSubview(self.customRefreshControl, at: 0)
-        
-//        tableView.tableHeaderView = weatherView
-        
+                
         resultsTableController =
         self.storyboard?.instantiateViewController(withIdentifier: "ResultsTableController") as? ResultsTableViewController
         // This view controller is interested in table view row selections.
@@ -52,32 +49,11 @@ class HomeViewController: ArticleTableViewController {
         
         let searchController = UISearchController(searchResultsController: self.resultsTableController)
         navigationItem.searchController = searchController
-        searchController.isActive = true
-
         searchController.searchResultsUpdater = self
 
         SwiftSpinner.show("Loading Home Page..")
                         
         fetchNewsHome()
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
-            let tableCell = UITableViewCell()
-            tableCell.isUserInteractionEnabled = false
-            tableCell.addSubview(weatherView)
-            return tableCell
-        } else {
-            return super.tableView(tableView, cellForRowAt: indexPath)
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        if indexPath.row == 0 {
-            return nil
-        } else {
-            return super.tableView(tableView, contextMenuConfigurationForRowAt: indexPath, point: point)
-        }
     }
     
     @objc func refresh() {
@@ -109,7 +85,7 @@ class HomeViewController: ArticleTableViewController {
     }
     
     func fetchNewsHome() {
-        print("refreshNewsHomeData")
+        print("fetchNewsHome")
         worker.fetchNewsHomeInformation(articlesCompletion: {(completion) in
             self.responseArticlesWorker = true
             if self.responseArticlesWorker && self.responseWeatherWorker {
@@ -119,11 +95,9 @@ class HomeViewController: ArticleTableViewController {
             switch completion {
             case .success(var articles):
                 // Dummy article for weatherView
-                print(articles)
                 if let dummyArticle = Article(parameter: JSON()) {
                     articles.insert(dummyArticle, at: 0)
                 }
-                print(articles)
                 self.articles = articles
           
                 self.tableView.reloadData()
@@ -134,6 +108,27 @@ class HomeViewController: ArticleTableViewController {
                 self.present(alertController, animated: true, completion: nil)
             }
         })
+    }
+}
+
+extension HomeViewController {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row == 0 {
+            let tableCell = UITableViewCell()
+            tableCell.isUserInteractionEnabled = false
+            tableCell.addSubview(weatherView)
+            return tableCell
+        } else {
+            return super.tableView(tableView, cellForRowAt: indexPath)
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        if indexPath.row == 0 {
+            return nil
+        } else {
+            return super.tableView(tableView, contextMenuConfigurationForRowAt: indexPath, point: point)
+        }
     }
 }
 
@@ -193,5 +188,4 @@ extension HomeViewController: CLLocationManagerDelegate {
                         alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
                         self.present(alertController, animated: true, completion: nil)
     }
-
 }

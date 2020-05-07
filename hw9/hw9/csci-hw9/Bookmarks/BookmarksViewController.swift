@@ -65,14 +65,17 @@ class BookmarksViewController: UICollectionViewController {
 
 extension BookmarksViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        
        return 1
      }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
         return articles.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let customCell = collectionView.dequeueReusableCell(withReuseIdentifier: "newsCollectionCell", for: indexPath) as? NewsCollectionViewCell
         
         customCell?.titleLabel.text = articles[indexPath.row].title
@@ -93,19 +96,19 @@ extension BookmarksViewController {
             alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
             return customCell!
         }
-          customCell?.articleImageView?.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "default-guardian"), completed: nil)
+        customCell?.articleImageView?.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "default-guardian"), completed: nil)
         
         return customCell!
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-         SwiftSpinner.show("Loading Detailed article..")
-
-                   let articleSelected = articles[indexPath.row]
-                   let detailViewController = DetailViewController.detailViewControllerWithArticleId(articleSelected.id)
-                   self.lastSelectedIndexPath = indexPath
-                   
-                   navigationController?.pushViewController(detailViewController, animated: true)
+        SwiftSpinner.show("Loading Detailed article..")
+        
+        let articleSelected = articles[indexPath.row]
+        let detailViewController = DetailViewController.detailViewControllerWithArticleId(articleSelected.id)
+        self.lastSelectedIndexPath = indexPath
+        
+        navigationController?.pushViewController(detailViewController, animated: true)
         collectionView.deselectItem(at: indexPath, animated: false)
     }
 }

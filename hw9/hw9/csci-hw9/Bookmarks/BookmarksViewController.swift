@@ -50,11 +50,15 @@ class BookmarksViewController: UICollectionViewController {
     }
     
     @objc func bookmarkTapped(_ sender: UIButton) {
-        let currentArticle = articles[sender.tag]
+        removeArticle(at: sender.tag)
+    }
+    
+    func removeArticle(at index:Int) {
+        let currentArticle = articles[index]
         
         BookmarkManager.removeBookmark(article: currentArticle)
         
-        articles.remove(at: sender.tag)
+        articles.remove(at: index)
         self.collectionView.reloadData()
         
         if articles.count == 0 {
@@ -65,9 +69,8 @@ class BookmarksViewController: UICollectionViewController {
 
 extension BookmarksViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        
-       return 1
-     }
+        return 1
+    }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
@@ -111,6 +114,30 @@ extension BookmarksViewController {
         navigationController?.pushViewController(detailViewController, animated: true)
         collectionView.deselectItem(at: indexPath, animated: false)
     }
+    
+    // Context menu
+    override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        
+        let currentArticle = articles[indexPath.row]
+
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
+            
+            let share = UIAction(title: "Share with Twitter", image: UIImage(named: "twitter")) { action in
+                let articleShareUrl = "https://twitter.com/intent/tweet?text=Check+out+this+Article!&url=" + currentArticle.shareUrl + "&hashtags=CSCI_571_NewsApp"
+                if let url = URL(string: articleShareUrl) {
+                    UIApplication.shared.open(url)
+                }
+                
+                print("Sharing \(currentArticle)")
+            }
+            
+            let bookmark = UIAction(title: "Bookmark", image: UIImage(systemName: "bookmark")) { action in
+                self.removeArticle(at: indexPath.row)
+            }
+            
+            return UIMenu(title: "Menu", children: [share, bookmark])
+        }
+    }
 }
 
 extension BookmarksViewController : UICollectionViewDelegateFlowLayout {
@@ -126,20 +153,20 @@ extension BookmarksViewController : UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView,
-                            layout collectionViewLayout: UICollectionViewLayout,
-                            minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-            return 5.0
-        }
-
-        func collectionView(_ collectionView: UICollectionView, layout
-            collectionViewLayout: UICollectionViewLayout,
-                            minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-            return sectionInsets.left
-        }
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 5.0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout
+        collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return sectionInsets.left
+    }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
-      return sectionInsets
+        return sectionInsets
     }
 }

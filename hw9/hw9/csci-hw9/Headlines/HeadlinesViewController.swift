@@ -30,6 +30,12 @@ class HeadlinesViewController: ButtonBarPagerTabStripViewController {
             newCell?.label.textColor = .systemBlue
         }
         
+        self.setupResultsAndSearchUI()
+        
+        navigationItem.hidesSearchBarWhenScrolling = false
+    }
+    
+    func setupResultsAndSearchUI() {
         resultsTableController =
             self.storyboard?.instantiateViewController(withIdentifier: "ResultsTableController") as? ResultsTableViewController
         // This view controller is interested in table view row selections.
@@ -38,8 +44,7 @@ class HeadlinesViewController: ButtonBarPagerTabStripViewController {
         let searchController = UISearchController(searchResultsController: self.resultsTableController)
         navigationItem.searchController = searchController
         searchController.searchResultsUpdater = self
-        
-        navigationItem.hidesSearchBarWhenScrolling = false
+        searchController.searchBar.placeholder = "Enter keyword.."
     }
     
     override func viewWillAppear(_ animated: Bool) {

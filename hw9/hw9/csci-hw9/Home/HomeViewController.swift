@@ -42,18 +42,23 @@ class HomeViewController: ArticleTableViewController {
         self.customRefreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         self.tableView.insertSubview(self.customRefreshControl, at: 0)
                 
+        self.setupResultsAndSearchUI()
+
+        SwiftSpinner.show("Loading Home Page..")
+                        
+        fetchNewsHome()
+    }
+    
+    func setupResultsAndSearchUI() {
         resultsTableController =
-        self.storyboard?.instantiateViewController(withIdentifier: "ResultsTableController") as? ResultsTableViewController
+            self.storyboard?.instantiateViewController(withIdentifier: "ResultsTableController") as? ResultsTableViewController
         // This view controller is interested in table view row selections.
         resultsTableController?.tableView.delegate = self
         
         let searchController = UISearchController(searchResultsController: self.resultsTableController)
         navigationItem.searchController = searchController
         searchController.searchResultsUpdater = self
-
-        SwiftSpinner.show("Loading Home Page..")
-                        
-        fetchNewsHome()
+        searchController.searchBar.placeholder = "Enter keyword.."
     }
     
     @objc func refresh() {
